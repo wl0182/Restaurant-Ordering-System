@@ -24,7 +24,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(TableSessionNotFound.class)
-   public ResponseEntity<Map<String,Object>> handleSessionNotFound(TableSessionNotFound ex){
+    public ResponseEntity<Map<String,Object>> handleSessionNotFound(TableSessionNotFound ex){
         Map<String, Object > error = new HashMap<>();
 
         error.put("status",HttpStatus.NOT_FOUND.value());
@@ -35,7 +35,27 @@ public class GlobalExceptionHandler {
 
 
 
-   }
+    }
+
+    @ExceptionHandler(ActiveSessionExistsException.class)
+    public ResponseEntity<Map<String, Object>> handleActiveSessionExists(ActiveSessionExistsException ex) {
+        Map<String, Object> error = new HashMap<>();
+        error.put("status", HttpStatus.CONFLICT.value());
+        error.put("error", "Active Session Exists");
+        error.put("message", ex.getMessage());
+        error.put("timestamp", Instant.now());
+        return new ResponseEntity<>(error, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(NoActiveSessionsFoundExceptions.class)
+    public ResponseEntity<Map<String, Object>> handleNoActiveSessionsFound(NoActiveSessionsFoundExceptions ex) {
+        Map<String, Object> error = new HashMap<>();
+        error.put("status", HttpStatus.NOT_FOUND.value());
+        error.put("error", "No Active Sessions Found");
+        error.put("message", ex.getMessage());
+        error.put("timestamp", Instant.now());
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, Object>> handleAllOtherExceptions(Exception ex) {
