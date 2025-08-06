@@ -1,0 +1,167 @@
+Awesome, Wassim! 🔥 You're now entering one of the **most powerful sections of Java** — mastering `java.util.function.*` interfaces will **elevate** your stream + lambda skills and prep you for **real-world backend code and interviews**.
+
+---
+
+# ✅ Java’s Built-In Functional Interfaces
+
+We'll cover **4 core interfaces**, each with:
+
+* ✏️ Purpose
+* ✅ Syntax + example
+* 🧠 How it's used in **Streams** or general logic
+* 💡 Mini practice task
+
+---
+
+## ▶️ 1. `Predicate<T>` — **Takes input, returns boolean**
+
+### 🔹 Used For:
+
+* Filtering (especially in `.filter()`)
+* Conditions, validations
+
+### ✅ Signature:
+
+```java
+@FunctionalInterface
+public interface Predicate<T> {
+    boolean test(T t);
+}
+```
+
+---
+
+### ✅ Example: Filter students older than 25
+
+```java
+Predicate<Student> isOlderThan25 = student -> student.getAge() > 25;
+
+List<Student> result = students.stream()
+    .filter(isOlderThan25)
+    .collect(Collectors.toList());
+```
+
+---
+
+### 🧠 Practice Task:
+
+Create a `Predicate<OrderItem>` that checks if an item is *not served*, and use it in a stream.
+
+---
+
+## ▶️ 2. `Function<T, R>` — **Takes input T, returns result R**
+
+### 🔹 Used For:
+
+* Transforming objects (`map()`)
+* Converting types
+
+### ✅ Signature:
+
+```java
+@FunctionalInterface
+public interface Function<T, R> {
+    R apply(T t);
+}
+```
+
+---
+
+### ✅ Example: Convert Student to Name String
+
+```java
+Function<Student, String> toName = student -> student.getName();
+
+List<String> names = students.stream()
+    .map(toName)
+    .collect(Collectors.toList());
+```
+
+---
+
+### 🧠 Practice Task:
+
+Create a `Function<OrderItem, Double>` to calculate total price for each item.
+
+---
+
+## ▶️ 3. `Consumer<T>` — **Takes input, returns nothing**
+
+### 🔹 Used For:
+
+* Printing, logging, side effects (like `.forEach()`)
+
+### ✅ Signature:
+
+```java
+@FunctionalInterface
+public interface Consumer<T> {
+    void accept(T t);
+}
+```
+
+---
+
+### ✅ Example: Print each name in uppercase
+
+```java
+Consumer<String> printUppercase = name -> System.out.println(name.toUpperCase());
+
+names.forEach(printUppercase);
+```
+
+---
+
+### 🧠 Practice Task:
+
+Use `Consumer<Student>` to print each student's name and age like:
+`Wassim (30 years old)`
+
+---
+
+## ▶️ 4. `Supplier<T>` — **Takes nothing, returns T**
+
+### 🔹 Used For:
+
+* Lazily generating or providing objects
+* Default fallbacks or random values
+
+### ✅ Signature:
+
+```java
+@FunctionalInterface
+public interface Supplier<T> {
+    T get();
+}
+```
+
+---
+
+### ✅ Example: Supply a default student
+
+```java
+Supplier<Student> defaultStudent = () -> new Student("Default", 0);
+
+Student student = defaultStudent.get();
+```
+
+---
+
+### 🧠 Practice Task:
+
+Create a `Supplier<Order>` that returns a new empty order for guest users.
+
+---
+
+## 📦 Summary Table
+
+| Interface       | Takes     | Returns   | Use Case               |
+| --------------- | --------- | --------- | ---------------------- |
+| `Predicate<T>`  | `T`       | `boolean` | Filters, conditions    |
+| `Function<T,R>` | `T`       | `R`       | Mapping, conversion    |
+| `Consumer<T>`   | `T`       | `void`    | ForEach, side effects  |
+| `Supplier<T>`   | `nothing` | `T`       | Factory, fallback data |
+
+---
+
+Would you like to try 2 or 3 of those practice tasks now, or go straight to combining these interfaces into a full API use case?

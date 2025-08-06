@@ -1,0 +1,145 @@
+/* Container Layout */
+.menu-container {
+    display: flex;
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    color: #212529;
+    background-color: #f4f4f8;
+}
+
+/* Left: Menu Items */
+.menu-items {
+    flex: 3;
+    margin-right: 20px;
+}
+
+/* Right: Order Cart */
+.menu-cart {
+    flex: 1;
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.menu-cart h3 {
+    text-align: center;
+    margin-bottom: 15px;
+    color: #212529;
+}
+
+/* Cart item lines */
+.cart-item {
+    border-bottom: 1px solid #dee2e6;
+    padding: 10px 0;
+    font-size: 15px;
+}
+
+/* Category Section */
+.menu-category {
+    margin-bottom: 30px;
+}
+
+.menu-category-title {
+    font-size: 22px;
+    margin-bottom: 10px;
+    color: #343a40;
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 5px;
+}
+
+/* Grid of Cards */
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 20px;
+}
+
+/* Card Style */
+.menu-item-card {
+    background-color: #ffffff;
+    padding: 12px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    text-align: center;
+    transition: transform 0.2s ease;
+}
+
+.menu-item-card:hover {
+    transform: scale(1.02);
+}
+
+/* Card Text */
+.menu-item-name {
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size: 16px;
+    color: #212529;
+}
+
+.menu-item-price {
+    font-size: 14px;
+    color: #495057;
+    margin-bottom: 10px;
+}
+
+/* Quantity Section */
+.quantity-control {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.quantity-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.quantity-display {
+    width: 30px;
+    text-align: center;
+    font-weight: bold;
+    color: #212529;
+}
+
+/* Confirm Button */
+.place-order-btn {
+    width: 100%;
+    background-color: #28a745;
+    color: white;
+    font-size: 16px;
+    padding: 10px;
+    margin-top: 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.place-order-btn:hover {
+    background-color: #218838;
+}
+
+/* Empty State */
+.empty-cart-text {
+    text-align: center;
+    color: #6c757d;
+    font-style: italic;
+    margin-top: 20px;
+}
+
+.cart-total {
+    margin-top: 15px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: right;
+    color: #333;
+}

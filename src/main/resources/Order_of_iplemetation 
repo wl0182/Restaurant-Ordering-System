@@ -1,0 +1,73 @@
+Order of Implementation
+
+
+
+Perfect. Since you've already completed the MenuItemService, here's a full production-grade implementation plan starting from there:
+
+🍽️ RESTAURANT ORDERING BACKEND IMPLEMENTATION PLAN
+✅ 1. Already Done
+* MenuItemService
+    * findById
+    * findAll
+    * createMenuItem
+    * updateMenuItem
+    * getAvailableMenuItems
+
+🔄 2. Next: TableSessionService
+Endpoints & Descriptions
+* POST /api/sessions → Start a new table session
+* GET /api/sessions/{id} → Get session by ID
+* GET /api/sessions/active → List active sessions (where sessionEnd == null)
+* PUT /api/sessions/{id}/end → End session
+
+Service Method Order
+1. startSession(TableSessionRequest).
+2. getSessionById(Long id)
+3. getActiveSessions()
+4. endSession(Long id)
+
+Controller Methods
+1. startSession()
+2. getSessionById()
+3. getActiveSessions()
+4. endSession()
+
+🧾 3. OrderService
+Endpoints & Descriptions
+* POST /api/orders → Place a new order (linked to session)
+* GET /api/orders/{id} → Get order by ID
+* GET /api/orders/session/{sessionId} → Get all orders in a session
+* GET /api/orders/session/{sessionId}/served → List only served orders
+* GET /api/orders/session/{sessionId}/unserved → List only unserved
+* PUT /api/orders/{id}/serve → Mark as served
+* GET /api/orders/kitchen/queue → Kitchen view: unserved, sorted by time
+Service Method Order
+1. createOrder(OrderRequest) (include items)
+2. getOrderById(Long id)
+3. getOrdersBySession(Long sessionId)
+4. getUnservedOrdersBySession(Long sessionId)
+5. getServedOrdersBySession(Long sessionId)
+6. markOrderAsServed(Long id)
+7. getKitchenQueue()
+Controller Methods
+1. placeOrder()
+2. getOrderById()
+3. getOrdersBySession()
+4. getUnservedOrdersBySession()
+5. getServedOrdersBySession()
+6. markOrderAsServed()
+7. getKitchenQueue()
+
+📱 4. UserService (Post MVP)
+Optional if not integrating registration/login now.
+Endpoints & Descriptions
+* GET /api/users/{id} → Get user profile
+* POST /api/users → Register user
+* PUT /api/users/{id} → Update profile
+
+⚠️ 5. Security & Role-Based Access (Later)
+* Admin can add/edit/delete menu items
+* Kitchen staff can only view unserved orders
+* Regular users can place/view their orders
+
+Would you like to proceed with implementing TableSessionService now or jump to OrderService?

@@ -1,0 +1,40 @@
+{
+  "sessionId": 15,
+  "items": [
+    {
+      "menuItemId": 101,
+      "quantity": 2
+    },
+    {
+      "menuItemId": 102,
+      "quantity": 1
+    }
+  ]
+}
+
+
+Response
+{
+  "orderId": 301,
+  "sessionId": 15,
+  "status": "UNSERVED",
+  "createdAt": "2025-07-24T19:45:00",
+  "items": [
+    {
+      "itemId": 501,
+      "menuItemId": 101,
+      "name": "Chicken Sandwich",
+      "quantity": 2,
+      "served": false
+      "totalPrice" : 10.0
+    },
+    {
+      "itemId": 502,
+      "menuItemId": 102,
+      "name": "Fries",
+      "quantity": 1,
+      "served": false
+      "totalPrice" : 10.0
+    }
+  ]
+}

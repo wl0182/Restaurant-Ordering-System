@@ -1,0 +1,66 @@
+/* src/pages/ReceiptPage.css */
+
+.receipt-container {
+    max-width: 500px;
+    margin: 30px auto;
+    background-color: #fff;
+    padding: 24px;
+    border-radius: 10px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
+    font-family: 'Segoe UI', sans-serif;
+    color: #333;
+}
+
+.receipt-container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #6c757d;
+}
+
+.receipt-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.receipt-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    border-bottom: 1px dashed #ccc;
+}
+
+.receipt-item span {
+    width: 33%;
+    text-align: left;
+}
+
+.receipt-item span:last-child {
+    text-align: right;
+}
+
+.receipt-total {
+    text-align: right;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top: 20px;
+    color: #6c757d;
+}
+
+.receipt-print-btn {
+    margin-top: 30px;
+    padding: 12px 18px;
+    font-size: 1rem;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+.receipt-print-btn:hover {
+    background-color: #45a049;
+}
+
