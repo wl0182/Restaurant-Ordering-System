@@ -15,7 +15,7 @@ const ReceiptPage = () => {
 
     const fetchSummary = async () => {
         try {
-            const { token } = await ApiService.login('admin@example.com', 'password');
+            const token = localStorage.getItem('authToken');
             setToken(token);
             const data = await ApiService.getCheckoutSummary(token, sessionId);
             setSummary(data);
