@@ -12,11 +12,8 @@ const KitchenDashboard = () => {
 
     const loginAndFetchQueue = async () => {
         try {
-            // Step 1: Generate Token
-            const { token } = await ApiService.login('admin@example.com', 'password');
+            const token = localStorage.getItem('authToken');
             setToken(token);
-
-            // Step 2: Fetch Kitchen Queue
             const queueData = await ApiService.getKitchenQueue(token);
             setQueue(queueData);
         } catch (err) {
