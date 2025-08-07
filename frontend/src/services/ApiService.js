@@ -59,57 +59,77 @@ class ApiService {
         return res.json();
     }
 
-    // Add more methods as needed for your app...
-    // Fetch served items
-    static async getServedItems(sessionId, token) {
-        const res = await fetch(`${API_BASE}/orders/sessions/${sessionId}/served`, {
+    // Get all menu items
+    static async getAllMenuItems(token) {
+        const res = await fetch(`${API_BASE}/api/menu-items`, {
             headers: { Authorization: `Bearer ${token}` }
         });
-        if (!res.ok) throw new Error('Failed to fetch served items');
+        if (!res.ok) throw new Error('Failed to fetch all menu items');
         return res.json();
     }
 
-    // Fetch unserved items
-    static async getUnservedItems(sessionId, token) {
-        const res = await fetch(`${API_BASE}/orders/sessions/${sessionId}/unserved`, {
+    // Get menu item by ID
+    static async getMenuItemById(token, id) {
+        const res = await fetch(`${API_BASE}/api/menu-items/${id}`, {
             headers: { Authorization: `Bearer ${token}` }
         });
-        if (!res.ok) throw new Error('Failed to fetch unserved items');
+        if (!res.ok) throw new Error('Failed to fetch menu item by ID');
         return res.json();
     }
-    // Fetch checkout summary
-    static async getCheckoutSummary(sessionId, token) {
-        // Fetch the checkout summary for a session
-        const res = await fetch(`${API_BASE}/sessions/${sessionId}/checkout-summary`, {
-            // Use the sessionId to get the summary
-            headers: {Authorization: `Bearer ${token}`}
-            // Include the token for authorization
-        });
-        if (!res.ok) throw new Error('Failed to fetch checkout summary');
-        return res.json();
-    }
-    // End session
-    static async endSession(tableNumber, token) {
-        // End a session for a specific table number
-        const res = await fetch(`${API_BASE}/sessions/${tableNumber}/end`, {
+
+    // Update menu item availability
+    static async updateMenuItemAvailability(token, id) {
+        const res = await fetch(`${API_BASE}/api/menu-items/${id}`, {
             method: 'PUT',
             headers: { Authorization: `Bearer ${token}` }
         });
-        if (!res.ok) throw new Error('Failed to end session');
+        if (!res.ok) throw new Error('Failed to update menu item availability');
         return res.json();
     }
 
-    // Fetch active sessions
+    // Create menu item
+    static async createMenuItem(token, menuItem) {
+        const res = await fetch(`${API_BASE}/api/menu-items/add`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify(menuItem)
+        });
+        if (!res.ok) throw new Error('Failed to create menu item');
+        return res.json();
+    }
+
+    // Get all tables
+    static async getAllTables(token) {
+        const res = await fetch(`${API_BASE}/sessions/tables`, {
+            headers: { Authorization: `Bearer ${token}` }
+        });
+        if (!res.ok) throw new Error('Failed to fetch tables');
+        return res.json();
+    }
+
+    // Get active sessions
     static async getActiveSessions(token) {
-        // Fetch all active sessions
         const res = await fetch(`${API_BASE}/sessions/active`, {
             headers: { Authorization: `Bearer ${token}` }
         });
         if (!res.ok) throw new Error('Failed to fetch active sessions');
         return res.json();
     }
-    // Start a new session
-    static async startSession(tableNumber, token) {
+
+    // Get active session by table number
+    static async getActiveSessionByTable(token, tableNumber) {
+        const res = await fetch(`${API_BASE}/sessions/active/${tableNumber}`, {
+            headers: { Authorization: `Bearer ${token}` }
+        });
+        if (!res.ok) throw new Error('Failed to fetch active session by table');
+        return res.json();
+    }
+
+    // Start session
+    static async startSession(token, tableNumber) {
         const res = await fetch(`${API_BASE}/sessions/start`, {
             method: 'POST',
             headers: {
@@ -122,16 +142,127 @@ class ApiService {
         return res.json();
     }
 
-    // Fetch menu items by category
-    static async getMenuItemsByCategory(category, token) {
+    // End session
+    static async endSession(token, tableNumber) {
+        const res = await fetch(`${API_BASE}/sessions/${tableNumber}/end`, {
+            method: 'PUT',
+            headers: { Authorization: `Bearer ${token}` }
+        });
+        if (!res.ok) throw new Error('Failed to end session');
+        return res.json();
+    }
+
+    // Get session by ID
+    static async getSessionById(token, id) {
+        const res = await fetch(`${API_BASE}/sessions/${id}`, {
+            headers: { Authorization: `Bearer ${token}` }
+        });
+        if (!res.ok) throw new Error('Failed to fetch session by ID');
+        return res.json();
+    }
+
+    // Get item summary for session
+    static async getItemSummary(token, id) {
+        const res = await fetch(`${API_BASE}/sessions/${id}/item-summary`, {
+            headers: { Authorization: `Bearer ${token}` }
+        });
+        if (!res.ok) throw new Error('Failed to fetch item summary');
+        return res.json();
+    }
+
+    // Get all item names for session
+    static async getAllItemNames(token, id) {
+        const res = await fetch(`${API_BASE}/sessions/${id}/item-names`, {
+            headers: { Authorization: `Bearer ${token}` }
+        });
+        if (!res.ok) throw new Error('Failed to fetch item names');
+        return res.json();
+    }
+
+    // Get session summary for checkout
+    static async getCheckoutSummary(token, id) {
+        const res = await fetch(`${API_BASE}/sessions/${id}/checkout-summary`, {
+            headers: { Authorization: `Bearer ${token}` }
+        });
+        if (!res.ok) throw new Error('Failed to fetch checkout summary');
+        return res.json();
+    }
+
+
+
+    // Get order by ID
+    static async getOrderById(token, id) {
+        const res = await fetch(`${API_BASE}/orders/${id}`, {
+            headers: { Authorization: `Bearer ${token}` }
+        });
+        if (!res.ok) throw new Error('Failed to fetch order by ID');
+        return res.json();
+    }
+
+    // Get orders by session ID
+    static async getOrdersBySession(token, id) {
+        const res = await fetch(`${API_BASE}/orders/sessions/${id}`, {
+            headers: { Authorization: `Bearer ${token}` }
+        });
+        if (!res.ok) throw new Error('Failed to fetch orders by session');
+        return res.json();
+    }
+
+    // Get served items by session
+    static async getServedItems(token, id) {
+        const res = await fetch(`${API_BASE}/orders/sessions/${id}/served`, {
+            headers: { Authorization: `Bearer ${token}` }
+        });
+        if (!res.ok) throw new Error('Failed to fetch served items');
+        return res.json();
+    }
+
+    // Get unserved items by session
+    static async getUnservedItems(token, id) {
+        const res = await fetch(`${API_BASE}/orders/sessions/${id}/unserved`, {
+            headers: { Authorization: `Bearer ${token}` }
+        });
+        if (!res.ok) throw new Error('Failed to fetch unserved items');
+        return res.json();
+    }
+
+    // Mark order as served
+    static async markOrderAsServed(token, id) {
+        const res = await fetch(`${API_BASE}/orders/${id}/serve`, {
+            method: 'POST',
+            headers: { Authorization: `Bearer ${token}` }
+        });
+        if (!res.ok) throw new Error('Failed to mark order as served');
+        return res.json();
+    }
+
+    // Mark order item as served
+    static async markOrderItemAsServed(token, id) {
+        const res = await fetch(`${API_BASE}/orders/orderItem/${id}/serve`, {
+            method: 'POST',
+            headers: { Authorization: `Bearer ${token}` }
+        });
+        if (!res.ok) throw new Error('Failed to mark order item as served');
+        return res.json();
+    }
+
+    // Get kitchen queue
+    static async getKitchenQueue(token) {
+        const res = await fetch(`${API_BASE}/orders/kitchen/queue`, {
+            headers: { Authorization: `Bearer ${token}` }
+        });
+        if (!res.ok) throw new Error('Failed to fetch kitchen queue');
+        return res.json();
+    }
+
+    // Get menu items by category
+    static async getMenuItemsByCategory(token, category) {
         const res = await fetch(`${API_BASE}/api/menu-items/category/${category}`, {
             headers: { Authorization: `Bearer ${token}` }
         });
         if (!res.ok) throw new Error('Failed to fetch menu items by category');
         return res.json();
     }
-
-
 }
 
 export default ApiService;
