@@ -108,6 +108,28 @@ class ApiService {
         if (!res.ok) throw new Error('Failed to fetch active sessions');
         return res.json();
     }
+    // Start a new session
+    static async startSession(tableNumber, token) {
+        const res = await fetch(`${API_BASE}/sessions/start`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify({ tableNumber })
+        });
+        if (!res.ok) throw new Error('Failed to start session');
+        return res.json();
+    }
+
+    // Fetch menu items by category
+    static async getMenuItemsByCategory(category, token) {
+        const res = await fetch(`${API_BASE}/api/menu-items/category/${category}`, {
+            headers: { Authorization: `Bearer ${token}` }
+        });
+        if (!res.ok) throw new Error('Failed to fetch menu items by category');
+        return res.json();
+    }
 
 
 }
