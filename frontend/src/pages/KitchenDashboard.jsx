@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './DashboardStyles.css';
+import ApiService from '../services/ApiService';
 
 const KitchenDashboard = () => {
     const [token, setToken] = useState('');
@@ -12,31 +13,11 @@ const KitchenDashboard = () => {
     const loginAndFetchQueue = async () => {
         try {
             // Step 1: Generate Token
-            const loginRes = await fetch('http://localhost:8080/api/auth/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    email: 'admin@example.com',
-                    password: 'password',
-                }),
-            });
-
-            if (!loginRes.ok) throw new Error('Login failed');// if the gen token api is not returning a 200 response or similar we throw Error excpetion
-
-            const { token } = await loginRes.json(); //
+            const { token } = await ApiService.login('admin@example.com', 'password');
             setToken(token);
 
             // Step 2: Fetch Kitchen Queue
-            const queueRes = await fetch('http://localhost:8080/orders/kitchen/queue', {
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-
-            if (!queueRes.ok) throw new Error('Failed to fetch kitchen queue');
-
-            const queueData = await queueRes.json();
+            const queueData = await ApiService.getKitchenQueue(token);
             setQueue(queueData);
         } catch (err) {
             setError(err.message);
@@ -45,19 +26,7 @@ const KitchenDashboard = () => {
 
     const markAsServed = async (orderItemID) => {
         try {
-            console.log("Marking as served:", orderItemID);
-            console.log("Using token:", token);
-            const res = await fetch(`http://localhost:8080/orders/orderItem/${orderItemID}/serve`, {
-                method: 'POST',
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-
-            if (!res.ok) throw new Error('Failed to mark as served');
-
-            const result = await res.json();
-            console.log(result);
+            await ApiService.markOrderItemAsServed(orderItemID, token);
 
             // Refresh queue after update
             loginAndFetchQueue();
