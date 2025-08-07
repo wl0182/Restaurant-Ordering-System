@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './MenuView.css';
+import ApiService from '../services/ApiService';
 
 const MenuView = () => {
     const location = useLocation();
@@ -12,29 +13,12 @@ const MenuView = () => {
     const [quantities, setQuantities] = useState({});
     const [error, setError] = useState('');
 
-
-
-
-
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const loginRes = await fetch('http://localhost:8080/api/auth/login', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email: 'admin@example.com', password: 'password' }),
-                });
-
-                if (!loginRes.ok) throw new Error('Login failed');
-                const { token } = await loginRes.json();
+                const { token } = await ApiService.login('admin@example.com', 'password');
                 setToken(token);
-
-                const menuRes = await fetch('http://localhost:8080/api/menu-items/available', {
-                    headers: { Authorization: `Bearer ${token}` },
-                });
-
-                if (!menuRes.ok) throw new Error('Failed to fetch menu');
-                const menu = await menuRes.json();
+                const menu = await ApiService.getAvailableMenuItems(token);
                 setMenuItems(menu);
             } catch (err) {
                 console.error(err);
@@ -74,22 +58,7 @@ const MenuView = () => {
         }
 
         try {
-            const res = await fetch('http://localhost:8080/orders', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
-                body: JSON.stringify({
-                    tableSessionId: sessionId,
-                    items: selectedItems
-                })
-            });
-
-            if (!res.ok) throw new Error('Order failed');
-
-            const result = await res.json();
-            console.log('Order placed:', result);
+            await ApiService.placeOrder(token, sessionId, selectedItems);
 
             navigate('/orderview', {
                 state: { sessionId, tableNumber }

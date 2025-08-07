@@ -20,5 +20,5 @@ public interface TableSessionRepository extends JpaRepository<TableSession,Long>
     Optional<TableSession> findActiveTableSessionById(@Param("sessionId") long sessionId);
 
 
-    Long id(Long id);
+
 }

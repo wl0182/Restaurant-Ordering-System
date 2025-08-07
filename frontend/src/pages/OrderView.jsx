@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './OrderView.css';
+import ApiService from '../services/ApiService';
 
 const OrderView = () => {
     const location = useLocation();
@@ -22,55 +23,24 @@ const OrderView = () => {
 
     // Step 1: Get token
     const fetchToken = async () => {
-        const res = await fetch('http://localhost:8080/api/auth/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                email: 'admin@example.com',
-                password: 'password'
-            }),
-        });
-
-        if (!res.ok) throw new Error('Failed to get token');
-        const data = await res.json();
-        setToken(data.token);
-        return data.token;
+        const { token } = await ApiService.login('admin@example.com', 'password');
+        setToken(token);
+        return token;
     };
 
     // Step 2: Fetch served + unserved items
     const fetchItems = async (jwtToken) => {
-        const headers = {
-            'Authorization': `Bearer ${jwtToken}`,
-            'Content-Type': 'application/json',
-        };
-
-        const [servedRes, unservedRes] = await Promise.all([
-            fetch(`http://localhost:8080/orders/sessions/${sessionId}/served`, { headers }),
-            fetch(`http://localhost:8080/orders/sessions/${sessionId}/unserved`, { headers })
-        ]);
-
-        if (!servedRes.ok || !unservedRes.ok) throw new Error('Error fetching items');
-
-        const served = await servedRes.json();
-        const unserved = await unservedRes.json();
-
+        const served = await ApiService.getServedItemsBySession(jwtToken, sessionId);
+        const unserved = await ApiService.getUnservedItemsBySession(jwtToken, sessionId);
         setServedItems(served);
         setUnservedItems(unserved);
     };
     // fetch total
-    const  fetchTotal = async (token) => {
-        const response = await fetch(`http://localhost:8080/sessions/${sessionId}/checkout-summary`, {
-            headers: { Authorization: `Bearer ${token}` },
-        });
-        const data = await response.json();
-        setTotal(data.totalAmont);
-        return data.totalAmont;
-
+    const fetchTotal = async (token) => {
+        const totalAmount = await ApiService.getSessionTotal(token, sessionId);
+        setTotal(totalAmount);
+        return totalAmount;
     };
-
-
-
-
 
     useEffect(() => {
         const init = async () => {
@@ -107,17 +77,7 @@ const OrderView = () => {
 
     const confirmEndSession = async () => {
         try {
-            const res = await fetch(`http://localhost:8080/sessions/${tableNumber}/end`, {
-                method: 'PUT',
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            });
-
-            if (!res.ok) throw new Error('Failed to end session');
-
-            const result = await res.json();
-            console.log('Session ended:', result);
+            await ApiService.endSession(token, tableNumber);
             navigate('/server');
         } catch (err) {
             console.error(err);

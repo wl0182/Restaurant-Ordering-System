@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './TablesDashboard.css';
+import ApiService from '../services/ApiService';
 
 const TablesDashboard = () => {
     const [token, setToken] = useState('');
@@ -12,57 +13,29 @@ const TablesDashboard = () => {
     const navigate = useNavigate();
 
     const loginAndGetToken = async () => {
-        const response = await fetch('http://localhost:8080/api/auth/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email: 'admin@example.com', password: 'password' }),
-        });
-        const data = await response.json();
-        setToken(data.token);
-        return data.token;
+        const { token } = await ApiService.login('admin@example.com', 'password');
+        setToken(token);
+        return token;
     };
 
     const fetchTables = async (token) => {
-        const response = await fetch('http://localhost:8080/sessions/tables', {
-            headers: { Authorization: `Bearer ${token}` },
-        });
-        const data = await response.json();
+        const data = await ApiService.getTables(token);
         setTables(data);
     };
 
     const fetchActiveSessions = async (token) => {
-        const response = await fetch('http://localhost:8080/sessions/active', {
-            headers: { Authorization: `Bearer ${token}` },
-        });
-        const data = await response.json();
+        const data = await ApiService.getActiveSessions(token);
         const activeNumbers = data.map(session => session.tableNumber);
         setActiveTableNumbers(activeNumbers);
     };
 
     const startSession = async (tableNumber) => {
         try {
-            const response = await fetch('http://localhost:8080/sessions/start', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
-                body: JSON.stringify({ tableNumber })
-            });
-
-            if (!response.ok) throw new Error('Failed to start session');
-
-            const newSession = await response.json();
-            console.log('Session started:', newSession);
-
-            // Save sessionId in localStorage
+            const newSession = await ApiService.startSession(token, tableNumber);
             localStorage.setItem(`sessionId-${tableNumber}`, newSession.id);
-
-            // Navigate to order page
             navigate('/orderview', {
                 state: { sessionId: newSession.id, tableNumber }
             });
-
         } catch (err) {
             console.error('Error starting session:', err);
         }
@@ -74,11 +47,7 @@ const TablesDashboard = () => {
             setShowModal(true);
         } else {
             try {
-                const res = await fetch(`http://localhost:8080/sessions/active/${tableName}`, {
-                    headers: { Authorization: `Bearer ${token}` }
-                });
-                const session = await res.json();
-
+                const session = await ApiService.getActiveSessionByTable(token, tableName);
                 navigate('/orderview', {
                     state: { sessionId: session.id, tableNumber: session.tableNumber }
                 });

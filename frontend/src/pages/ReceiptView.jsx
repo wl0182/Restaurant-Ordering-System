@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation,useNavigate } from 'react-router-dom';
 import './ReceiptPage.css';
+import ApiService from '../services/ApiService';
 
 const ReceiptPage = () => {
     const location = useLocation();
@@ -14,26 +15,10 @@ const ReceiptPage = () => {
 
     const fetchSummary = async () => {
         try {
-            // First login (or reuse existing token logic if you have it)
-            const loginRes = await fetch('http://localhost:8080/api/auth/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email: 'admin@example.com', password: 'password' }),
-            });
-
-            if (!loginRes.ok) throw new Error('Login failed');
-            const { token } = await loginRes.json();
+            const { token } = await ApiService.login('admin@example.com', 'password');
             setToken(token);
-
-            const res = await fetch(`http://localhost:8080/sessions/${sessionId}/checkout-summary`, {
-                headers: { Authorization: `Bearer ${token}` }
-            });
-
-            if (!res.ok) throw new Error('Failed to fetch receipt');
-
-            const data = await res.json();
+            const data = await ApiService.getCheckoutSummary(token, sessionId);
             setSummary(data);
-
         } catch (err) {
             console.error(err);
             setError(err.message);
@@ -41,17 +26,7 @@ const ReceiptPage = () => {
     };
     const confirmEndSession = async () => {
         try {
-            const res = await fetch(`http://localhost:8080/sessions/${tableNumber}/end`, {
-                method: 'PUT',
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            });
-
-            if (!res.ok) throw new Error('Failed to end session');
-
-            const result = await res.json();
-            console.log('Session ended:', result);
+            await ApiService.endSession(token, tableNumber);
             navigate('/server');
         } catch (err) {
             console.error(err);
