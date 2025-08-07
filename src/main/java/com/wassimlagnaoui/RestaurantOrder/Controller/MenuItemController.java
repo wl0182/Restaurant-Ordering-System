@@ -58,6 +58,14 @@ public class MenuItemController {
         return ResponseEntity.status(HttpStatus.OK).body(menuItemResponses);
     }
 
+    // get menu items by category
+    @GetMapping("/category/{category}")
+    public ResponseEntity<List<MenuItemResponse>> getMenuItemsByCategory(@PathVariable String category)
+    {
+        List<MenuItemResponse> menuItemResponses = menuItemService.getMenuItemsByCategory(category);
+        return ResponseEntity.status(HttpStatus.OK).body(menuItemResponses);
+    }
+
 
 
 }

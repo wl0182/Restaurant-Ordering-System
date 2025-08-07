@@ -118,7 +118,19 @@ public class MenuItemService {
         return menuItemResponses;
     }
 
+    /**
+     * Retrieves menu items by category.
+     * @param category the category of menu items
+     * @return List of MenuItemResponse for menu items in the specified category
+     */
+    public List<MenuItemResponse> getMenuItemsByCategory(String category) {
+        List<MenuItem> menuItems = menuItemRepository.findByCategory(category);
+        List<MenuItemResponse> menuItemResponses = new ArrayList<>();
 
-
-
+        for (MenuItem menuItem : menuItems) {
+            MenuItemResponse menuItemResponse = MenuItemMapper.fromMenuItem(menuItem);
+            menuItemResponses.add(menuItemResponse);
+        }
+        return menuItemResponses;
+    }
 }
