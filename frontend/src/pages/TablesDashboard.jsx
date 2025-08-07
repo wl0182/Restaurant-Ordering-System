@@ -19,7 +19,7 @@ const TablesDashboard = () => {
     };
 
     const fetchTables = async (token) => {
-        const data = await ApiService.getTables(token);
+        const data = await ApiService.getAllTables(token);
         setTables(data);
     };
 
@@ -31,7 +31,7 @@ const TablesDashboard = () => {
 
     const startSession = async (tableNumber) => {
         try {
-            const newSession = await ApiService.startSession(token, tableNumber);
+            const newSession = await ApiService.startSession(tableNumber, token);
             localStorage.setItem(`sessionId-${tableNumber}`, newSession.id);
             navigate('/orderview', {
                 state: { sessionId: newSession.id, tableNumber }
