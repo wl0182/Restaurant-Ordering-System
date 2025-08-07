@@ -2,6 +2,8 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/restaurant_db
     username: restaurant_user
+  config:
+    import: optional:application-local.yml
 
   jpa:
     hibernate:

@@ -11,6 +11,9 @@ import com.wassimlagnaoui.RestaurantOrder.Repository.OrderItemRepository;
 import com.wassimlagnaoui.RestaurantOrder.Repository.OrderRepository;
 import com.wassimlagnaoui.RestaurantOrder.Repository.TableSessionRepository;
 import com.wassimlagnaoui.RestaurantOrder.model.*;
+import com.wassimlagnaoui.RestaurantOrder.Exception.MenuItemNotFoundException;
+import com.wassimlagnaoui.RestaurantOrder.Exception.NoActiveTableSessionFoundException;
+import com.wassimlagnaoui.RestaurantOrder.Exception.OrderNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,7 +56,8 @@ public class OrderService {
      */
     @Transactional
     public PlaceOrderResponse placeOrder(PlaceOrderRequest orderRequest){
-        TableSession tableSession = tableSessionRepository.findActiveTableSessionById(orderRequest.getTableSessionId()).orElseThrow(()-> new RuntimeException("No Active tableSession with this ID"));
+        TableSession tableSession = tableSessionRepository.findActiveTableSessionById(orderRequest.getTableSessionId())
+            .orElseThrow(NoActiveTableSessionFoundException::new);
 
         Order order = new Order();
         order.setStatus(OrderStatus.PLACED.name());
@@ -64,7 +68,8 @@ public class OrderService {
         Double total = 0.0;
 
         for (OrderItemRequest orderItemRequest: orderRequest.getItems()){
-            MenuItem menuItem = menuItemRepository.findById(orderItemRequest.getMenuItemId()).orElseThrow(()->new RuntimeException("Menu Item not found"));
+            MenuItem menuItem = menuItemRepository.findById(orderItemRequest.getMenuItemId())
+                .orElseThrow(MenuItemNotFoundException::new);
 
             OrderItem orderItem = new OrderItem();
 
