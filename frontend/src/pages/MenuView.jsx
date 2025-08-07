@@ -16,7 +16,7 @@ const MenuView = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const { token } = await ApiService.login('admin@example.com', 'password');
+                const token = localStorage.getItem('authToken');
                 setToken(token);
                 const menu = await ApiService.getAvailableMenuItems(token);
                 setMenuItems(menu);

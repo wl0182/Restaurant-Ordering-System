@@ -22,24 +22,23 @@ const OrderView = () => {
     }, []);
 
     // Step 1: Get token
-    const fetchToken = async () => {
-        const { token } = await ApiService.login('admin@example.com', 'password');
-        setToken(token);
-        return token;
-    };
+    useEffect(() => {
+        setToken(localStorage.getItem('authToken'));
+    }, []);
 
     // Step 2: Fetch served + unserved items
     const fetchItems = async (jwtToken) => {
-        const served = await ApiService.getServedItemsBySession(jwtToken, sessionId);
-        const unserved = await ApiService.getUnservedItemsBySession(jwtToken, sessionId);
+        const served = await ApiService.getServedItems(jwtToken, sessionId);
+        const unserved = await ApiService.getUnservedItems(jwtToken, sessionId);
         setServedItems(served);
         setUnservedItems(unserved);
     };
     // fetch total
-    const fetchTotal = async (token) => {
-        const totalAmount = await ApiService.getSessionTotal(token, sessionId);
-        setTotal(totalAmount);
-        return totalAmount;
+    const fetchTotal = async (jwtToken) => {
+        // Use getCheckoutSummary to get totalAmont
+        const summary = await ApiService.getCheckoutSummary(jwtToken, sessionId);
+        setTotal(summary.totalAmont);
+        return summary.totalAmont;
     };
 
     useEffect(() => {
@@ -48,12 +47,10 @@ const OrderView = () => {
                 console.error('No session ID found');
                 return;
             }
-
             try {
-                const jwt = await fetchToken();
+                const jwt = localStorage.getItem('authToken');
                 await fetchItems(jwt);
                 await fetchTotal(jwt);
-
             } catch (err) {
                 console.error(err);
             }
