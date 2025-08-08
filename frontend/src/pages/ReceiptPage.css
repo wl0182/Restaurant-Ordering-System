@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 /* src/pages/ReceiptPage.css */
 
 .receipt-container {
@@ -63,4 +65,3 @@
 .receipt-print-btn:hover {
     background-color: #45a049;
 }
-

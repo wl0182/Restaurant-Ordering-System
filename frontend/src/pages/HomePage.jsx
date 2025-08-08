@@ -9,7 +9,7 @@ const HomePage = () => {
     return (
 
         <div className="home-container">
-            <h1 className="home-heading" >Welcome to the Restaurant</h1>
+            <h1 className="home-heading" >Welcome</h1>
             <p className="home-subtext">Please select an option below:</p>
             <div className="home-links">
                     <Link to="/kitchen" className="home-button" >Kitchen Dashboard</Link>
