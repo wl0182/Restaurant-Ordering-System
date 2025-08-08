@@ -14,6 +14,21 @@ class ApiService {
         return res.json();
     }
 
+    //register
+    static async register(email, password, name, role ,phone,confirmPassword) {
+       // Check if passwords match
+        if (password !== confirmPassword) {
+            throw new Error('Passwords do not match');
+        }
+        const res = await fetch(`${API_BASE}/api/auth/register`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password, name, role, phone })
+        });
+        if (!res.ok) throw new Error('Registration failed');
+        return res.json();
+    }
+
     // Kitchen Queue
     static async getKitchenQueue(token) {
         const res = await fetch(`${API_BASE}/orders/kitchen/queue`, {
@@ -236,24 +251,6 @@ class ApiService {
         return res.json();
     }
 
-    // Mark order item as served
-    static async markOrderItemAsServed(token, id) {
-        const res = await fetch(`${API_BASE}/orders/orderItem/${id}/serve`, {
-            method: 'POST',
-            headers: { Authorization: `Bearer ${token}` }
-        });
-        if (!res.ok) throw new Error('Failed to mark order item as served');
-        return res.json();
-    }
-
-    // Get kitchen queue
-    static async getKitchenQueue(token) {
-        const res = await fetch(`${API_BASE}/orders/kitchen/queue`, {
-            headers: { Authorization: `Bearer ${token}` }
-        });
-        if (!res.ok) throw new Error('Failed to fetch kitchen queue');
-        return res.json();
-    }
 
     // Get menu items by category
     static async getMenuItemsByCategory(token, category) {

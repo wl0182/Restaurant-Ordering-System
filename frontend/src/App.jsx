@@ -6,6 +6,7 @@ import OrderView from "./pages/OrderView.jsx"
 import MenuView from "./pages/MenuView.jsx";
 import ReceiptView from "./pages/ReceiptView.jsx";
 import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
 
 
 
@@ -30,6 +31,7 @@ function App() {
         <Router>
             <Routes>
                 <Route path="/login" element={<LoginPage />} />
+                <Route path="/register" element={<RegisterPage />} />
                 <Route path="/" element={<RequireAuth><HomePage /></RequireAuth>} />
                 <Route path="/kitchen" element={<RequireAuth><KitchenDashboard /></RequireAuth>} />
                 <Route path="/server" element={<RequireAuth><TablesDashboard /></RequireAuth>} />
