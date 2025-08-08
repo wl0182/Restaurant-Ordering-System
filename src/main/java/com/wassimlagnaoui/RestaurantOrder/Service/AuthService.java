@@ -3,8 +3,10 @@ package com.wassimlagnaoui.RestaurantOrder.Service;
 
 import com.wassimlagnaoui.RestaurantOrder.DTO.Requests.AuthRequest;
 import com.wassimlagnaoui.RestaurantOrder.DTO.AuthResponse;
+import com.wassimlagnaoui.RestaurantOrder.DTO.Requests.RegisterRequestDTO;
 import com.wassimlagnaoui.RestaurantOrder.Repository.UserRepository;
 import com.wassimlagnaoui.RestaurantOrder.Security.JwtService;
+import com.wassimlagnaoui.RestaurantOrder.model.Role;
 import com.wassimlagnaoui.RestaurantOrder.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -52,4 +54,28 @@ public class AuthService {
 
 
 
-}}
+}
+
+
+    public AuthResponse register(RegisterRequestDTO request) {
+        System.out.println("🔄 Registering user: " + request.getEmail());
+
+        User user = User.builder()
+                .email(request.getEmail())
+                .password(passwordEncoder.encode(request.getPassword()))
+                .name(request.getName())
+                .phone(request.getPhoneNumber())
+                .role(Role.ROLE_USER)
+                .build();
+
+        System.out.println("🔐 Password encoded: " + user.getPassword());
+
+        userRepository.save(user);
+
+        String jwtToken = jwtService.generateToken(user);
+
+        System.out.println("✅ User registered successfully, JWT token generated");
+
+        return new AuthResponse(jwtToken);
+    }
+}
