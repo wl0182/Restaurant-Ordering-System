@@ -8,6 +8,7 @@ import ReceiptView from "./pages/ReceiptView.jsx";
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import AdminDashboard from './pages/AdminDashboard';
+import MenuAdminPage from "./pages/MenuAdminPage.jsx";
 
 
 
@@ -38,6 +39,7 @@ function App() {
                 <Route path="/orderView" element={<RequireAuth><OrderView /></RequireAuth>} />
                 <Route path="/menu" element={<RequireAuth><MenuView /></RequireAuth>} />
                 <Route path="/receipt" element={<RequireAuth><ReceiptView /></RequireAuth>} />
+                <Route path="/admin/menu" element={<RequireAuth><MenuAdminPage /></RequireAuth>} />
             </Routes>
         </Router>
     );
