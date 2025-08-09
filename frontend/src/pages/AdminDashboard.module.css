@@ -1,0 +1,105 @@
+.admin-container {
+    box-shadow: 0 8px 32px rgba(67,233,123,0.10);
+    background: rgba(30,32,34,0.98);
+    border-radius: 22px;
+    padding: 48px 32px 40px 32px;
+    max-width: 700px;
+    margin: 64px auto;
+    position: relative;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.admin-heading {
+    font-size: 2.7rem;
+    margin-bottom: 12px;
+    color: #1e3a8a;
+    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+    font-weight: 800;
+    letter-spacing: 0.03em;
+    text-shadow: 0 2px 16px rgba(30,58,138,0.10);
+}
+
+.admin-subtext {
+    font-size: 1.18rem;
+    margin-bottom: 36px;
+    color: #e0e0e0;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+}
+
+.admin-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 28px;
+    width: 100%;
+}
+
+.admin-link-btn {
+    min-height: 110px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.12rem;
+    padding: 0;
+    background: linear-gradient(90deg, #1e3a8a 0%, #60a5fa 100%);
+    color: #fff;
+    border: none;
+    border-radius: 18px;
+    font-weight: 700;
+    box-shadow: 0 4px 16px rgba(96,165,250,0.13);
+    transition: background 0.18s, color 0.18s, box-shadow 0.18s;
+    cursor: pointer;
+    outline: none;
+}
+
+.admin-link-btn:hover {
+    background: linear-gradient(90deg, #60a5fa 0%, #1e3a8a 100%);
+    color: #fff;
+    box-shadow: 0 6px 24px rgba(96,165,250,0.22);
+}
+
+.admin-link-icon {
+    font-size: 2.1rem;
+    margin-bottom: 8px;
+}
+
+.admin-link-label {
+    font-weight: 700;
+}
+
+.admin-link-desc {
+    font-weight: 400;
+    font-size: 0.98rem;
+    color: #b3c6e0;
+    margin-top: 4px;
+}
+
+.admin-icon {
+    font-size: 3.2rem;
+    margin-bottom: 18px;
+    color: #60a5fa;
+    filter: drop-shadow(0 2px 12px rgba(96,165,250,0.13));
+}
+
+.admin-back-btn {
+    margin-top: 36px;
+    min-height: 60px;
+    font-size: 1.02rem;
+    font-weight: 600;
+    background: linear-gradient(90deg, #64748b 0%, #1e293b 100%);
+    color: #fff;
+    border-radius: 18px;
+    border: none;
+    box-shadow: 0 2px 8px rgba(100,116,139,0.10);
+    transition: background 0.18s, color 0.18s, box-shadow 0.18s;
+}
+
+.admin-back-btn:hover {
+    background: linear-gradient(90deg, #1e293b 0%, #64748b 100%);
+    color: #fff;
+    box-shadow: 0 6px 24px rgba(100,116,139,0.18);
+}

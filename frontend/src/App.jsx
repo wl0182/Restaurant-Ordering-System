@@ -7,12 +7,11 @@ import MenuView from "./pages/MenuView.jsx";
 import ReceiptView from "./pages/ReceiptView.jsx";
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
+import AdminDashboard from './pages/AdminDashboard';
 
 
 
-// const KitchenDashboard = () => <h2>Kitchen Dashboard</h2>;
-//const ServerDashboard = () => <h2>Server Dashboard</h2>;
-const AdminDashboard = () => <h2>Admin Dashboard</h2>;
+
 
 // This component checks if the user is authenticated
 function RequireAuth({ children }) {

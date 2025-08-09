@@ -19,7 +19,9 @@ const HomePage = () => {
 
 
         </div>
-    );w
+    );
 };
 
 export default HomePage;
+
+
