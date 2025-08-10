@@ -133,4 +133,35 @@ public class MenuItemService {
         }
         return menuItemResponses;
     }
+
+    public MenuItemResponse updateCategory(Long id, String category) {
+        MenuItem menuItem = menuItemRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Menu item with id " + id + " not found"));
+
+        menuItem.setCategory(category);
+        menuItemRepository.save(menuItem);
+
+        return MenuItemMapper.fromMenuItem(menuItem);
+    }
+
+    public MenuItemResponse updatePrice(Long id, double price) {
+        MenuItem menuItem = menuItemRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Menu item with id " + id + " not found"));
+
+        menuItem.setPrice(price);
+        menuItemRepository.save(menuItem);
+
+        return MenuItemMapper.fromMenuItem(menuItem);
+    }
+
+
+    public MenuItemResponse updateName(Long id, String name) {
+        MenuItem menuItem = menuItemRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Menu item with id " + id + " not found"));
+
+        menuItem.setName(name);
+        menuItemRepository.save(menuItem);
+
+        return MenuItemMapper.fromMenuItem(menuItem);
+    }
 }

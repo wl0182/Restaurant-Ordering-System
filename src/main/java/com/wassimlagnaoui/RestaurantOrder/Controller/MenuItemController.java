@@ -66,6 +66,28 @@ public class MenuItemController {
         return ResponseEntity.status(HttpStatus.OK).body(menuItemResponses);
     }
 
+    // update menu item category
+    @PutMapping("/{id}/category")
+    public ResponseEntity<MenuItemResponse> updateCategory(@PathVariable Long id, @RequestParam String category) {
+        MenuItemResponse menuItemResponse = menuItemService.updateCategory(id, category);
+        return ResponseEntity.status(HttpStatus.OK).body(menuItemResponse);
+    }
+
+    // update menu item price
+    @PutMapping("/{id}/price")
+    public ResponseEntity<MenuItemResponse> updatePrice(@PathVariable Long id, @RequestParam double price) {
+        MenuItemResponse menuItemResponse = menuItemService.updatePrice(id, price);
+        return ResponseEntity.status(HttpStatus.OK).body(menuItemResponse);
+    }
+
+    // update menu item name
+    @PutMapping("/{id}/name")
+    public ResponseEntity<MenuItemResponse> updateName(@PathVariable Long id, @RequestParam String name) {
+        MenuItemResponse menuItemResponse = menuItemService.updateName(id, name);
+        return ResponseEntity.status(HttpStatus.OK).body(menuItemResponse);
+    }
+
+
 
 
 }
