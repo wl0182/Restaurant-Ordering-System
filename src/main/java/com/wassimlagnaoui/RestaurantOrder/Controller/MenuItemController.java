@@ -5,13 +5,13 @@ import com.wassimlagnaoui.RestaurantOrder.DTO.MenuItemRequest;
 import com.wassimlagnaoui.RestaurantOrder.DTO.MenuItemResponse;
 import com.wassimlagnaoui.RestaurantOrder.Service.MenuItemService;
 import jakarta.validation.Valid;
-import jakarta.websocket.server.PathParam;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.http.HttpClient;
+
 import java.util.List;
 
 @RestController
