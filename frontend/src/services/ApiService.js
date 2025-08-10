@@ -260,7 +260,36 @@ class ApiService {
         if (!res.ok) throw new Error('Failed to fetch menu items by category');
         return res.json();
     }
+
+    // Update menu item category
+    static async updateMenuItemCategory(token, id, category) {
+        const res = await fetch(`${API_BASE}/api/menu-items/${id}/category?category=${encodeURIComponent(category)}`, {
+            method: 'PUT',
+            headers: { Authorization: `Bearer ${token}` }
+        });
+        if (!res.ok) throw new Error('Failed to update menu item category');
+        return res.json();
+    }
+
+    // Update menu item price
+    static async updateMenuItemPrice(token, id, price) {
+        const res = await fetch(`${API_BASE}/api/menu-items/${id}/price?price=${encodeURIComponent(price)}`, {
+            method: 'PUT',
+            headers: { Authorization: `Bearer ${token}` }
+        });
+        if (!res.ok) throw new Error('Failed to update menu item price');
+        return res.json();
+    }
+
+    // Update menu item name
+    static async updateMenuItemName(token, id, name) {
+        const res = await fetch(`${API_BASE}/api/menu-items/${id}/name?name=${encodeURIComponent(name)}`, {
+            method: 'PUT',
+            headers: { Authorization: `Bearer ${token}` }
+        });
+        if (!res.ok) throw new Error('Failed to update menu item name');
+        return res.json();
+    }
 }
 
 export default ApiService;
-

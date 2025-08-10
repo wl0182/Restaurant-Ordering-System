@@ -12,6 +12,7 @@ const MenuAdminPage = () => {
   const [refresh, setRefresh] = useState(false);
   const [categoryFilter, setCategoryFilter] = useState('');
   const [pendingToggle, setPendingToggle] = useState(null);
+  const [editModal, setEditModal] = useState({ open: false, item: null, name: '', price: '', category: '' });
   const token = localStorage.getItem('authToken');
   const navigate = useNavigate();
 
@@ -75,6 +76,55 @@ const MenuAdminPage = () => {
     setPendingToggle(null);
   };
 
+  // Open edit modal
+  const openEditModal = (item) => {
+    setEditModal({
+      open: true,
+      item,
+      name: item.name,
+      price: item.price,
+      category: item.category
+    });
+  };
+
+  // Close edit modal
+  const closeEditModal = () => {
+    setEditModal({ open: false, item: null, name: '', price: '', category: '' });
+  };
+
+  // Update name
+  const handleUpdateName = async () => {
+    try {
+      await ApiService.updateMenuItemName(token, editModal.item.id, editModal.name);
+      setRefresh(r => !r);
+      closeEditModal();
+    } catch (e) {
+      setError('Failed to update name');
+    }
+  };
+
+  // Update price
+  const handleUpdatePrice = async () => {
+    try {
+      await ApiService.updateMenuItemPrice(token, editModal.item.id, editModal.price);
+      setRefresh(r => !r);
+      closeEditModal();
+    } catch (e) {
+      setError('Failed to update price');
+    }
+  };
+
+  // Update category
+  const handleUpdateCategory = async () => {
+    try {
+      await ApiService.updateMenuItemCategory(token, editModal.item.id, editModal.category);
+      setRefresh(r => !r);
+      closeEditModal();
+    } catch (e) {
+      setError('Failed to update category');
+    }
+  };
+
   // Get unique categories for dropdown
   const categoryOptions = Array.from(new Set(menuItems.map(item => item.category))).filter(Boolean);
 
@@ -129,9 +179,9 @@ const MenuAdminPage = () => {
           <tbody>
             {menuItems.filter(item => !categoryFilter || item.category === categoryFilter).map(item => (
               <tr key={item.id}>
-                <td>{item.name}</td>
-                <td>${item.price.toFixed(2)}</td>
-                <td>{item.category}</td>
+                <td onClick={() => openEditModal(item)} style={{ cursor: 'pointer', textDecoration: 'underline' }}>{item.name}</td>
+                <td onClick={() => openEditModal(item)} style={{ cursor: 'pointer', textDecoration: 'underline' }}>${item.price.toFixed(2)}</td>
+                <td onClick={() => openEditModal(item)} style={{ cursor: 'pointer', textDecoration: 'underline' }}>{item.category}</td>
                 <td>
                   <label className="switch">
                     <input
@@ -154,6 +204,46 @@ const MenuAdminPage = () => {
             <div className="menu-modal-buttons">
               <button className="danger" onClick={handleConfirmToggle}>Yes</button>
               <button onClick={handleCancelToggle}>No</button>
+            </div>
+          </div>
+        </div>
+      )}
+      {editModal.open && (
+        <div className="menu-modal-overlay">
+          <div className="menu-edit-modal-box">
+            <button className="menu-edit-modal-close" onClick={closeEditModal}>&times;</button>
+            <h3>Edit Menu Item</h3>
+            <div className="menu-edit-modal-row">
+              <label>Name:</label>
+              <input
+                type="text"
+                value={editModal.name}
+                onChange={e => setEditModal({ ...editModal, name: e.target.value })}
+              />
+              <button onClick={handleUpdateName}>Update</button>
+            </div>
+            <div className="menu-edit-modal-row">
+              <label>Price:</label>
+              <input
+                type="number"
+                step="0.01"
+                value={editModal.price}
+                onChange={e => setEditModal({ ...editModal, price: e.target.value })}
+              />
+              <button onClick={handleUpdatePrice}>Update</button>
+            </div>
+            <div className="menu-edit-modal-row">
+              <label>Category:</label>
+              <select
+                value={editModal.category}
+                onChange={e => setEditModal({ ...editModal, category: e.target.value })}
+              >
+                <option value="">Select Category</option>
+                {categoryOptions.map(cat => (
+                  <option key={cat} value={cat}>{cat}</option>
+                ))}
+              </select>
+              <button onClick={handleUpdateCategory}>Update</button>
             </div>
           </div>
         </div>
