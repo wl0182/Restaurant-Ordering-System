@@ -9,6 +9,7 @@ import com.wassimlagnaoui.RestaurantOrder.Service.OrderService;
 import com.wassimlagnaoui.RestaurantOrder.Service.StatsService;
 import com.wassimlagnaoui.RestaurantOrder.Service.TableService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,28 +33,28 @@ public class StatsController {
     }
 
     // Endpoint to get the most ordered items
-    @RequestMapping("/most-ordered-items")
+    @GetMapping("/most-ordered-items")
     public ResponseEntity<List<MostOrderedItemDTO>> getMostOrderedItems() {
         List<MostOrderedItemDTO> mostOrderedItems = statsService.getMostOrderedItems();
         return ResponseEntity.ok(mostOrderedItems);
     }
 
     // Endpoint to get the total revenue
-    @RequestMapping("/total-revenue")
+    @GetMapping("/total-revenue")
     public ResponseEntity<HashMap<String, Double>> getTotalRevenueByDate() {
         HashMap<String, Double> totalRevenue = statsService.getTotalRevenueByDate();
         return ResponseEntity.ok(totalRevenue);
     }
 
     // Endpoint to get total revenue by menu item in a map in descending order
-    @RequestMapping("/total-revenue-by-menu-item")
+    @GetMapping("/total-revenue-by-menu-item")
     public ResponseEntity<HashMap<String, Double>> getTotalRevenueByMenuItem() {
         HashMap<String, Double> totalRevenueByMenuItem = statsService.getTotalRevenueByMenuItem();
         return ResponseEntity.ok(totalRevenueByMenuItem);
     }
 
     //get Average total revenue of a Session grouped by date
-    @RequestMapping("/average-session-revenue-by-date")
+    @GetMapping("/average-session-revenue-by-date")
     public ResponseEntity<List<TableSessionAverageRevenueByDate>> getAverageRevenueByDate() {
         List<TableSessionAverageRevenueByDate> averageRevenueByDate = statsService.getAverageTotalByTableSessionGroupedByDate();
         return ResponseEntity.ok(averageRevenueByDate);
