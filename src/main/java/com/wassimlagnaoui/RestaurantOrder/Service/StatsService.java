@@ -39,7 +39,7 @@ public class StatsService {
      *
      * @return a HashMap where the key is the date (formatted as "yyyy-MM-dd") and the value is the total revenue for that date.
      */
-    public HashMap<String, Double> getTotalRevenuePerDate() {
+    public HashMap<String, Double> getTotalRevenueByDate() {
         // Initialize a HashMap to store the total revenue per date
         HashMap<String, Double> totalRevenuePerDate = new HashMap<>();
 
@@ -62,4 +62,6 @@ public class StatsService {
                 .mapToDouble(orderItem -> orderItem.getMenuItem().getPrice() * orderItem.getQuantity())
                 .sum();
     }
+
+
 }

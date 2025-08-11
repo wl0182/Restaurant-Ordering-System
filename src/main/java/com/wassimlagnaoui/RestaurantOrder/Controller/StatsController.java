@@ -38,7 +38,7 @@ public class StatsController {
     // Endpoint to get the total revenue
     @RequestMapping("/total-revenue")
     public ResponseEntity<HashMap<String, Double>> getTotalRevenue() {
-        HashMap<String, Double> totalRevenue = statsService.gdetTotalRevenueByDate();
+        HashMap<String, Double> totalRevenue = statsService.getTotalRevenueByDate();
         return ResponseEntity.ok(totalRevenue);
     }
 
