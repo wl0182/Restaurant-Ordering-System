@@ -1,10 +1,12 @@
 package com.wassimlagnaoui.RestaurantOrder.Repository;
 
+import com.wassimlagnaoui.RestaurantOrder.DTO.Response.PopularItemsResponseDTO;
 import com.wassimlagnaoui.RestaurantOrder.model.MenuItem;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.nio.channels.FileChannel;
 import java.util.List;
 
 public interface MenuItemRepository extends JpaRepository<MenuItem,Long> {
@@ -28,6 +30,7 @@ public interface MenuItemRepository extends JpaRepository<MenuItem,Long> {
     // find menu items by name and availability
     @Query("SELECT m FROM MenuItem m WHERE m.name LIKE %:name% AND m.available = true")
     List<MenuItem> findAvailableMenuItemsByNameContaining(@Param("name") String name);
+
 
 
 }

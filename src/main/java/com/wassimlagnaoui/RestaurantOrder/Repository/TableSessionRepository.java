@@ -20,5 +20,10 @@ public interface TableSessionRepository extends JpaRepository<TableSession,Long>
     Optional<TableSession> findActiveTableSessionById(@Param("sessionId") long sessionId);
 
 
+    // find all table sessions by date formatted as "yyyy-MM-dd"
+    @Query("SELECT DISTINCT DATE(t.sessionStart) FROM TableSession t")
+    List<String> findAllDates();
+
+
 
 }
