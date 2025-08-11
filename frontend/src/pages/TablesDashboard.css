@@ -1,61 +1,95 @@
 @import "tailwindcss";
 
 .tables-container {
-    padding: 40px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f4f6f8;
+    padding: 48px 32px 40px 32px;
+    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+    background: rgba(30,32,34,0.98);
     min-height: 100vh;
+    border-radius: 22px;
+    box-shadow: 0 8px 32px rgba(67,233,123,0.10);
+    max-width: 900px;
+    margin: 48px auto;
 }
 
 h2 {
     text-align: center;
-    color: gray;
-    font-size: 2rem;
-    margin-bottom: 30px;
+    color: #1e3a8a;
+    font-size: 2.3rem;
+    margin-bottom: 36px;
+    font-weight: 800;
+    letter-spacing: 0.03em;
+    text-shadow: 0 2px 16px rgba(30,58,138,0.10);
 }
 
 .tables-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 4 columns */
-    gap: 24px;
-    padding: 0 40px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 28px;
+    padding: 0 10px;
 }
 
 /* Inactive Table */
 .table-card {
-    background-color: #b0b0b0; /* Light gray */
-    color: white;
-    padding: 30px;
-    border-radius: 16px;
+    background: #23293a;
+    color: #e0e0e0;
+    padding: 32px 0;
+    border-radius: 18px;
     text-align: center;
     font-size: 1.4rem;
-    font-weight: 600;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
-    transition: transform 0.2s, background-color 0.3s;
+    font-weight: 700;
+    box-shadow: 0 4px 16px rgba(96,165,250,0.13);
+    transition: transform 0.2s, background 0.3s, color 0.3s;
+    border: 2px solid transparent;
 }
 
 .table-card:hover {
-    transform: scale(1.05);
-    background-color: #6c757d; /* Darker gray on hover */
-    cursor: pointer;
+    transform: translateY(-4px) scale(1.03);
+    box-shadow: 0 8px 32px rgba(96,165,250,0.18);
+    background: #181c23;
+    color: #60a5fa;
 }
 
 /* Active Table - future use */
 .table-card.active {
-    background-color: #28a745; /* Bootstrap green */
-    color: #ffffff;
+    background: linear-gradient(90deg, #1e3a8a 0%, #60a5fa 100%);
+    color: #fff;
+    border: 2px solid #60a5fa;
+    box-shadow: 0 6px 24px rgba(96,165,250,0.22);
 }
 
 .modal-overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.4);
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(242, 245, 246, 0.7);
+    z-index: 1000;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.modal-box {
+    background: #fff;
+    border-radius: 20px;
+    padding: 38px 32px 30px 32px;
+    box-shadow: 0 8px 32px rgba(67,233,123,0.18), 0 2px 16px rgba(30,58,138,0.13);
+    min-width: 340px;
+    text-align: center;
+    color: #f3f1f0;
+    border: 2px solid #60a5fa;
+    animation: modalPopIn 0.22s cubic-bezier(.4,2,.6,1) both;
+}
+
+@keyframes modalPopIn {
+    0% { transform: scale(0.85) translateY(40px); opacity: 0; }
+    100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+.modal-box p {
+    font-size: 1.18rem;
+    color: #2563eb;
+    margin-bottom: 18px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
 }
 
 .modal-content {
@@ -84,6 +118,46 @@ h2 {
     background-color: #dc3545;
     color: white;
 }
+
+.modal-buttons {
+    margin-top: 18px;
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+}
+
+.yes-btn, .no-btn {
+    min-width: 90px;
+    padding: 10px 22px;
+    border-radius: 10px;
+    border: none;
+    font-size: 1.08rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.18s, color 0.18s, box-shadow 0.18s;
+    box-shadow: 0 2px 8px rgba(96,165,250,0.10);
+}
+
+.yes-btn {
+    background: linear-gradient(90deg, #1e3a8a 0%, #60a5fa 100%);
+    color: #fff;
+}
+
+.yes-btn:hover {
+    background: linear-gradient(90deg, #60a5fa 0%, #1e3a8a 100%);
+    color: #fff;
+}
+
+.no-btn {
+    background: #b0b0b0;
+    color: #23293a;
+}
+
+.no-btn:hover {
+    background: #23293a;
+    color: #fff;
+}
+
 .start-session-btn {
     margin-top: 10px;
     padding: 6px 12px;
@@ -97,84 +171,49 @@ h2 {
 .start-session-btn:hover {
     background-color: #0056b3;
 }
+
 .back-home-btn {
-    background-color: #333;
-    color: white;
-    padding: 10px 20px;
+    margin-top: 36px;
+    min-height: 48px;
+    font-size: 1.02rem;
+    font-weight: 600;
+    background: linear-gradient(90deg, #64748b 0%, #1e293b 100%);
+    color: #fff;
+    border-radius: 18px;
     border: none;
-    border-radius: 8px;
-    font-size: 16px;
+    box-shadow: 0 2px 8px rgba(100,116,139,0.10);
+    transition: background 0.18s, color 0.18s, box-shadow 0.18s;
+    padding: 0 32px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
 }
 
 .back-home-btn:hover {
-    background-color: #555;
+    background: linear-gradient(90deg, #1e293b 0%, #64748b 100%);
+    color: #fff;
+    box-shadow: 0 6px 24px rgba(100,116,139,0.18);
 }
 
-.table-card {
-    transition: transform 0.2s ease;
+.light-modal {
+    background: #fff !important;
+    color: #23293a !important;
+    border: 2px solid #60a5fa;
+    box-shadow: 0 8px 32px rgba(67,233,123,0.18), 0 2px 16px rgba(30,58,138,0.13);
 }
 
-.table-card:hover {
-    transform: scale(1.03);
+.light-modal p {
+    color: #2563eb !important;
 }
 
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 999;
+@media (max-width: 1100px) {
+    .tables-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
-
-.modal-box {
-    background-color: white;
-    padding: 30px 40px;
-    border-radius: 10px;
-    text-align: center;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    color: #6c757d;
+@media (max-width: 700px) {
+    .tables-grid {
+        grid-template-columns: 1fr;
+    }
+    .tables-container {
+        padding: 24px 4px 24px 4px;
+    }
 }
-
-.modal-buttons {
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-}
-
-.yes-btn, .no-btn {
-    padding: 10px 20px;
-    font-size: 16px;
-    font-weight: bold;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.yes-btn {
-    background-color: #28a745;
-    color: white;
-}
-
-.yes-btn:hover {
-    background-color: #218838;
-}
-
-.no-btn {
-    background-color: #dc3545;
-    color: white;
-}
-
-.no-btn:hover {
-    background-color: #c82333;
-}
-
-

@@ -40,7 +40,7 @@ const KitchenDashboard = () => {
         <div className="dashboard-container">
             <h1>Kitchen Dashboard</h1>
 
-            {error && <p className="error-text">{error}</p>}
+
 
             {queue.length === 0 ? (
                 <p>No orders in the kitchen queue.</p>

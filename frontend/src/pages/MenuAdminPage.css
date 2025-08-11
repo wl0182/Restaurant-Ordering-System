@@ -226,3 +226,78 @@ input:checked + .slider:before {
 .menu-modal-buttons button:hover {
   opacity: 0.9;
 }
+
+/* Edit Modal Styles */
+.menu-edit-modal-box {
+  background: #232526;
+  padding: 36px 32px 28px 32px;
+  border-radius: 18px;
+  box-shadow: 0 6px 36px rgba(30,58,138,0.22);
+  color: #e0e0e0;
+  min-width: 340px;
+  max-width: 96vw;
+  text-align: left;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.menu-edit-modal-box h3 {
+  text-align: center;
+  color: #60a5fa;
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.menu-edit-modal-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 0;
+}
+.menu-edit-modal-row label {
+  min-width: 70px;
+  color: #a5b4fc;
+  font-weight: 600;
+}
+.menu-edit-modal-row input,
+.menu-edit-modal-row select {
+  flex: 1 1 120px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: none;
+  font-size: 1rem;
+  background: #1e293b;
+  color: #e0e0e0;
+  margin-right: 0;
+}
+.menu-edit-modal-row button {
+  padding: 8px 18px;
+  border-radius: 999px;
+  border: none;
+  background: linear-gradient(90deg, #1e3a8a 0%, #60a5fa 100%);
+  color: #fff;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-left: 8px;
+  transition: background 0.18s;
+}
+.menu-edit-modal-row button:hover {
+  background: linear-gradient(90deg, #60a5fa 0%, #1e3a8a 100%);
+}
+.menu-edit-modal-close {
+  position: absolute;
+  top: 12px;
+  right: 18px;
+  background: none;
+  border: none;
+  color: #a5b4fc;
+  font-size: 1.5rem;
+  cursor: pointer;
+  font-weight: 700;
+  transition: color 0.18s;
+}
+.menu-edit-modal-close:hover {
+  color: #e53935;
+}

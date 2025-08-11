@@ -117,8 +117,8 @@ const TablesDashboard = () => {
 
             {showModal && (
                 <div className="modal-overlay">
-                    <div className="modal-box">
-                        <p style={{ color: 'black' }}>
+                    <div className="modal-box light-modal">
+                        <p>
                             Start session for <strong>{selectedTable}</strong>?
                         </p>
                         <div className="modal-buttons">
