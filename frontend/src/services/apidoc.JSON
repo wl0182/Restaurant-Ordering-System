@@ -1,0 +1,1430 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "OpenAPI definition",
+    "version": "v0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "Generated server url"
+    }
+  ],
+  "paths": {
+    "/sessions/{tableNumber}/end": {
+      "put": {
+        "tags": [
+          "table-session-controller"
+        ],
+        "operationId": "endSession",
+        "parameters": [
+          {
+            "name": "tableNumber",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/EndSessionResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/menu-items/{id}": {
+      "get": {
+        "tags": [
+          "menu-item-controller"
+        ],
+        "operationId": "getMenuItemByID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/MenuItemResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "menu-item-controller"
+        ],
+        "operationId": "updateAvailability",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/MenuItemResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/menu-items/{id}/price": {
+      "put": {
+        "tags": [
+          "menu-item-controller"
+        ],
+        "operationId": "updatePrice",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "price",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/MenuItemResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/menu-items/{id}/name": {
+      "put": {
+        "tags": [
+          "menu-item-controller"
+        ],
+        "operationId": "updateName",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/MenuItemResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/menu-items/{id}/category": {
+      "put": {
+        "tags": [
+          "menu-item-controller"
+        ],
+        "operationId": "updateCategory",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/MenuItemResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sessions/start": {
+      "post": {
+        "tags": [
+          "table-session-controller"
+        ],
+        "operationId": "startSession",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StartSessionDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/StartSessionResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orders": {
+      "post": {
+        "tags": [
+          "order-controller"
+        ],
+        "operationId": "placeOrder",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PlaceOrderRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlaceOrderResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orders/{id}/serve": {
+      "post": {
+        "tags": [
+          "order-controller"
+        ],
+        "operationId": "markAsServed",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orders/orderItem/{id}/serve": {
+      "post": {
+        "tags": [
+          "order-controller"
+        ],
+        "operationId": "serveOrderItem",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/MarkOrderItemServedDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/menu-items/add": {
+      "post": {
+        "tags": [
+          "menu-item-controller"
+        ],
+        "operationId": "createMenuItem",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MenuItemRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/MenuItemResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/register": {
+      "post": {
+        "tags": [
+          "auth-controller"
+        ],
+        "operationId": "register",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterRequestDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/login": {
+      "post": {
+        "tags": [
+          "auth-controller"
+        ],
+        "operationId": "login",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sessions/{id}": {
+      "get": {
+        "tags": [
+          "table-session-controller"
+        ],
+        "operationId": "getSessionById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/TableSessionResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sessions/{id}/item-summary": {
+      "get": {
+        "tags": [
+          "table-session-controller"
+        ],
+        "operationId": "getItemSummary",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ItemSummaryDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sessions/{id}/item-names": {
+      "get": {
+        "tags": [
+          "table-session-controller"
+        ],
+        "operationId": "getAllItemNames",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sessions/{id}/checkout-summary": {
+      "get": {
+        "tags": [
+          "table-session-controller"
+        ],
+        "operationId": "getSessionSummaryForCheckout",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionSummary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sessions/tables": {
+      "get": {
+        "tags": [
+          "table-session-controller"
+        ],
+        "operationId": "getAllTables",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sessions/active": {
+      "get": {
+        "tags": [
+          "table-session-controller"
+        ],
+        "operationId": "getActiveSessions",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TableSessionResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sessions/active/{tableNumber}": {
+      "get": {
+        "tags": [
+          "table-session-controller"
+        ],
+        "operationId": "getActiveSessionByTable",
+        "parameters": [
+          {
+            "name": "tableNumber",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/TableSessionResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orders/{id}": {
+      "get": {
+        "tags": [
+          "order-controller"
+        ],
+        "operationId": "getOrderById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orders/{id}/Items-status": {
+      "get": {
+        "tags": [
+          "order-controller"
+        ],
+        "operationId": "checkAllItemsServed",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderServedStatusDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orders/sessions/{id}": {
+      "get": {
+        "tags": [
+          "order-controller"
+        ],
+        "operationId": "getOrderBySession",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OrderResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orders/sessions/{id}/unserved": {
+      "get": {
+        "tags": [
+          "order-controller"
+        ],
+        "operationId": "showUnServedOrders",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OrderItemResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orders/sessions/{id}/served": {
+      "get": {
+        "tags": [
+          "order-controller"
+        ],
+        "operationId": "showServedOrders",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OrderItemResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orders/kitchen/queue": {
+      "get": {
+        "tags": [
+          "order-controller"
+        ],
+        "operationId": "getKitchenQueue",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/KitchenOrderQueueResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/stats/total-revenue": {
+      "get": {
+        "tags": [
+          "stats-controller"
+        ],
+        "operationId": "getTotalRevenueByDate",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "number",
+                    "format": "double"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/stats/total-revenue-by-menu-item": {
+      "get": {
+        "tags": [
+          "stats-controller"
+        ],
+        "operationId": "getTotalRevenueByMenuItem",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "number",
+                    "format": "double"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/stats/most-ordered-items": {
+      "get": {
+        "tags": [
+          "stats-controller"
+        ],
+        "operationId": "getMostOrderedItems",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MostOrderedItemDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/stats/average-session-revenue-by-date": {
+      "get": {
+        "tags": [
+          "stats-controller"
+        ],
+        "operationId": "getAverageRevenueByDate",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TableSessionAverageRevenueByDate"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/menu-items": {
+      "get": {
+        "tags": [
+          "menu-item-controller"
+        ],
+        "operationId": "getAllMenuItems",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MenuItemResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/menu-items/category/{category}": {
+      "get": {
+        "tags": [
+          "menu-item-controller"
+        ],
+        "operationId": "getMenuItemsByCategory",
+        "parameters": [
+          {
+            "name": "category",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MenuItemResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/menu-items/available": {
+      "get": {
+        "tags": [
+          "menu-item-controller"
+        ],
+        "operationId": "getAvailableMenuItems",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MenuItemResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "EndSessionResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "tableNumber": {
+            "type": "string"
+          }
+        }
+      },
+      "MenuItemResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number",
+            "format": "double"
+          },
+          "imageUrl": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string"
+          },
+          "available": {
+            "type": "boolean"
+          }
+        }
+      },
+      "StartSessionDTO": {
+        "type": "object",
+        "properties": {
+          "tableNumber": {
+            "type": "string"
+          }
+        }
+      },
+      "StartSessionResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "tableNumber": {
+            "type": "string"
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "active": {
+            "type": "boolean"
+          }
+        }
+      },
+      "OrderItemRequest": {
+        "type": "object",
+        "properties": {
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "menuItemId": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "PlaceOrderRequest": {
+        "type": "object",
+        "properties": {
+          "tableSessionId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrderItemRequest"
+            }
+          }
+        }
+      },
+      "OrderItemResponse": {
+        "type": "object",
+        "properties": {
+          "itemId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "menuItemId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          },
+          "totalPrice": {
+            "type": "number",
+            "format": "double"
+          },
+          "unitPrice": {
+            "type": "number",
+            "format": "double"
+          },
+          "served": {
+            "type": "boolean"
+          }
+        }
+      },
+      "PlaceOrderResponse": {
+        "type": "object",
+        "properties": {
+          "orderId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "sessionId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "status": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrderItemResponse"
+            }
+          }
+        }
+      },
+      "OrderResponse": {
+        "type": "object",
+        "properties": {
+          "orderId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "sessionId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "status": {
+            "type": "string"
+          },
+          "orderItems": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrderItemResponse"
+            }
+          }
+        }
+      },
+      "MarkOrderItemServedDTO": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "orderItemID": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "MenuItemRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number",
+            "format": "double"
+          },
+          "imageUrl": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string"
+          },
+          "available": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "available",
+          "category",
+          "imageUrl",
+          "name",
+          "price"
+        ]
+      },
+      "RegisterRequestDTO": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 50,
+            "minLength": 3
+          },
+          "phoneNumber": {
+            "type": "string",
+            "maxLength": 15,
+            "minLength": 10
+          },
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string",
+            "minLength": 1
+          },
+          "confirmPassword": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "confirmPassword",
+          "email",
+          "name",
+          "password",
+          "phoneNumber"
+        ]
+      },
+      "AuthResponse": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string"
+          }
+        }
+      },
+      "AuthRequest": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "TableSessionResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "tableNumber": {
+            "type": "string"
+          },
+          "sessionStartTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "sessionEndTime": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "ItemSummaryDTO": {
+        "type": "object",
+        "properties": {
+          "itemId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "itemName": {
+            "type": "string"
+          },
+          "totalQuantity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "served": {
+            "type": "boolean"
+          },
+          "totalPrice": {
+            "type": "number",
+            "format": "double"
+          },
+          "orderId": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "SessionSummary": {
+        "type": "object",
+        "properties": {
+          "sessionId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "tableNumber": {
+            "type": "string"
+          },
+          "totalOrders": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "totalItemOrdered": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "totalAmont": {
+            "type": "number",
+            "format": "double"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ItemSummaryDTO"
+            }
+          }
+        }
+      },
+      "OrderServedStatusDTO": {
+        "type": "object",
+        "properties": {
+          "orderId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "allItemsServed": {
+            "type": "boolean"
+          },
+          "someServed": {
+            "type": "boolean"
+          },
+          "noneServed": {
+            "type": "boolean"
+          }
+        }
+      },
+      "KitchenOrderQueueResponse": {
+        "type": "object",
+        "properties": {
+          "orderItemId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "orderId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "tableNumber": {
+            "type": "string"
+          },
+          "itemName": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "served": {
+            "type": "boolean"
+          }
+        }
+      },
+      "MostOrderedItemDTO": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "totalQuantity": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "orderCount": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "TableSessionAverageRevenueByDate": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string"
+          },
+          "averageRevenue": {
+            "type": "number",
+            "format": "double"
+          }
+        }
+      }
+    }
+  }
+}
