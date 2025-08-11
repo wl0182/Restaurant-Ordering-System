@@ -55,7 +55,7 @@ public class StatsController {
 
     //get Average total revenue of a Session grouped by date
     @GetMapping("/average-session-revenue-by-date")
-    public ResponseEntity<List<TableSessionAverageRevenueByDate>> getAverageRevenueByDate() {
+    public ResponseEntity<List<TableSessionAverageRevenueByDate>> getAverageSessionRevenueByDate() {
         List<TableSessionAverageRevenueByDate> averageRevenueByDate = statsService.getAverageTotalByTableSessionGroupedByDate();
         return ResponseEntity.ok(averageRevenueByDate);
     }

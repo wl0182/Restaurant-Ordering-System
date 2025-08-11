@@ -290,6 +290,41 @@ class ApiService {
         if (!res.ok) throw new Error('Failed to update menu item name');
         return res.json();
     }
+
+    // Stats: Get total revenue by date
+    static async getTotalRevenueByDate(token) {
+        const res = await fetch(`${API_BASE}/api/stats/total-revenue`, {
+            headers: { Authorization: `Bearer ${token}` }
+        });
+        if (!res.ok) throw new Error('Failed to fetch total revenue by date');
+        return res.json();
+    }
+
+    // Stats: Get total revenue by menu item
+    static async getTotalRevenueByMenuItem(token) {
+        const res = await fetch(`${API_BASE}/api/stats/total-revenue-by-menu-item`, {
+            headers: { Authorization: `Bearer ${token}` }
+        });
+        if (!res.ok) throw new Error('Failed to fetch total revenue by menu item');
+        return res.json();
+    }
+
+    // Stats: Get most ordered items
+    static async getMostOrderedItems(token) {
+        const res = await fetch(`${API_BASE}/api/stats/most-ordered-items`, {
+            headers: { Authorization: `Bearer ${token}` }
+        });
+        if (!res.ok) throw new Error('Failed to fetch most ordered items');
+        return res.json();
+    }
+    // get average-session-revenue-by-date
+    static async getAverageSessionRevenueByDate(token) {
+        const res = await fetch(`${API_BASE}/api/stats/average-session-revenue-by-date`, {
+            headers: { Authorization: `Bearer ${token}` }
+        });
+        if (!res.ok) throw new Error('Failed to fetch average revenue by date');
+        return res.json();
+    }
 }
 
 export default ApiService;
