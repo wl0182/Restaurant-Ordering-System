@@ -79,7 +79,7 @@ public class TableSessionService {
      * @return TableSessionResponse containing session details
      */
     public TableSessionResponse getSessionById(Long id) {
-        TableSession tableSession = tableSessionRepository.findById(id).orElseThrow(()->new TableSessionNotFound("Table session not found with ID: " + id));
+        TableSession tableSession = tableSessionRepository.findById(id).orElseThrow(TableSessionNotFound::new);
         return TableSessionMapper.fromTableSession(tableSession);
 
     }
