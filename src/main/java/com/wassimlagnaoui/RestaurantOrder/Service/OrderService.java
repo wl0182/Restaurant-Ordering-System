@@ -14,6 +14,7 @@ import com.wassimlagnaoui.RestaurantOrder.model.*;
 import com.wassimlagnaoui.RestaurantOrder.Exception.MenuItemNotFoundException;
 import com.wassimlagnaoui.RestaurantOrder.Exception.NoActiveTableSessionFoundException;
 import com.wassimlagnaoui.RestaurantOrder.Exception.OrderNotFoundException;
+import com.wassimlagnaoui.RestaurantOrder.Exception.NoTableSessionFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -132,7 +133,7 @@ public class OrderService {
      * @return OrderResponse with created order details
      */
     public OrderResponse createOrder(OrderRequest orderRequest) {
-     TableSession tableSession = tableSessionRepository.findActiveTableSessionByTableNumber(orderRequest.getTableSession().getTableNumber()).orElseThrow(()-> new RuntimeException("No TableSession found for this table"));
+     TableSession tableSession = tableSessionRepository.findActiveTableSessionByTableNumber(orderRequest.getTableSession().getTableNumber()).orElseThrow(NoTableSessionFoundException::new);
 
      Order order = new Order();
 
@@ -148,7 +149,7 @@ public class OrderService {
      List<OrderItemRequest> orderItemRequests = orderRequest.getOrderItems();
 
      for (OrderItemRequest orderItemRequest: orderItemRequests){
-         MenuItem menuItem = menuItemRepository.findById(orderItemRequest.getMenuItemId()).orElseThrow(()-> new RuntimeException("MenuItem Not Found"));
+         MenuItem menuItem = menuItemRepository.findById(orderItemRequest.getMenuItemId()).orElseThrow(MenuItemNotFoundException::new);
 
          orderItems.add(OrderItemMapper.toOrderItem(orderItemRequest,menuItem,order));
 
@@ -178,7 +179,7 @@ public class OrderService {
      * @return OrderResponse with order details
      */
     public OrderResponse getOrderById(Long id){
-        Order order = orderRepository.findById(id).orElseThrow(()-> new RuntimeException("Order not found in the System"));
+        Order order = orderRepository.findById(id).orElseThrow(OrderNotFoundException::new);
 
         OrderResponse orderResponse = new OrderResponse();
         orderResponse.setOrderId(id);
@@ -213,7 +214,7 @@ public class OrderService {
      * @return List of OrderResponse for the session
      */
     public List<OrderResponse> getOrderBySessionId(Long sessionId){
-            TableSession tableSession = tableSessionRepository.findById(sessionId).orElseThrow(()-> new RuntimeException("Tablesession does not exist"));
+            TableSession tableSession = tableSessionRepository.findById(sessionId).orElseThrow(NoTableSessionFoundException::new);
 
 
             List<Order> orders = orderRepository.findByTableSession(tableSession);
@@ -260,7 +261,7 @@ public class OrderService {
      * @return List of OrderItemResponse for unserved items
      */
     public List<OrderItemResponse> getUnServedItemsBySession(Long sessionId){
-        TableSession tableSession = tableSessionRepository.findById(sessionId).orElseThrow(()-> new RuntimeException("Session Not Found"));
+        TableSession tableSession = tableSessionRepository.findById(sessionId).orElseThrow(() -> new com.wassimlagnaoui.RestaurantOrder.Exception.TableSessionNotFound("Table session not found with ID: " + sessionId));
 
         List<Order> orders = orderRepository.findByTableSession(sessionId);
 
@@ -292,7 +293,7 @@ public class OrderService {
      * @return List of OrderItemResponse for served items
      */
     public List<OrderItemResponse> getServedItemsBySession(Long sessionId){
-        TableSession tableSession = tableSessionRepository.findById(sessionId).orElseThrow(()-> new RuntimeException("Session Not Found"));
+        TableSession tableSession = tableSessionRepository.findById(sessionId).orElseThrow(() -> new NoTableSessionFoundException());
 
         List<Order> orders = orderRepository.findByTableSession(sessionId);
 
@@ -325,7 +326,7 @@ public class OrderService {
      * @return OrderResponse with updated status
      */
     public OrderResponse markOrderAsServed(Long id){
-       Order order = orderRepository.findById(id).orElseThrow(()-> new RuntimeException("Order not found"));
+       Order order = orderRepository.findById(id).orElseThrow(OrderNotFoundException::new);
 
        order.setStatus(OrderStatus.SERVED.name());
 
@@ -341,7 +342,6 @@ public class OrderService {
      */
     public List<OrderResponse> getKitchenQueue(){
         List<Order> kitchenQueue = orderRepository.findAllUnservedOrder();
-
         if (kitchenQueue.isEmpty()){
             throw new RuntimeException("No pending orders in the Kitchen");
         }
@@ -360,7 +360,6 @@ public class OrderService {
      */
     public List<KitchenOrderQueueResponse> getNotServedItems(){
         List<OrderItem> unservedOrderItems = orderItemRepository.findUnservedOrderItem();
-
         if (unservedOrderItems.isEmpty()){
             throw new RuntimeException("No pending orders in the Kitchen");
         }
@@ -410,7 +409,7 @@ public class OrderService {
      * @return OrderServedStatusDTO with status flags
      */
     public OrderServedStatusDTO checkStatusOfItemsByOrder(Long id) {
-        Order order = orderRepository.findById(id).orElseThrow(()-> new RuntimeException("Order not Found"));
+        Order order = orderRepository.findById(id).orElseThrow(OrderNotFoundException::new);
         OrderServedStatusDTO response = new OrderServedStatusDTO();
 
         Boolean allItemServed = order.getItems().stream()

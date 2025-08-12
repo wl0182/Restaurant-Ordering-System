@@ -7,12 +7,13 @@ import com.wassimlagnaoui.RestaurantOrder.DTO.Response.EndSessionResponse;
 import com.wassimlagnaoui.RestaurantOrder.DTO.Response.SessionSummary;
 import com.wassimlagnaoui.RestaurantOrder.DTO.Response.StartSessionResponse;
 import com.wassimlagnaoui.RestaurantOrder.DTO.TableSessionResponse;
+import com.wassimlagnaoui.RestaurantOrder.Exception.ActiveSessionExistsException;
+import com.wassimlagnaoui.RestaurantOrder.Exception.NoActiveSessionsFoundExceptions;
 import com.wassimlagnaoui.RestaurantOrder.Exception.TableSessionNotFound;
+import com.wassimlagnaoui.RestaurantOrder.Exception.NoActiveTableSessionFoundException;
 import com.wassimlagnaoui.RestaurantOrder.Mapper.TableSessionMapper;
 import com.wassimlagnaoui.RestaurantOrder.Repository.TableSessionRepository;
-import com.wassimlagnaoui.RestaurantOrder.model.Order;
 import com.wassimlagnaoui.RestaurantOrder.model.TableSession;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -27,7 +28,7 @@ import java.util.stream.Collectors;
  */
 @Service
 public class TableSessionService {
-    @Autowired
+
     private final TableSessionRepository tableSessionRepository;
 
     /**
@@ -46,10 +47,8 @@ public class TableSessionService {
     public StartSessionResponse startSession(StartSessionDTO startSessionDTO) {
       // check if the session is active for this table
         Optional<TableSession> tableSession = tableSessionRepository.findActiveTableSessionByTableNumber(startSessionDTO.getTableNumber());
-
        if (tableSession.isPresent()){
-           throw new RuntimeException("Active Session is available for this table");
-
+           throw new ActiveSessionExistsException("There is already an active session for this table: " + startSessionDTO.getTableNumber());
        }
 
        TableSession newTableSession = new TableSession();
@@ -80,7 +79,7 @@ public class TableSessionService {
      * @return TableSessionResponse containing session details
      */
     public TableSessionResponse getSessionById(Long id) {
-        TableSession tableSession = tableSessionRepository.findById(id).orElseThrow(()->new TableSessionNotFound());
+        TableSession tableSession = tableSessionRepository.findById(id).orElseThrow(()->new TableSessionNotFound("Table session not found with ID: " + id));
         return TableSessionMapper.fromTableSession(tableSession);
 
     }
@@ -91,9 +90,8 @@ public class TableSessionService {
      */
     public List<TableSessionResponse> getActiveTableSessions() {
         List<TableSession> tableSessions = tableSessionRepository.findActiveTableSession();
-
         if (tableSessions.isEmpty()) {
-            throw new RuntimeException("No active TableSessions found");
+            throw new NoActiveSessionsFoundExceptions("No active table sessions found");
         }
 
         List<TableSessionResponse> tableSessionResponses = new ArrayList<>();
@@ -109,7 +107,7 @@ public class TableSessionService {
      * @return EndSessionResponse with end session details
      */
     public EndSessionResponse endSession(String tableNumber) {
-        TableSession tableSession = tableSessionRepository.findActiveTableSessionByTableNumber(tableNumber).orElseThrow(()->new RuntimeException("No active session found for table " + tableNumber));
+        TableSession tableSession = tableSessionRepository.findActiveTableSessionByTableNumber(tableNumber).orElseThrow(() -> new NoActiveTableSessionFoundException());
         tableSession.setSessionEnd(LocalDateTime.now());
         tableSessionRepository.save(tableSession);
 
@@ -131,7 +129,7 @@ public class TableSessionService {
      * @return List of ItemSummaryDTO summarizing ordered items
      */
     public List<ItemSummaryDTO> getItemSummaryForSession(Long id) {
-        TableSession tableSession = tableSessionRepository.findById(id).orElseThrow(()->new RuntimeException("Session not found"));
+        TableSession tableSession = tableSessionRepository.findById(id).orElseThrow(TableSessionNotFound::new);
 
         return tableSession.getOrders().stream()
                 .flatMap(order -> order.getItems().stream())
@@ -155,7 +153,7 @@ public class TableSessionService {
      * @return List of item names
      */
     public List<String> getAllOrderedItemNames(Long id) {
-        TableSession tableSession = tableSessionRepository.findById(id).orElseThrow(()->new RuntimeException("Session not found"));
+        TableSession tableSession = tableSessionRepository.findById(id).orElseThrow(TableSessionNotFound::new);
 
         return tableSession.getOrders().stream()
                 .flatMap(order -> order.getItems().stream() )
@@ -169,7 +167,7 @@ public class TableSessionService {
      * @return TableSessionResponse with session details
      */
     public TableSessionResponse findActiveSessionByTableNumber(String tableNumber) {
-        TableSession tableSession = tableSessionRepository.findActiveTableSessionByTableNumber(tableNumber).orElseThrow(()->new RuntimeException("No Active TableSession Found"));
+        TableSession tableSession = tableSessionRepository.findActiveTableSessionByTableNumber(tableNumber).orElseThrow(NoActiveTableSessionFoundException::new);
 
 
         TableSessionResponse tableSessionResponse = new TableSessionResponse();

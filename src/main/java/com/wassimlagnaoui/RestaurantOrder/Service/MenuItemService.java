@@ -6,6 +6,8 @@ import com.wassimlagnaoui.RestaurantOrder.DTO.MenuItemResponse;
 import com.wassimlagnaoui.RestaurantOrder.Mapper.MenuItemMapper;
 import com.wassimlagnaoui.RestaurantOrder.Repository.MenuItemRepository;
 import com.wassimlagnaoui.RestaurantOrder.model.MenuItem;
+import com.wassimlagnaoui.RestaurantOrder.Exception.MenuItemIdNotFoundException;
+import com.wassimlagnaoui.RestaurantOrder.Exception.MenuItemNotAvailableException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -39,10 +41,8 @@ public class MenuItemService {
      * @return MenuItemResponse with menu item details
      */
     public MenuItemResponse findById(Long id) {
-
-
         MenuItem menuItem = menuItemRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Menu item with id " + id + " not found"));
+                .orElseThrow(() -> new MenuItemIdNotFoundException(id));
         return MenuItemMapper.fromMenuItem(menuItem);
 
     }
@@ -84,7 +84,7 @@ public class MenuItemService {
      * @return MenuItemResponse with updated availability status
      */
     public MenuItemResponse updateAvailability(Long id){
-        MenuItem menuItem = menuItemRepository.findById(id).orElseThrow(() -> new RuntimeException("Menu Item not available"));
+        MenuItem menuItem = menuItemRepository.findById(id).orElseThrow(MenuItemNotAvailableException::new);
 
         if (menuItem.isAvailable()){
             menuItem.setAvailable(false);
@@ -136,7 +136,7 @@ public class MenuItemService {
 
     public MenuItemResponse updateCategory(Long id, String category) {
         MenuItem menuItem = menuItemRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Menu item with id " + id + " not found"));
+                .orElseThrow(() -> new MenuItemIdNotFoundException(id));
 
         menuItem.setCategory(category);
         menuItemRepository.save(menuItem);
@@ -146,7 +146,7 @@ public class MenuItemService {
 
     public MenuItemResponse updatePrice(Long id, double price) {
         MenuItem menuItem = menuItemRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Menu item with id " + id + " not found"));
+                .orElseThrow(() -> new MenuItemIdNotFoundException(id));
 
         menuItem.setPrice(price);
         menuItemRepository.save(menuItem);
@@ -157,7 +157,7 @@ public class MenuItemService {
 
     public MenuItemResponse updateName(Long id, String name) {
         MenuItem menuItem = menuItemRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Menu item with id " + id + " not found"));
+                .orElseThrow(() -> new MenuItemIdNotFoundException(id));
 
         menuItem.setName(name);
         menuItemRepository.save(menuItem);

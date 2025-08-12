@@ -66,4 +66,66 @@ public class GlobalExceptionHandler {
         error.put("timestamp", Instant.now());
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+    @ExceptionHandler(MenuItemNotAvailableException.class)
+    public ResponseEntity<Map<String, Object>> handleMenuItemNotAvailable(MenuItemNotAvailableException ex) {
+        Map<String, Object> error = new HashMap<>();
+        error.put("status", HttpStatus.BAD_REQUEST.value());
+        error.put("error", "Menu Item Not Available");
+        error.put("message", ex.getMessage());
+        error.put("timestamp", Instant.now());
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(MenuItemIdNotFoundException.class)
+    public ResponseEntity<Map<String, Object>> handleMenuItemIdNotFound(MenuItemIdNotFoundException ex) {
+        Map<String, Object> error = new HashMap<>();
+        error.put("status", HttpStatus.NOT_FOUND.value());
+        error.put("error", "Menu Item Not Found");
+        error.put("message", ex.getMessage());
+        error.put("timestamp", Instant.now());
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(MenuItemNotFoundException.class)
+    public ResponseEntity<Map<String, Object>> handleMenuItemNotFound(MenuItemNotFoundException ex) {
+        Map<String, Object> error = new HashMap<>();
+        error.put("status", HttpStatus.NOT_FOUND.value());
+        error.put("error", "Menu Item Not Found");
+        error.put("message", ex.getMessage());
+        error.put("timestamp", Instant.now());
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(NoTableSessionFoundException.class)
+    public ResponseEntity<Map<String, Object>> handleNoTableSessionFound(NoTableSessionFoundException ex) {
+        Map<String, Object> error = new HashMap<>();
+        error.put("status", HttpStatus.NOT_FOUND.value());
+        error.put("error", "No Table Session Found");
+        error.put("message", ex.getMessage());
+        error.put("timestamp", Instant.now());
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(NoActiveTableSessionFoundException.class)
+    public ResponseEntity<Map<String, Object>> handleNoActiveTableSessionFound(NoActiveTableSessionFoundException ex) {
+        Map<String, Object> error = new HashMap<>();
+        error.put("status", HttpStatus.NOT_FOUND.value());
+        error.put("error", "No Active Table Session Found");
+        error.put("message", ex.getMessage());
+        error.put("timestamp", Instant.now());
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(OrderNotFoundException.class)
+    public ResponseEntity<Map<String, Object>> handleOrderNotFound(OrderNotFoundException ex) {
+        Map<String, Object> error = new HashMap<>();
+        error.put("status", HttpStatus.NOT_FOUND.value());
+        error.put("error", "Order Not Found");
+        error.put("message", ex.getMessage());
+        error.put("timestamp", Instant.now());
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+
+
 }
