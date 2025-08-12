@@ -335,6 +335,16 @@ class ApiService {
         if (!res.ok) throw new Error('Failed to add staff member');
         return res.json();
     }
+
+    // Get all staff members (basic info, no id)
+    static async getAllStaff() {
+        const res = await fetch(`${API_BASE}/api/staff/all`, {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' }
+        });
+        if (!res.ok) throw new Error('Failed to fetch staff list');
+        return res.json();
+    }
 }
 
 export default ApiService;
