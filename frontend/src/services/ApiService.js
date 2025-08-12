@@ -324,6 +324,17 @@ class ApiService {
         if (!res.ok) throw new Error('Failed to fetch average revenue by date');
         return res.json();
     }
+
+    // Add staff member
+    static async addStaff({ firstName, lastName, email, employeeId, role }) {
+        const res = await fetch(`${API_BASE}/api/staff/add`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ firstName, lastName, email, employeeId, role })
+        });
+        if (!res.ok) throw new Error('Failed to add staff member');
+        return res.json();
+    }
 }
 
 export default ApiService;
