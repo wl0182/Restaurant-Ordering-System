@@ -10,7 +10,8 @@ const RegisterPage = () => {
         phone: '',
         role: 'ROLE_USER',
         password: '',
-        confirmPassword: ''
+        confirmPassword: '',
+        employeeId: ''
     });
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
@@ -27,14 +28,15 @@ const RegisterPage = () => {
         setError('');
         setSuccess('');
         try {
-            await ApiService.register(
-                form.email,
-                form.password,
-                form.name,
-                form.role,
-                form.phone,
-                form.confirmPassword
-            );
+            await ApiService.register({
+                email: form.email,
+                password: form.password,
+                name: form.name,
+                role: form.role,
+                phone: form.phone,
+                confirmPassword: form.confirmPassword,
+                employeeId: form.employeeId
+            });
             setSuccess('Registration successful! You can now log in.');
             setTimeout(() => navigate('/login'), 1200);
         } catch (err) {
@@ -46,7 +48,7 @@ const RegisterPage = () => {
         <div className="home-container">
             <div className="home-icon">📝</div>
             <h1 className="home-heading">Register</h1>
-            <form className="home-links" onSubmit={handleSubmit} style={{ flexDirection: 'column', gap: 16 }}>
+            <form className="home-links" onSubmit={handleSubmit} style={{ flexDirection: 'column', gap: 16 }} autoComplete="off" spellCheck="false">
                 <input
                     type="text"
                     name="name"
@@ -61,6 +63,7 @@ const RegisterPage = () => {
                     name="email"
                     placeholder="Email"
                     value={form.email}
+                    autoComplete="new-email"
                     onChange={handleChange}
                     required
                     style={{ padding: 10, fontSize: 16 }}
@@ -79,6 +82,7 @@ const RegisterPage = () => {
                     name="password"
                     placeholder="Password"
                     value={form.password}
+                    autoComplete="new-password"
                     onChange={handleChange}
                     required
                     style={{ padding: 10, fontSize: 16 }}
@@ -88,6 +92,16 @@ const RegisterPage = () => {
                     name="confirmPassword"
                     placeholder="Confirm Password"
                     value={form.confirmPassword}
+                    autoComplete="new-password"
+                    onChange={handleChange}
+                    required
+                    style={{ padding: 10, fontSize: 16 }}
+                />
+                <input
+                    type="text"
+                    name="employeeId"
+                    placeholder="Employee ID"
+                    value={form.employeeId}
                     onChange={handleChange}
                     required
                     style={{ padding: 10, fontSize: 16 }}
@@ -106,4 +120,3 @@ const RegisterPage = () => {
 };
 
 export default RegisterPage;
-

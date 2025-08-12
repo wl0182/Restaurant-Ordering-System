@@ -25,5 +25,7 @@ public class RegisterRequestDTO {
     private String password;
     @NotEmpty(message = "Confirm password cannot be empty")
     private String confirmPassword;
+    @Size(min = 12 , max = 12, message = "Employee ID must be exactly 12 characters")
+    private Long EmployeeId;
 
 }

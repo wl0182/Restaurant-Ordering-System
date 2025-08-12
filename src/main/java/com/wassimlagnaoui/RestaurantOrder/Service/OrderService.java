@@ -4,6 +4,7 @@ package com.wassimlagnaoui.RestaurantOrder.Service;
 import com.wassimlagnaoui.RestaurantOrder.DTO.*;
 import com.wassimlagnaoui.RestaurantOrder.DTO.Requests.PlaceOrderRequest;
 import com.wassimlagnaoui.RestaurantOrder.DTO.Response.*;
+import com.wassimlagnaoui.RestaurantOrder.Exception.*;
 import com.wassimlagnaoui.RestaurantOrder.Mapper.OrderItemMapper;
 import com.wassimlagnaoui.RestaurantOrder.Mapper.OrderMapper;
 import com.wassimlagnaoui.RestaurantOrder.Repository.MenuItemRepository;
@@ -11,10 +12,6 @@ import com.wassimlagnaoui.RestaurantOrder.Repository.OrderItemRepository;
 import com.wassimlagnaoui.RestaurantOrder.Repository.OrderRepository;
 import com.wassimlagnaoui.RestaurantOrder.Repository.TableSessionRepository;
 import com.wassimlagnaoui.RestaurantOrder.model.*;
-import com.wassimlagnaoui.RestaurantOrder.Exception.MenuItemNotFoundException;
-import com.wassimlagnaoui.RestaurantOrder.Exception.NoActiveTableSessionFoundException;
-import com.wassimlagnaoui.RestaurantOrder.Exception.OrderNotFoundException;
-import com.wassimlagnaoui.RestaurantOrder.Exception.NoTableSessionFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -261,7 +258,7 @@ public class OrderService {
      * @return List of OrderItemResponse for unserved items
      */
     public List<OrderItemResponse> getUnServedItemsBySession(Long sessionId){
-        TableSession tableSession = tableSessionRepository.findById(sessionId).orElseThrow(() -> new com.wassimlagnaoui.RestaurantOrder.Exception.TableSessionNotFound("Table session not found with ID: " + sessionId));
+        TableSession tableSession = tableSessionRepository.findById(sessionId).orElseThrow(TableSessionNotFound::new);
 
         List<Order> orders = orderRepository.findByTableSession(sessionId);
 

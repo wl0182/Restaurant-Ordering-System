@@ -15,15 +15,14 @@ class ApiService {
     }
 
     //register
-    static async register(email, password, name, role ,phone,confirmPassword) {
-       // Check if passwords match
+    static async register({ email, password, name, role, phone, confirmPassword, employeeId }) {
         if (password !== confirmPassword) {
             throw new Error('Passwords do not match');
         }
         const res = await fetch(`${API_BASE}/api/auth/register`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password, name, role, phone })
+            body: JSON.stringify({ email, password, name, role, phone, employeeId })
         });
         if (!res.ok) throw new Error('Registration failed');
         return res.json();
