@@ -903,7 +903,7 @@
         "tags": [
           "stats-controller"
         ],
-        "operationId": "getAverageRevenueByDate",
+        "operationId": "getAverageSessionRevenueByDate",
         "responses": {
           "200": {
             "description": "OK",
@@ -1247,6 +1247,10 @@
           "confirmPassword": {
             "type": "string",
             "minLength": 1
+          },
+          "employeeId": {
+            "type": "integer",
+            "format": "int64"
           }
         },
         "required": [
