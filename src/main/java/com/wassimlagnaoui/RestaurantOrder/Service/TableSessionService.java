@@ -33,6 +33,7 @@ public class TableSessionService {
 
     /**
      * Constructor for TableSessionService.
+     *
      * @param tableSessionRepository the repository for table sessions
      */
     public TableSessionService(TableSessionRepository tableSessionRepository) {
@@ -41,24 +42,25 @@ public class TableSessionService {
 
     /**
      * Starts a new session for a table if no active session exists.
+     *
      * @param startSessionDTO DTO containing table number to start session for
      * @return StartSessionResponse containing session details
      */
     public StartSessionResponse startSession(StartSessionDTO startSessionDTO) {
-      // check if the session is active for this table
+        // check if the session is active for this table
         Optional<TableSession> tableSession = tableSessionRepository.findActiveTableSessionByTableNumber(startSessionDTO.getTableNumber());
-       if (tableSession.isPresent()){
-           throw new ActiveSessionExistsException("There is already an active session for this table: " + startSessionDTO.getTableNumber());
-       }
+        if (tableSession.isPresent()) {
+            throw new ActiveSessionExistsException("There is already an active session for this table: " + startSessionDTO.getTableNumber());
+        }
 
-       TableSession newTableSession = new TableSession();
-       newTableSession.setSessionStart(LocalDateTime.now());
-       newTableSession.setTableNumber(startSessionDTO.getTableNumber());
+        TableSession newTableSession = new TableSession();
+        newTableSession.setSessionStart(LocalDateTime.now());
+        newTableSession.setTableNumber(startSessionDTO.getTableNumber());
 
 
-       tableSessionRepository.save(newTableSession);
+        tableSessionRepository.save(newTableSession);
 
-       // form the response object
+        // form the response object
         StartSessionResponse response = new StartSessionResponse();
         response.setId(newTableSession.getId());
         response.setStartTime(LocalDateTime.now());
@@ -66,15 +68,13 @@ public class TableSessionService {
         response.setActive(true);
 
 
-
-
-
-       return response;
+        return response;
 
     }
 
     /**
      * Retrieves a session by its ID.
+     *
      * @param id the session ID
      * @return TableSessionResponse containing session details
      */
@@ -86,6 +86,7 @@ public class TableSessionService {
 
     /**
      * Retrieves all currently active table sessions.
+     *
      * @return List of TableSessionResponse for active sessions
      */
     public List<TableSessionResponse> getActiveTableSessions() {
@@ -103,6 +104,7 @@ public class TableSessionService {
 
     /**
      * Ends the active session for a given table number.
+     *
      * @param tableNumber the table number
      * @return EndSessionResponse with end session details
      */
@@ -118,13 +120,12 @@ public class TableSessionService {
         response.setTableNumber(tableSession.getTableNumber());
 
 
-
-
         return response;
     }
 
     /**
      * Gets a summary of all items ordered in a session.
+     *
      * @param id the session ID
      * @return List of ItemSummaryDTO summarizing ordered items
      */
@@ -141,7 +142,7 @@ public class TableSessionService {
                     itemSummaryDTO.setItemName(orderItem.getMenuItem().getName());
                     itemSummaryDTO.setTotalQuantity(orderItem.getQuantity());
                     itemSummaryDTO.setServed(orderItem.getServed());
-                    itemSummaryDTO.setTotalPrice(orderItem.getMenuItem().getPrice()* orderItem.getQuantity());
+                    itemSummaryDTO.setTotalPrice(orderItem.getMenuItem().getPrice() * orderItem.getQuantity());
                     return itemSummaryDTO;
                 }).collect(Collectors.toUnmodifiableList());
 
@@ -149,6 +150,7 @@ public class TableSessionService {
 
     /**
      * Retrieves the names of all items ordered in a session.
+     *
      * @param id the session ID
      * @return List of item names
      */
@@ -156,13 +158,14 @@ public class TableSessionService {
         TableSession tableSession = tableSessionRepository.findById(id).orElseThrow(TableSessionNotFound::new);
 
         return tableSession.getOrders().stream()
-                .flatMap(order -> order.getItems().stream() )
+                .flatMap(order -> order.getItems().stream())
                 .map(orderItem -> orderItem.getMenuItem().getName())
                 .collect(Collectors.toUnmodifiableList());
     }
 
     /**
      * Finds the active session for a specific table number.
+     *
      * @param tableNumber the table number
      * @return TableSessionResponse with session details
      */
@@ -187,7 +190,7 @@ public class TableSessionService {
      * @return SessionSummary object containing session details
      */
 
-    public SessionSummary getSessionSummaryForCheckout(Long sessionId){
+    public SessionSummary getSessionSummaryForCheckout(Long sessionId) {
         TableSession tableSession = tableSessionRepository.findById(sessionId).orElseThrow(TableSessionNotFound::new);
 
         SessionSummary sessionSummary = new SessionSummary();
@@ -201,8 +204,8 @@ public class TableSessionService {
 
         List<ItemSummaryDTO> itemsList = getItemSummaryForSession(tableSession.getId());
 
-        for (ItemSummaryDTO item : itemsList){
-            totalAmount = totalAmount+  item.getTotalPrice();
+        for (ItemSummaryDTO item : itemsList) {
+            totalAmount = totalAmount + item.getTotalPrice();
         }
 
         sessionSummary.setTotalAmont(totalAmount);
@@ -212,4 +215,36 @@ public class TableSessionService {
         return sessionSummary;
 
     }
+
+    public List<SessionSummary> getAllSessionByDate(String date) {
+        List<TableSession> tableSessions = tableSessionRepository.findByDate(date);
+        if (tableSessions.isEmpty()) {
+            throw new TableSessionNotFound();
+        }
+        List<SessionSummary> sessionSummaries = new ArrayList<>();
+        sessionSummaries = tableSessions.stream().map(tableSession -> {
+            SessionSummary sessionSummary = new SessionSummary();
+            sessionSummary.setSessionId(tableSession.getId());
+            sessionSummary.setTableNumber(tableSession.getTableNumber());
+            sessionSummary.setTotalOrders(tableSession.getOrders().stream().count());
+            sessionSummary.setTotalItemOrdered(tableSession.getOrders().stream().flatMap(order -> order.getItems().stream()).count());
+
+            Double totalAmount = 0.0;
+
+            List<ItemSummaryDTO> itemsList = getItemSummaryForSession(tableSession.getId());
+
+            for (ItemSummaryDTO item : itemsList) {
+                totalAmount = totalAmount + item.getTotalPrice();
+            }
+
+            sessionSummary.setTotalAmont(totalAmount);
+            sessionSummary.setItems(itemsList);
+
+            return sessionSummary;
+        }).collect(Collectors.toList());
+
+        return sessionSummaries;
+    }
+
+
 }

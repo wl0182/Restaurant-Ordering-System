@@ -30,34 +30,32 @@ public class TableSessionController {
     private final TableService tableService;
 
 
-
-    public TableSessionController(TableSessionService tableSessionService,TableService tableService) {
+    public TableSessionController(TableSessionService tableSessionService, TableService tableService) {
         this.tableSessionService = tableSessionService;
         this.tableService = tableService;
     }
 
     @PostMapping("/start")
-    public ResponseEntity<StartSessionResponse> startSession(@RequestBody @Valid StartSessionDTO startSessionDTO){
+    public ResponseEntity<StartSessionResponse> startSession(@RequestBody @Valid StartSessionDTO startSessionDTO) {
         StartSessionResponse tableSessionResponse = tableSessionService.startSession(startSessionDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(tableSessionResponse);
     }
 
 
-
     @PutMapping("/{tableNumber}/end")
-    public ResponseEntity<EndSessionResponse> endSession(@PathVariable("tableNumber") String tableNumber){
+    public ResponseEntity<EndSessionResponse> endSession(@PathVariable("tableNumber") String tableNumber) {
         EndSessionResponse tableSessionResponse = tableSessionService.endSession(tableNumber);
         return ResponseEntity.status(HttpStatus.CREATED).body(tableSessionResponse);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TableSessionResponse> getSessionById(@PathVariable Long id){
+    public ResponseEntity<TableSessionResponse> getSessionById(@PathVariable Long id) {
         TableSessionResponse tableSessionResponse = tableSessionService.getSessionById(id);
         return ResponseEntity.status(HttpStatus.OK).body(tableSessionResponse);
     }
 
     @GetMapping("/active")
-    public ResponseEntity<List<TableSessionResponse>> getActiveSessions(){
+    public ResponseEntity<List<TableSessionResponse>> getActiveSessions() {
         List<TableSessionResponse> tableSessionResponses = tableSessionService.getActiveTableSessions();
         return ResponseEntity.status(HttpStatus.OK).body(tableSessionResponses);
     }
@@ -91,12 +89,14 @@ public class TableSessionController {
 
 
     @GetMapping("/{id}/checkout-summary")
-    public ResponseEntity<SessionSummary> getSessionSummaryForCheckout(@PathVariable Long id){
+    public ResponseEntity<SessionSummary> getSessionSummaryForCheckout(@PathVariable Long id) {
         SessionSummary sessionSummary = tableSessionService.getSessionSummaryForCheckout(id);
         return ResponseEntity.ok(sessionSummary);
     }
 
-
-
-
+    @GetMapping("/{date}/sessions-by-date")
+    public ResponseEntity<List<SessionSummary>> getSessionsByDate(@PathVariable String date) {
+        List<SessionSummary> sessions = tableSessionService.getAllSessionByDate(date);
+        return ResponseEntity.ok(sessions);
+    }
 }

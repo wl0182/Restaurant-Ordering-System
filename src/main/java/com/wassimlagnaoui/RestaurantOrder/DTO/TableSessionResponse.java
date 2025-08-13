@@ -9,7 +9,8 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class TableSessionResponse {
+public class
+TableSessionResponse {
     private Long id;
     private String tableNumber;
     private LocalDateTime sessionStartTime;
