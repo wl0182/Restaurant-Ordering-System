@@ -27,6 +27,7 @@ public class StaffManagementService {
         staff.setLastName(dto.getLastName());
         staff.setEmail(dto.getEmail());
         staff.setEmployeeId(dto.getEmployeeId());
+        staff.setRole(dto.getRole());
         // Save staff (ID will be auto-generated if annotated with @GeneratedValue in entity)
         Staff saved = staffRepository.save(staff);
         return new staffAddedResponse("Staff member added successfully", saved.getEmployeeId());
@@ -38,7 +39,8 @@ public class StaffManagementService {
                         staff.getFirstName(),
                         staff.getLastName(),
                         staff.getEmail(),
-                        staff.getEmployeeId()
+                        staff.getEmployeeId(),
+                        staff.getRole()
                 ))
                 .collect(Collectors.toList());
     }

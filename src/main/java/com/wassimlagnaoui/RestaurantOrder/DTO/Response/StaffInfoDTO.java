@@ -12,5 +12,6 @@ public class StaffInfoDTO {
     private String lastName;
     private String email;
     private Long employeeId;
+    private String role; // Role of the staff member (e.g., waiter, chef, manager)
 }
 
