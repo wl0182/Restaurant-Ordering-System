@@ -1,0 +1,142 @@
+@import "tailwindcss";
+
+.staff-admin-container {
+    max-width: 800px;
+    margin: 48px auto;
+    padding: 40px 28px;
+    background: rgba(30,32,34,0.98);
+    box-shadow: 0 8px 32px rgba(96,165,250,0.10);
+    border-radius: 22px;
+    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+    color: #e0e0e0;
+}
+
+.staff-admin-container h2, .staff-admin-container h1 {
+    text-align: center;
+    margin-bottom: 28px;
+    color: #1e3a8a;
+    font-size: 2.1rem;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    text-shadow: 0 2px 16px rgba(30,58,138,0.10);
+}
+
+.staff-admin-btn-row {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 18px;
+    gap: 12px;
+}
+
+.staff-admin-btn-row button {
+    flex: 1;
+    padding: 12px 0;
+    font-size: 1.08rem;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    font-weight: 700;
+    background: linear-gradient(90deg, #1e3a8a 0%, #60a5fa 100%);
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(96,165,250,0.10);
+    transition: background 0.18s, color 0.18s, box-shadow 0.18s;
+}
+
+.staff-admin-btn-row button:hover {
+    background: linear-gradient(90deg, #60a5fa 0%, #1e3a8a 100%);
+}
+
+.staff-admin-add-btn {
+    background: linear-gradient(90deg, #4caf50 0%, #22c55e 100%);
+    color: #fff;
+}
+.staff-admin-add-btn:hover {
+    background: linear-gradient(90deg, #22c55e 0%, #4caf50 100%);
+}
+
+.staff-admin-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 24px;
+    background: #232526;
+    padding: 18px 12px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(96,165,250,0.10);
+}
+
+.staff-admin-form input,
+.staff-admin-form select {
+    flex: 1 1 160px;
+    padding: 10px 8px;
+    border-radius: 8px;
+    border: none;
+    font-size: 1rem;
+    margin-bottom: 0;
+    background: #1e293b;
+    color: #e0e0e0;
+}
+
+.staff-admin-form button {
+    flex: 1 1 120px;
+    padding: 10px 0;
+    border-radius: 999px;
+    border: none;
+    background: linear-gradient(90deg, #1e3a8a 0%, #60a5fa 100%);
+    color: #fff;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 0;
+}
+
+.staff-admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #232526;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(96,165,250,0.10);
+}
+
+.staff-admin-table th, .staff-admin-table td {
+    padding: 14px 8px;
+    text-align: center;
+}
+
+.staff-admin-table th {
+    background: #1e3a8a;
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.08rem;
+}
+
+.staff-admin-table tr:nth-child(even) {
+    background: #232526;
+}
+
+.staff-admin-table tr:nth-child(odd) {
+    background: #1e293b;
+}
+
+.staff-admin-table td {
+    color: #e0e0e0;
+    font-size: 1.01rem;
+}
+
+.staff-admin-table tr:hover {
+    background: #334155;
+}
+
+.staff-admin-error {
+    color: #e53935;
+    text-align: center;
+    margin-bottom: 12px;
+}
+
+.staff-admin-success {
+    color: #22c55e;
+    text-align: center;
+    margin-bottom: 12px;
+}
+

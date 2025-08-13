@@ -326,10 +326,13 @@ class ApiService {
     }
 
     // Add staff member
-    static async addStaff({ firstName, lastName, email, employeeId, role }) {
+    static async addStaff(token, { firstName, lastName, email, employeeId, role }) {
         const res = await fetch(`${API_BASE}/api/staff/add`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`
+            },
             body: JSON.stringify({ firstName, lastName, email, employeeId, role })
         });
         if (!res.ok) throw new Error('Failed to add staff member');
@@ -337,10 +340,10 @@ class ApiService {
     }
 
     // Get all staff members (basic info, no id)
-    static async getAllStaff() {
+    static async getAllStaff(token) {
         const res = await fetch(`${API_BASE}/api/staff/all`, {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json' }
+            headers: { Authorization: `Bearer ${token}` }
         });
         if (!res.ok) throw new Error('Failed to fetch staff list');
         return res.json();

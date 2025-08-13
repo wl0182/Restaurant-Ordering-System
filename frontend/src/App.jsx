@@ -10,6 +10,7 @@ import RegisterPage from './pages/RegisterPage';
 import AdminDashboard from './pages/AdminDashboard';
 import MenuAdminPage from "./pages/MenuAdminPage.jsx";
 import StatsPage from "./pages/StatsPage.jsx";
+import StaffManagementPage from "./pages/StaffManagementPage.jsx";
 
 
 
@@ -42,6 +43,7 @@ function App() {
                 <Route path="/receipt" element={<RequireAuth><ReceiptView /></RequireAuth>} />
                 <Route path="/admin/menu" element={<RequireAuth><MenuAdminPage /></RequireAuth>} />
                 <Route path="/admin/stats" element={<RequireAuth><StatsPage /></RequireAuth>} />
+                <Route path="/admin/staff" element={<RequireAuth><StaffManagementPage /></RequireAuth>} />
             </Routes>
         </Router>
     );
