@@ -10,7 +10,7 @@ const KitchenDashboard = () => {
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
 
-    const loginAndFetchQueue = async () => {
+    const FetchQueue = async () => {
         try {
             const token = localStorage.getItem('authToken');
             setToken(token);
@@ -26,14 +26,14 @@ const KitchenDashboard = () => {
             await ApiService.markOrderItemAsServed(orderItemID, token);
 
             // Refresh queue after update
-            loginAndFetchQueue();
+            FetchQueue();
         } catch (err) {
             setError(err.message);
         }
     };
 
     useEffect(() => {
-        loginAndFetchQueue();
+        FetchQueue();
     }, []);
 
     return (

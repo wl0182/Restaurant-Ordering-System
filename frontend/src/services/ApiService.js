@@ -348,6 +348,15 @@ class ApiService {
         if (!res.ok) throw new Error('Failed to fetch staff list');
         return res.json();
     }
+
+    // Get sessions by date
+    static async getSessionsByDate(token, date) {
+        const res = await fetch(`${API_BASE}/sessions/${date}/sessions-by-date`, {
+            headers: { Authorization: `Bearer ${token}` }
+        });
+        if (!res.ok) throw new Error('Failed to fetch sessions by date');
+        return res.json();
+    }
 }
 
 export default ApiService;

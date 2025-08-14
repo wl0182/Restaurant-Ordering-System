@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,9 +25,6 @@ public interface TableSessionRepository extends JpaRepository<TableSession,Long>
     @Query("SELECT DISTINCT DATE(t.sessionStart) FROM TableSession t")
     List<String> findAllDates();
 
-    // find all table sessions by date formatted as "yyyy-MM-dd"
-    @Query("SELECT t FROM TableSession t WHERE DATE(t.sessionStart) = :date")
-    List<TableSession> findByDate(@Param("date") String date);
 
     // find sum of order totals
     @Query(value = "SELECT AVG(session_total) FROM (SELECT SUM(o.total) as session_total FROM table_session ts JOIN orders o ON ts.id = o.table_session_id GROUP BY ts.id) as session_totals", nativeQuery = true)
@@ -55,7 +53,8 @@ public interface TableSessionRepository extends JpaRepository<TableSession,Long>
     List<Object[]> findAverageTotalByTableSessionGroupedByDate();
 
      // find sessions by Data
-    @Query("SELECT t FROM TableSession t WHERE DATE(t.sessionStart) = :date")
+
+    @Query(value = "SELECT * FROM table_session WHERE CAST(session_start AS date) = CAST(:date AS date)", nativeQuery = true)
     List<TableSession> findSessionsByDate(@Param("date") String date);
 
 

@@ -16,6 +16,7 @@ import com.wassimlagnaoui.RestaurantOrder.Repository.TableSessionRepository;
 import com.wassimlagnaoui.RestaurantOrder.model.TableSession;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -217,7 +218,7 @@ public class TableSessionService {
     }
 
     public List<SessionSummary> getAllSessionByDate(String date) {
-        List<TableSession> tableSessions = tableSessionRepository.findByDate(date);
+        List<TableSession> tableSessions = tableSessionRepository.findSessionsByDate(date);
         if (tableSessions.isEmpty()) {
             throw new TableSessionNotFound();
         }
