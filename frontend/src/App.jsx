@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { ROUTES, LOCAL_STORAGE_KEYS } from './constants';
 import HomePage from './pages/HomePage';
 import KitchenDashboard from './pages/KitchenDashboard';
 import TablesDashboard from "./pages/TablesDashboard.jsx";
@@ -19,9 +20,9 @@ import SessionSummaryPage from "./pages/SessionSummaryPage.jsx";
 
 // This component checks if the user is authenticated
 function RequireAuth({ children }) {
-    const token = localStorage.getItem('authToken');
+    const token = localStorage.getItem(LOCAL_STORAGE_KEYS.AUTH_TOKEN);
     if (!token) {
-        window.location.href = '/login';
+        window.location.href = ROUTES.LOGIN;
         return null;
     }
     return children;
@@ -33,19 +34,19 @@ function App() {
     return (
         <Router>
             <Routes>
-                <Route path="/login" element={<LoginPage />} />
-                <Route path="/register" element={<RegisterPage />} />
-                <Route path="/" element={<RequireAuth><HomePage /></RequireAuth>} />
-                <Route path="/kitchen" element={<RequireAuth><KitchenDashboard /></RequireAuth>} />
-                <Route path="/server" element={<RequireAuth><TablesDashboard /></RequireAuth>} />
-                <Route path="/admin" element={<RequireAuth><AdminDashboard /></RequireAuth>} />
-                <Route path="/orderView" element={<RequireAuth><OrderView /></RequireAuth>} />
-                <Route path="/menu" element={<RequireAuth><MenuView /></RequireAuth>} />
-                <Route path="/receipt" element={<RequireAuth><ReceiptView /></RequireAuth>} />
-                <Route path="/admin/menu" element={<RequireAuth><MenuAdminPage /></RequireAuth>} />
-                <Route path="/admin/stats" element={<RequireAuth><StatsPage /></RequireAuth>} />
-                <Route path="/admin/staff" element={<RequireAuth><StaffManagementPage /></RequireAuth>} />
-                <Route path="/admin/sessions" element={<RequireAuth><SessionSummaryPage /></RequireAuth>} />
+                <Route path={ROUTES.LOGIN} element={<LoginPage />} />
+                <Route path={ROUTES.REGISTER} element={<RegisterPage />} />
+                <Route path={ROUTES.HOME} element={<RequireAuth><HomePage /></RequireAuth>} />
+                <Route path={ROUTES.KITCHEN} element={<RequireAuth><KitchenDashboard /></RequireAuth>} />
+                <Route path={ROUTES.SERVER} element={<RequireAuth><TablesDashboard /></RequireAuth>} />
+                <Route path={ROUTES.ADMIN} element={<RequireAuth><AdminDashboard /></RequireAuth>} />
+                <Route path={ROUTES.ORDER_VIEW} element={<RequireAuth><OrderView /></RequireAuth>} />
+                <Route path={ROUTES.MENU} element={<RequireAuth><MenuView /></RequireAuth>} />
+                <Route path={ROUTES.RECEIPT} element={<RequireAuth><ReceiptView /></RequireAuth>} />
+                <Route path={ROUTES.ADMIN_MENU} element={<RequireAuth><MenuAdminPage /></RequireAuth>} />
+                <Route path={ROUTES.ADMIN_STATS} element={<RequireAuth><StatsPage /></RequireAuth>} />
+                <Route path={ROUTES.ADMIN_STAFF} element={<RequireAuth><StaffManagementPage /></RequireAuth>} />
+                <Route path={ROUTES.ADMIN_SESSIONS} element={<RequireAuth><SessionSummaryPage /></RequireAuth>} />
             </Routes>
         </Router>
     );
