@@ -132,7 +132,7 @@ Key dependencies from `pom.xml`:
 
 This project is fully containerized using Docker. You can run the backend, frontend, and PostgreSQL database with a single command.
 
-Prerequisites
+### Prerequisites
 
 Docker installed
 
@@ -147,7 +147,7 @@ cd Restaurant-Ordering-System
 docker-compose up --build
 
 
-This will start:
+#### This will start:
 
 Backend (Spring Boot) → available at http://localhost:8080
 
@@ -155,10 +155,10 @@ Frontend (React + Vite) → available at http://localhost:5173
 
 PostgreSQL Database → running on port 5432
 
-Stopping Containers
+#### Stopping Containers
 docker-compose down
 
-Notes
+### Notes
 
 The backend connects automatically to the PostgreSQL container.
 
