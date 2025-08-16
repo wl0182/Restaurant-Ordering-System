@@ -127,3 +127,42 @@ Key dependencies from `pom.xml`:
 - Update backend configs in `src/main/resources/application.yml`
 - Modify frontend styles in `frontend/src/pages/*.css` or use Tailwind utility classes
 
+
+# 🐳 Running with Docker
+
+This project is fully containerized using Docker. You can run the backend, frontend, and PostgreSQL database with a single command.
+
+Prerequisites
+
+Docker installed
+
+Docker Compose installed
+
+Build & Run
+# Clone the repository
+git clone https://github.com/wl0182/Restaurant-Ordering-System.git
+cd Restaurant-Ordering-System
+
+# Build and start containers
+docker-compose up --build
+
+
+This will start:
+
+Backend (Spring Boot) → available at http://localhost:8080
+
+Frontend (React + Vite) → available at http://localhost:5173
+
+PostgreSQL Database → running on port 5432
+
+Stopping Containers
+docker-compose down
+
+Notes
+
+The backend connects automatically to the PostgreSQL container.
+
+You can update DB credentials in docker-compose.yml if needed by setting your environment variables. 
+
+For persistence, a Docker volume is configured for PostgreSQL data.
+
