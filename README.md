@@ -16,6 +16,7 @@ A full-stack restaurant order management system built with **Spring Boot** (Java
 - **Frontend:** React, Vite, Tailwind CSS
 - **API Docs:** OpenAPI (Swagger via springdoc-openapi)
 - **Build Tools:** Maven, npm
+- **DevOps & Deployment:** Docker, Docker Compose, Jenkins (CI/CD)
 
 ## Getting Started
 
@@ -47,9 +48,9 @@ A full-stack restaurant order management system built with **Spring Boot** (Java
     ```
     This will pull the backend and frontend images from Docker Hub and start all services.
 
-- Backend API: [http://localhost:8080](http://localhost:8080)
+- Backend API: [http://localhost:8090](http://localhost:8090)
 - Frontend: [http://localhost:3000](http://localhost:3000)
-- Swagger UI: [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
+- Swagger UI: [http://localhost:8090/swagger-ui.html](http://localhost:8090/swagger-ui.html)
 
 ### Local Development (Optional)
 
@@ -61,7 +62,7 @@ You can still run backend and frontend locally for development:
     ```sh
     ./mvnw spring-boot:run
     ```
-2. API docs available at: [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
+2. API docs available at: [http://localhost:8090/swagger-ui.html](http://localhost:8090/swagger-ui.html)
 
 #### Frontend Setup
 
@@ -92,6 +93,7 @@ The backend exposes a RESTful API. Here are some key endpoints:
 ### Authentication
 
 - `POST /api/auth/login` — User login (returns JWT token)
+- `POST /api/auth/register` — User registration
 
 ### Menu Items
 
@@ -99,6 +101,9 @@ The backend exposes a RESTful API. Here are some key endpoints:
 - `GET /api/menu-items/{id}` — Get menu item by ID
 - `POST /api/menu-items/add` — Add a new menu item
 - `PUT /api/menu-items/{id}` — Update menu item availability
+- `PUT /api/menu-items/{id}/price` — Update menu item price
+- `PUT /api/menu-items/{id}/name` — Update menu item name
+- `PUT /api/menu-items/{id}/category` — Update menu item category
 - `GET /api/menu-items/category/{category}` — Get menu items by category
 - `GET /api/menu-items/available` — List available menu items
 
@@ -111,6 +116,7 @@ The backend exposes a RESTful API. Here are some key endpoints:
 - `GET /sessions/active/{tableNumber}` — Get active session for a table
 - `GET /sessions/tables` — List all tables
 - `GET /sessions/{id}/item-summary` — Get item summary for a session
+- `GET /sessions/{id}/item-names` — Get all item names for a session
 - `GET /sessions/{id}/checkout-summary` — Get checkout summary for a session
 
 ### Orders
@@ -123,10 +129,18 @@ The backend exposes a RESTful API. Here are some key endpoints:
 - `GET /orders/sessions/{id}/unserved` — Get unserved order items for a session
 - `GET /orders/sessions/{id}/served` — Get served order items for a session
 - `GET /orders/kitchen/queue` — Get kitchen order queue
+- `GET /orders/{id}/Items-status` — Check if all items in an order are served
+
+### Statistics
+
+- `GET /api/stats/total-revenue` — Get total revenue by date
+- `GET /api/stats/total-revenue-by-menu-item` — Get total revenue by menu item
+- `GET /api/stats/most-ordered-items` — Get most ordered items
+- `GET /api/stats/average-session-revenue-by-date` — Get average session revenue by date
 
 ### API Documentation
 
-- OpenAPI/Swagger UI: [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
+- OpenAPI/Swagger UI: [http://localhost:8090/swagger-ui.html](http://localhost:8090/swagger-ui.html)
 
 ## Backend Dependencies
 
@@ -164,4 +178,3 @@ Key dependencies from `pom.xml`:
 - For production, deploy using Docker Compose and provide a secure `.env` file.
 
 ---
-
