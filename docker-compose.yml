@@ -1,44 +1,38 @@
 # Docker Compose file for running Spring Boot backend, PostgreSQL database, and React frontend together
-version: '3.8'
 
 services:
   db:
     image: postgres:14
     container_name: restaurant_postgres
     environment:
-      POSTGRES_DB: ${POSTGRES_DB}         # Database name from .env
-      POSTGRES_USER: ${POSTGRES_USER}     # Database user from .env
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD} # Database password from .env
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
       - "5432:5432"                     # Expose PostgreSQL on localhost:5432
     volumes:
       - db_data:/var/lib/postgresql/data # Persist database data
 
   backend:
-    image: restaurant-order             # Use the image built from your Dockerfile
+    image: wassim4592/restaurant_backend:latest
     container_name: restaurant_backend
     depends_on:
-      - db                              # Ensure db starts before backend
+      - db
     environment:
       SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
       SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
       SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
       JWT_SECRET: ${JWT_SECRET}
     ports:
-      - "8080:8080"                     # Expose backend on localhost:8080
+      - "8080:8080"
 
   frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
+    image: wassim4592/restaurant_frontend:latest
     container_name: restaurant_frontend
-    ports:
-      - "3000:80" # Map local port 3000 to nginx's port 80
     depends_on:
       - backend
-
-
+    ports:
+      - "3000:80"
 
 volumes:
   db_data:
-    # Named volume for persistent PostgreSQL data
