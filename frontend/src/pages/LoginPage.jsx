@@ -44,6 +44,11 @@ const LoginPage = () => {
                 <button className="home-button" type="submit">Login</button>
                 {error && <div style={{ color: 'red', marginTop: 8 }}>{error}</div>}
             </form>
+            <div style={{ marginTop: 18 }}>
+                <button className="home-button" style={{ background: 'none', color: '#60a5fa', border: 'none', boxShadow: 'none', fontWeight: 400 }} onClick={() => navigate('/register')}>
+                    Don't have an account? Register
+                </button>
+            </div>
         </div>
     );
 };
