@@ -21,23 +21,49 @@ A full-stack restaurant order management system built with **Spring Boot** (Java
 
 ### Prerequisites
 
-- Java 17+
-- Maven
-- Node.js & npm
+- Docker Desktop
+- (Optional for local development) Java 17+, Maven, Node.js & npm
 
-### Backend Setup
+### Running with Docker Compose (Recommended)
 
-1. Navigate to the project root:
+1. **Clone the repository:**
     ```sh
+    git clone https://github.com/wassim4592/RestaurantOrder.git
     cd RestaurantOrder
     ```
-2. Build and run the backend:
+2. **Create a `.env` file in the project root** with the following variables:
+    ```env
+    POSTGRES_DB=your_db_name
+    POSTGRES_USER=your_db_user
+    POSTGRES_PASSWORD=your_db_password
+    SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/your_db_name
+    SPRING_DATASOURCE_USERNAME=your_db_user
+    SPRING_DATASOURCE_PASSWORD=your_db_password
+    JWT_SECRET=your_very_long_secure_jwt_secret
+    ```
+3. **Run the application:**
+    ```sh
+    docker-compose up
+    ```
+    This will pull the backend and frontend images from Docker Hub and start all services.
+
+- Backend API: [http://localhost:8080](http://localhost:8080)
+- Frontend: [http://localhost:3000](http://localhost:3000)
+- Swagger UI: [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
+
+### Local Development (Optional)
+
+You can still run backend and frontend locally for development:
+
+#### Backend Setup
+
+1. Build and run the backend:
     ```sh
     ./mvnw spring-boot:run
     ```
-3. API docs available at: [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
+2. API docs available at: [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
 
-### Frontend Setup
+#### Frontend Setup
 
 1. Go to the frontend directory:
     ```sh
@@ -126,4 +152,16 @@ Key dependencies from `pom.xml`:
 
 - Update backend configs in `src/main/resources/application.yml`
 - Modify frontend styles in `frontend/src/pages/*.css` or use Tailwind utility classes
+
+## Docker Images
+
+- Backend: [`wassim4592/restaurant_backend:latest`](https://hub.docker.com/r/wassim4592/restaurant_backend)
+- Frontend: [`wassim4592/restaurant_frontend:latest`](https://hub.docker.com/r/wassim4592/restaurant_frontend)
+
+## CI/CD & Deployment
+
+- You can automate builds and pushes to Docker Hub using Jenkins or GitHub Actions.
+- For production, deploy using Docker Compose and provide a secure `.env` file.
+
+---
 
