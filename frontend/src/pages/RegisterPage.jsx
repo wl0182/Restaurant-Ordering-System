@@ -40,7 +40,7 @@ const RegisterPage = () => {
             setSuccess('Registration successful! You can now log in.');
             setTimeout(() => navigate('/login'), 1200);
         } catch (err) {
-            setError(err.message || 'Registration failed');
+            setError(err.message || 'Invalid Registration Details, Employee ID do not match email');
         }
     };
 
