@@ -28,6 +28,40 @@ function RequireAuth({ children }) {
     return children;
 }
 
+// This component checks if the user is an admin
+function RequireAdmin({ children }) {
+    const token = localStorage.getItem(LOCAL_STORAGE_KEYS.AUTH_TOKEN);
+    if (!token) {
+        window.location.href = ROUTES.LOGIN;
+        return null;
+    }
+
+    try {
+        const payload = JSON.parse(atob(token.split('.')[1]));
+
+        // Check for admin role in authorities array or direct role property
+        let isAdmin = false;
+        if (payload.authorities && Array.isArray(payload.authorities)) {
+            isAdmin = payload.authorities.some(auth =>
+                auth === 'ROLE_ADMIN' || auth.authority === 'ROLE_ADMIN'
+            );
+        } else {
+            isAdmin = payload.role === 'ROLE_ADMIN';
+        }
+
+        if (!isAdmin) {
+            window.location.href = ROUTES.HOME;
+            return null;
+        }
+    } catch (error) {
+        console.error('Error checking admin role:', error);
+        window.location.href = ROUTES.HOME;
+        return null;
+    }
+
+    return children;
+}
+
 // Main App component with routing
 // Adding RequireAuth to protect routes
 function App() {
@@ -39,14 +73,14 @@ function App() {
                 <Route path={ROUTES.HOME} element={<RequireAuth><HomePage /></RequireAuth>} />
                 <Route path={ROUTES.KITCHEN} element={<RequireAuth><KitchenDashboard /></RequireAuth>} />
                 <Route path={ROUTES.SERVER} element={<RequireAuth><TablesDashboard /></RequireAuth>} />
-                <Route path={ROUTES.ADMIN} element={<RequireAuth><AdminDashboard /></RequireAuth>} />
+                <Route path={ROUTES.ADMIN} element={<RequireAdmin><AdminDashboard /></RequireAdmin>} />
                 <Route path={ROUTES.ORDER_VIEW} element={<RequireAuth><OrderView /></RequireAuth>} />
                 <Route path={ROUTES.MENU} element={<RequireAuth><MenuView /></RequireAuth>} />
                 <Route path={ROUTES.RECEIPT} element={<RequireAuth><ReceiptView /></RequireAuth>} />
-                <Route path={ROUTES.ADMIN_MENU} element={<RequireAuth><MenuAdminPage /></RequireAuth>} />
-                <Route path={ROUTES.ADMIN_STATS} element={<RequireAuth><StatsPage /></RequireAuth>} />
-                <Route path={ROUTES.ADMIN_STAFF} element={<RequireAuth><StaffManagementPage /></RequireAuth>} />
-                <Route path={ROUTES.ADMIN_SESSIONS} element={<RequireAuth><SessionSummaryPage /></RequireAuth>} />
+                <Route path={ROUTES.ADMIN_MENU} element={<RequireAdmin><MenuAdminPage /></RequireAdmin>} />
+                <Route path={ROUTES.ADMIN_STATS} element={<RequireAdmin><StatsPage /></RequireAdmin>} />
+                <Route path={ROUTES.ADMIN_STAFF} element={<RequireAdmin><StaffManagementPage /></RequireAdmin>} />
+                <Route path={ROUTES.ADMIN_SESSIONS} element={<RequireAdmin><SessionSummaryPage /></RequireAdmin>} />
             </Routes>
         </Router>
     );

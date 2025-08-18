@@ -1,6 +1,7 @@
 package com.wassimlagnaoui.RestaurantOrder.Security;
 
 
+import com.wassimlagnaoui.RestaurantOrder.model.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Service;
 
 import java.security.Key;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Function;
 
 
@@ -25,9 +28,23 @@ public class JwtService {
 
     // Generate token
     public String generateToken(UserDetails userDetails) {
+        Map<String, Object> extraClaims = new HashMap<>();
+
+        // If userDetails is our User entity, add the role to the token
+        if (userDetails instanceof User) {
+            User user = (User) userDetails;
+            extraClaims.put("role", user.getRole().name()); // Add role as "ROLE_ADMIN" or "ROLE_USER"
+        }
+
+        return generateToken(extraClaims, userDetails);
+    }
+
+    // Generate token with extra claims
+    public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
         return Jwts.builder()
+                .setClaims(extraClaims)
                 .setSubject(userDetails.getUsername()) // set username
-                .setIssuedAt(new Date(System.currentTimeMillis())) //
+                .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + jwtExpiration))
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
