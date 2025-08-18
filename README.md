@@ -48,9 +48,9 @@ A full-stack restaurant order management system built with **Spring Boot** (Java
     ```
     This will pull the backend and frontend images from Docker Hub and start all services.
 
-- Backend API: [http://localhost:8090](http://localhost:8090)
+- Backend API: [http://localhost:8080](http://localhost:8080)
 - Frontend: [http://localhost:3000](http://localhost:3000)
-- Swagger UI: [http://localhost:8090/swagger-ui.html](http://localhost:8090/swagger-ui.html)
+- Swagger UI: [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
 
 ### Local Development (Optional)
 
@@ -62,7 +62,7 @@ You can still run backend and frontend locally for development:
     ```sh
     ./mvnw spring-boot:run
     ```
-2. API docs available at: [http://localhost:8090/swagger-ui.html](http://localhost:8090/swagger-ui.html)
+2. API docs available at: [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
 
 #### Frontend Setup
 
@@ -140,7 +140,7 @@ The backend exposes a RESTful API. Here are some key endpoints:
 
 ### API Documentation
 
-- OpenAPI/Swagger UI: [http://localhost:8090/swagger-ui.html](http://localhost:8090/swagger-ui.html)
+- OpenAPI/Swagger UI: [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
 
 ## Backend Dependencies
 

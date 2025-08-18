@@ -24,7 +24,7 @@ services:
       SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
       JWT_SECRET: ${JWT_SECRET}
     ports:
-      - "8090:8080" # Changed external port to 8090
+      - "8080:8080" # Changed external port back to 8080
 
   frontend:
     image: wassim4592/restaurant_frontend:latest
