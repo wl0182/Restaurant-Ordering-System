@@ -16,6 +16,7 @@ A full-stack restaurant order management system built with **Spring Boot** (Java
 - **Frontend:** React, Vite, Tailwind CSS
 - **API Docs:** OpenAPI (Swagger via springdoc-openapi)
 - **Build Tools:** Maven, npm
+- **Testing:** JUnit 5, Mockito 
 - **DevOps & Deployment:** Docker, Docker Compose, Jenkins (CI/CD)
 
 ## Getting Started
@@ -52,34 +53,41 @@ A full-stack restaurant order management system built with **Spring Boot** (Java
 - Frontend: [http://localhost:3000](http://localhost:3000)
 - Swagger UI: [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
 
-### Local Development (Optional)
+**Important:** To test the application, you need admin credentials since user registration requires a valid staff Employee ID from the database.
 
-You can still run backend and frontend locally for development:
+**Admin Login Credentials:**
+- Email: `admin@example.com`
+- Password: `Password` (or your configured admin password)
 
-#### Backend Setup
+## Testing the Application
 
-1. Build and run the backend:
-    ```sh
-    ./mvnw spring-boot:run
-    ```
-2. API docs available at: [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
+### Admin User Access
 
-#### Frontend Setup
+**Important:** To test the application, you need admin credentials since user registration requires a valid staff Employee ID from the database.
 
-1. Go to the frontend directory:
-    ```sh
-    cd frontend
-    ```
-2. Install dependencies:
-    ```sh
-    npm install
-    ```
-3. Start the development server:
-    ```sh
-    npm run dev
-    ```
+#### For Demo/Testing Purposes:
 
-The frontend will be available at [http://localhost:5173](http://localhost:5173) by default.
+1. **Admin Login Credentials:**
+   - Email: `admin@example.com`
+   - Password: `Password` (or your configured admin password)
+
+2. **User Registration Process:**
+   - New users can only register if their Employee ID exists in the Staff table
+   - This ensures only authorized restaurant staff can create accounts
+   - All new registrations are assigned `ROLE_USER` by default
+   - Only users with `ROLE_ADMIN` can access admin features (menu management, statistics, staff management)
+
+3. **Role-Based Access:**
+   - **Regular Users (ROLE_USER):** Can access Kitchen Dashboard and Server Dashboard
+   - **Admin Users (ROLE_ADMIN):** Can access all features including Admin Dashboard with menu management, statistics, and staff operations
+
+#### Setting Up Test Data:
+
+If you need to add more staff members for testing registration:
+1. Access the Admin Dashboard after logging in with admin credentials
+2. Navigate to Staff Management
+3. Add staff members with Employee IDs
+4. New users can then register using those Employee IDs
 
 ## Database
 
@@ -126,7 +134,7 @@ The backend exposes a RESTful API. Here are some key endpoints:
 - `POST /orders/{id}/serve` — Mark an order as served
 - `POST /orders/orderItem/{id}/serve` — Mark an order item as served
 - `GET /orders/sessions/{id}` — Get orders by session
-- `GET /orders/sessions/{id}/unserved` — Get unserved order items for a session
+- `GET /orders/sessions/{id}/unserved` ��� Get unserved order items for a session
 - `GET /orders/sessions/{id}/served` — Get served order items for a session
 - `GET /orders/kitchen/queue` — Get kitchen order queue
 - `GET /orders/{id}/Items-status` — Check if all items in an order are served
