@@ -1,23 +1,63 @@
-# RestaurantOrder
+# RestaurantOrder Management System
 
-A full-stack restaurant order management system built with **Spring Boot** (Java) for the backend and **React** (Vite) for the frontend. It allows restaurant staff to manage tables, orders, and kitchen workflows efficiently.
+A comprehensive full-stack restaurant management application designed for **servers**, **kitchen staff**, and **administrators** to streamline restaurant operations. Built with **Spring Boot** (Java) for the backend and **React** (Vite) for the frontend.
 
-## Features
+## Application Overview
 
-- User authentication and session management (JWT)
-- Table and order management
-- Kitchen dashboard for order tracking
-- Responsive UI with Tailwind CSS
-- RESTful API with OpenAPI documentation
+This restaurant management system digitizes and optimizes the entire restaurant workflow from table management to kitchen operations and administrative oversight. The application serves three primary user roles:
+
+### 🍽️ **For Servers**
+- **Table Management**: Start and manage table sessions, assign customers to tables
+- **Order Taking**: Create and modify customer orders with real-time menu access
+- **Order Tracking**: Monitor order status and manage customer requests
+- **Session Management**: Handle table checkouts and session summaries
+
+### 👨‍🍳 **For Kitchen Staff**
+- **Kitchen Queue Dashboard**: Real-time view of all pending orders
+- **Order Preparation Tracking**: Mark items as prepared and ready for serving
+- **Priority Management**: Organize orders by preparation time and table requirements
+- **Status Updates**: Communicate order completion to serving staff
+
+### 👨‍💼 **For Administrators**
+- **Menu Management**: Add, edit, remove menu items and manage pricing
+- **Staff Management**: Create and manage staff accounts with role-based access
+- **Analytics & Statistics**: View revenue, popular items, and operational insights
+- **Session Oversight**: Monitor all table sessions and transaction history
+- **System Configuration**: Manage restaurant settings and operational parameters
+
+## Key Features
+
+### 🔐 **Authentication & Security**
+- JWT-based authentication with role-based access control
+- Secure user registration tied to employee ID verification
+- Protected admin routes and sensitive operations
+
+### 📊 **Real-time Operations**
+- Live kitchen queue updates
+- Real-time table session management
+- Dynamic order status tracking
+- Instant menu updates across all interfaces
+
+### 📱 **Responsive Design**
+- Mobile-friendly interface for on-the-go restaurant operations
+- Optimized for tablets and handheld devices used by servers
+- Intuitive dashboard layouts for different user roles
+
+### 📈 **Business Intelligence**
+- Revenue analytics and reporting
+- Popular menu item tracking
+- Table turnover statistics
+- Staff performance insights
 
 ## Tech Stack
 
 - **Backend:** Java 17, Spring Boot, Spring Security, Spring Data JPA, JWT, PostgreSQL
 - **Frontend:** React, Vite, Tailwind CSS
-- **API Docs:** OpenAPI (Swagger via springdoc-openapi)
+- **API Documentation:** OpenAPI (Swagger via springdoc-openapi)
 - **Build Tools:** Maven, npm
-- **Testing:** JUnit 5, Mockito 
+- **Testing:** JUnit 5, Mockito (Unit Testing)
 - **DevOps & Deployment:** Docker, Docker Compose, Jenkins (CI/CD)
+- **Database:** PostgreSQL with Docker volumes for data persistence
 
 ## Getting Started
 
@@ -41,7 +81,7 @@ A full-stack restaurant order management system built with **Spring Boot** (Java
     SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/your_db_name
     SPRING_DATASOURCE_USERNAME=your_db_user
     SPRING_DATASOURCE_PASSWORD=your_db_password
-    JWT_SECRET=your_very_long_secure_jwt_secret
+    JWT_SECRET=your_very_long_secure_jwt_secret_256_bits_or_more
     ```
 3. **Run the application:**
     ```sh
@@ -49,140 +89,161 @@ A full-stack restaurant order management system built with **Spring Boot** (Java
     ```
     This will pull the backend and frontend images from Docker Hub and start all services.
 
-- Backend API: [http://localhost:8080](http://localhost:8080)
-- Frontend: [http://localhost:3000](http://localhost:3000)
-- Swagger UI: [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
+### Application URLs
+
+- **Frontend Application:** [http://localhost:3000](http://localhost:3000)
+- **Backend API:** [http://localhost:8080](http://localhost:8080)
+- **API Documentation:** [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
+
+## User Access & Testing
+
+### 🔑 **Admin Access Required**
 
 **Important:** To test the application, you need admin credentials since user registration requires a valid staff Employee ID from the database.
 
-**Admin Login Credentials:**
-- Email: `admin@example.com`
-- Password: `Password` (or your configured admin password)
+**Default Admin Login:**
+- **Email:** `admin@example.com`
+- **Password:** `Password`
 
-## Testing the Application
+### 👥 **User Registration Process**
 
-### Admin User Access
+1. **Staff Verification:** New users can only register if their Employee ID exists in the Staff database
+2. **Role Assignment:** All new registrations receive `ROLE_USER` by default
+3. **Admin Privileges:** Only `ROLE_ADMIN` users can access administrative features
 
-**Important:** To test the application, you need admin credentials since user registration requires a valid staff Employee ID from the database.
+### 🎭 **Role-Based Features**
 
-#### For Demo/Testing Purposes:
+#### Regular Staff (`ROLE_USER`)
+- ✅ Kitchen Dashboard - View and manage cooking queue
+- ✅ Tables Dashboard - Manage table sessions and orders
+- ✅ Order Management - Create and track customer orders
+- ❌ Admin Dashboard - Restricted access
 
-1. **Admin Login Credentials:**
-   - Email: `admin@example.com`
-   - Password: `Password` (or your configured admin password)
+#### Administrators (`ROLE_ADMIN`)
+- ✅ All staff features listed above
+- ✅ Admin Dashboard - Complete system oversight
+- ✅ Menu Management - Add/edit/remove menu items
+- ✅ Staff Management - Create and manage employee accounts
+- ✅ Analytics & Statistics - Revenue and operational insights
+- ✅ Session Summaries - Complete transaction history
 
-2. **User Registration Process:**
-   - New users can only register if their Employee ID exists in the Staff table
-   - This ensures only authorized restaurant staff can create accounts
-   - All new registrations are assigned `ROLE_USER` by default
-   - Only users with `ROLE_ADMIN` can access admin features (menu management, statistics, staff management)
+### 🧪 **Setting Up Test Data**
 
-3. **Role-Based Access:**
-   - **Regular Users (ROLE_USER):** Can access Kitchen Dashboard and Server Dashboard
-   - **Admin Users (ROLE_ADMIN):** Can access all features including Admin Dashboard with menu management, statistics, and staff operations
+1. Login with admin credentials
+2. Navigate to **Staff Management** in the Admin Dashboard
+3. Add staff members with unique Employee IDs
+4. New users can register using these Employee IDs
+5. Test different user roles and permissions
 
-#### Setting Up Test Data:
+## API Endpoints Overview
 
-If you need to add more staff members for testing registration:
-1. Access the Admin Dashboard after logging in with admin credentials
-2. Navigate to Staff Management
-3. Add staff members with Employee IDs
-4. New users can then register using those Employee IDs
+The application provides a comprehensive RESTful API documented with OpenAPI. Here are the available endpoints organized by functionality:
 
-## Database
+### 🔐 **Authentication** (`/api/auth`)
+- `POST /api/auth/login` - User authentication with email/password
+- `POST /api/auth/register` - New user registration (requires valid Employee ID)
 
-- **Production:** PostgreSQL (default)
-- **Development/Testing:** H2 in-memory (optional, for local/dev use)
+### 🍽️ **Menu Management** (`/api/menu-items`)
+- `GET /api/menu-items` - Get all menu items
+- `GET /api/menu-items/{id}` - Get specific menu item by ID
+- `GET /api/menu-items/available` - Get only available menu items
+- `GET /api/menu-items/category/{category}` - Get menu items by category
+- `POST /api/menu-items/add` - Create new menu item (Admin only)
+- `PUT /api/menu-items/{id}` - Toggle menu item availability (Admin only)
+- `PUT /api/menu-items/{id}/name` - Update menu item name (Admin only)
+- `PUT /api/menu-items/{id}/price` - Update menu item price (Admin only)
+- `PUT /api/menu-items/{id}/category` - Update menu item category (Admin only)
 
-## API Overview
+### 🪑 **Table & Session Management** (`/sessions`)
+- `GET /sessions/tables` - Get all restaurant tables
+- `GET /sessions/active` - Get all active table sessions
+- `GET /sessions/active/{tableNumber}` - Get active session for specific table
+- `GET /sessions/{id}` - Get session details by ID
+- `GET /sessions/{id}/item-summary` - Get order item summary for session
+- `GET /sessions/{id}/item-names` - Get all item names for session
+- `GET /sessions/{id}/checkout-summary` - Get complete checkout summary
+- `GET /sessions/{date}/sessions-by-date` - Get sessions by specific date
+- `POST /sessions/start` - Start new table session
+- `PUT /sessions/{tableNumber}/end` - End table session and generate receipt
 
-The backend exposes a RESTful API. Here are some key endpoints:
+### 📋 **Order Management** (`/orders`)
+- `POST /orders` - Create new customer order
+- `GET /orders/{id}` - Get order details by ID
+- `GET /orders/{id}/Items-status` - Check if all items in order are served
+- `GET /orders/sessions/{id}` - Get all orders for a session
+- `GET /orders/sessions/{id}/served` - Get served items for session
+- `GET /orders/sessions/{id}/unserved` - Get unserved items for session
+- `GET /orders/kitchen/queue` - Get kitchen preparation queue
+- `POST /orders/{id}/serve` - Mark entire order as served
+- `POST /orders/orderItem/{id}/serve` - Mark individual order item as served
 
-### Authentication
+### 👥 **Staff Management** (`/api/staff`) - Admin Only
+- `GET /api/staff/all` - Get all staff members
+- `POST /api/staff/add` - Add new staff member
+- Staff management endpoints for updating and removing staff
 
-- `POST /api/auth/login` — User login (returns JWT token)
-- `POST /api/auth/register` — User registration
+### 📊 **Analytics & Statistics** (`/api/stats`) - Admin Only
+- `GET /api/stats/total-revenue` - Daily revenue statistics
+- `GET /api/stats/total-revenue-by-menu-item` - Revenue breakdown by menu items
+- `GET /api/stats/most-ordered-items` - Most popular menu items with order counts
+- `GET /api/stats/average-session-revenue-by-date` - Average revenue per session by date
 
-### Menu Items
+### 🔧 **Additional Features**
+- **Real-time Kitchen Queue**: Live updates for kitchen staff
+- **Session Tracking**: Complete table session lifecycle management
+- **Order Status Tracking**: Individual item and order status management
+- **Revenue Analytics**: Comprehensive business intelligence
+- **Role-based Access Control**: Different endpoints accessible based on user roles
 
-- `GET /api/menu-items` — List all menu items
-- `GET /api/menu-items/{id}` — Get menu item by ID
-- `POST /api/menu-items/add` — Add a new menu item
-- `PUT /api/menu-items/{id}` — Update menu item availability
-- `PUT /api/menu-items/{id}/price` — Update menu item price
-- `PUT /api/menu-items/{id}/name` — Update menu item name
-- `PUT /api/menu-items/{id}/category` — Update menu item category
-- `GET /api/menu-items/category/{category}` — Get menu items by category
-- `GET /api/menu-items/available` — List available menu items
+### 📱 **Frontend Integration**
+The React frontend seamlessly integrates with all these endpoints through the ApiService class, providing:
+- **Dashboard Views**: Kitchen, Tables, Admin dashboards
+- **Real-time Updates**: Live order status and queue management
+- **Form Handling**: Menu item creation, staff management
+- **Data Visualization**: Statistics and analytics display
+- **Responsive Design**: Mobile-optimized for restaurant operations
 
-### Table Sessions
+## Database Schema
 
-- `POST /sessions/start` — Start a new table session
-- `PUT /sessions/{tableNumber}/end` — End a table session
-- `GET /sessions/{id}` — Get session by ID
-- `GET /sessions/active` — List all active sessions
-- `GET /sessions/active/{tableNumber}` — Get active session for a table
-- `GET /sessions/tables` — List all tables
-- `GET /sessions/{id}/item-summary` — Get item summary for a session
-- `GET /sessions/{id}/item-names` — Get all item names for a session
-- `GET /sessions/{id}/checkout-summary` — Get checkout summary for a session
+The application uses PostgreSQL with the following main entities:
+- **Users** - Authentication and role management
+- **Staff** - Employee information and ID verification
+- **MenuItems** - Restaurant menu with pricing and availability
+- **Tables** - Physical restaurant tables
+- **TableSessions** - Customer seating sessions
+- **Orders** - Customer orders linked to table sessions
+- **OrderItems** - Individual items within orders
 
-### Orders
+## Development & Deployment
 
-- `POST /orders` — Place a new order
-- `GET /orders/{id}` — Get order by ID
-- `POST /orders/{id}/serve` — Mark an order as served
-- `POST /orders/orderItem/{id}/serve` — Mark an order item as served
-- `GET /orders/sessions/{id}` — Get orders by session
-- `GET /orders/sessions/{id}/unserved` ��� Get unserved order items for a session
-- `GET /orders/sessions/{id}/served` — Get served order items for a session
-- `GET /orders/kitchen/queue` — Get kitchen order queue
-- `GET /orders/{id}/Items-status` — Check if all items in an order are served
+### 🧪 **Testing**
+- Comprehensive unit tests for all service layers
+- Integration tests for API endpoints
+- Run tests: `./mvnw test`
 
-### Statistics
+### 🐳 **Docker Deployment**
+- Backend and frontend containerized separately
+- PostgreSQL database with persistent volumes
+- Environment-based configuration
+- Production-ready Docker Compose setup
 
-- `GET /api/stats/total-revenue` — Get total revenue by date
-- `GET /api/stats/total-revenue-by-menu-item` — Get total revenue by menu item
-- `GET /api/stats/most-ordered-items` — Get most ordered items
-- `GET /api/stats/average-session-revenue-by-date` — Get average session revenue by date
+### 🚀 **CI/CD Pipeline**
+- Jenkins integration for automated builds
+- Docker Hub image publishing
+- Automated testing and deployment workflows
 
-### API Documentation
+## Contributing
 
-- OpenAPI/Swagger UI: [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-## Backend Dependencies
+## License
 
-Key dependencies from `pom.xml`:
-
-- `spring-boot-starter-web` — REST API
-- `spring-boot-starter-data-jpa` — Database access
-- `spring-boot-starter-security` — Security and authentication
-- `spring-boot-starter-validation` — Input validation
-- `springdoc-openapi-starter-webmvc-ui` — API documentation (Swagger UI)
-- `io.jsonwebtoken` (jjwt) — JWT authentication
-- `org.postgresql:postgresql` — PostgreSQL driver (runtime)
-- `com.h2database:h2` — H2 in-memory database (runtime)
-- `lombok` — Boilerplate code reduction (optional)
-- `spring-boot-starter-test` — Testing
-
-## Project Structure
-
-- `src/main/java/com/wassimlagnaoui/RestaurantOrder/` — Spring Boot backend
-- `frontend/` — React frontend
-
-## Customization
-
-- Update backend configs in `src/main/resources/application.yml`
-- Modify frontend styles in `frontend/src/pages/*.css` or use Tailwind utility classes
-
-## Docker Images
-
-- Backend: [`wassim4592/restaurant_backend:latest`](https://hub.docker.com/r/wassim4592/restaurant_backend)
-- Frontend: [`wassim4592/restaurant_frontend:latest`](https://hub.docker.com/r/wassim4592/restaurant_frontend)
-
-## CI/CD & Deployment
-
-- You can automate builds and pushes to Docker Hub using Jenkins or GitHub Actions.
-- For production, deploy using Docker Compose and provide a secure `.env` file.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
+
+**Built with ❤️ for modern restaurant operations**
