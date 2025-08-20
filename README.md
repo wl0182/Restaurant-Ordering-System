@@ -1,49 +1,49 @@
-# RestaurantOrder Management System
+# Restaurant Management System
 
-A comprehensive full-stack restaurant management application designed for **servers**, **kitchen staff**, and **administrators** to streamline restaurant operations. Built with **Spring Boot** (Java) for the backend and **React** (Vite) for the frontend.
+A full-stack restaurant management application designed for servers, kitchen staff, and administrators to streamline restaurant operations. Built with Spring Boot (Java) for the backend and React (Vite) for the frontend.
 
 ## Application Overview
 
-This restaurant management system digitizes and optimizes the entire restaurant workflow from table management to kitchen operations and administrative oversight. The application serves three primary user roles:
+This restaurant management system digitizes restaurant workflows from table management to kitchen operations and administrative oversight. The application serves three primary user roles:
 
-### 🍽️ **For Servers**
-- **Table Management**: Start and manage table sessions, assign customers to tables
-- **Order Taking**: Create and modify customer orders with real-time menu access
-- **Order Tracking**: Monitor order status and manage customer requests
-- **Session Management**: Handle table checkouts and session summaries
+### For Servers
+- Table Management: Start and manage table sessions, assign customers to tables
+- Order Taking: Create and modify customer orders with real-time menu access
+- Order Tracking: Monitor order status and manage customer requests
+- Session Management: Handle table checkouts and session summaries
 
-### 👨‍🍳 **For Kitchen Staff**
-- **Kitchen Queue Dashboard**: Real-time view of all pending orders
-- **Order Preparation Tracking**: Mark items as prepared and ready for serving
-- **Priority Management**: Organize orders by preparation time and table requirements
-- **Status Updates**: Communicate order completion to serving staff
+### For Kitchen Staff
+- Kitchen Queue Dashboard: Real-time view of all pending orders
+- Order Preparation Tracking: Mark items as prepared and ready for serving
+- Priority Management: Organize orders by preparation time and table requirements
+- Status Updates: Communicate order completion to serving staff
 
-### 👨‍💼 **For Administrators**
-- **Menu Management**: Add, edit, remove menu items and manage pricing
-- **Staff Management**: Create and manage staff accounts with role-based access
-- **Analytics & Statistics**: View revenue, popular items, and operational insights
-- **Session Oversight**: Monitor all table sessions and transaction history
-- **System Configuration**: Manage restaurant settings and operational parameters
+### For Administrators
+- Menu Management: Add, edit, remove menu items and manage pricing
+- Staff Management: Create and manage staff accounts with role-based access
+- Analytics & Statistics: View revenue, popular items, and operational insights
+- Session Oversight: Monitor all table sessions and transaction history
+- System Configuration: Manage restaurant settings and operational parameters
 
 ## Key Features
 
-### 🔐 **Authentication & Security**
+### Authentication & Security
 - JWT-based authentication with role-based access control
 - Secure user registration tied to employee ID verification
 - Protected admin routes and sensitive operations
 
-### 📊 **Real-time Operations**
+### Real-time Operations
 - Live kitchen queue updates
 - Real-time table session management
 - Dynamic order status tracking
 - Instant menu updates across all interfaces
 
-### 📱 **Responsive Design**
+### Responsive Design
 - Mobile-friendly interface for on-the-go restaurant operations
 - Optimized for tablets and handheld devices used by servers
 - Intuitive dashboard layouts for different user roles
 
-### 📈 **Business Intelligence**
+### Business Intelligence
 - Revenue analytics and reporting
 - Popular menu item tracking
 - Table turnover statistics
@@ -70,8 +70,8 @@ This restaurant management system digitizes and optimizes the entire restaurant 
 
 1. **Clone the repository:**
     ```sh
-    git clone https://github.com/wassim4592/RestaurantOrder.git
-    cd RestaurantOrder
+    git clone https://github.com/wl0182/Restaurant-Ordering-System.git
+    cd Restaurant-Ordering-System
     ```
 2. **Create a `.env` file in the project root** with the following variables:
     ```env
@@ -93,7 +93,7 @@ This restaurant management system digitizes and optimizes the entire restaurant 
 
 - **Frontend Application:** [http://localhost:3000](http://localhost:3000)
 - **Backend API:** [http://localhost:8080](http://localhost:8080)
-- **API Documentation:** [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
+- **API Documentation:** [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
 
 ### Docker Hub Images
 
@@ -110,7 +110,7 @@ docker pull wassim4592/restaurant_frontend:latest
 
 ## User Access & Testing
 
-### 🔑 **Admin Access Required**
+### Admin Access Required
 
 **Important:** To test the application, you need admin credentials since user registration requires a valid staff Employee ID from the database.
 
@@ -118,45 +118,45 @@ docker pull wassim4592/restaurant_frontend:latest
 - **Email:** `admin@example.com`
 - **Password:** `Password`
 
-### 👥 **User Registration Process**
+### User Registration Process
 
 1. **Staff Verification:** New users can only register if their Employee ID exists in the Staff database
 2. **Role Assignment:** All new registrations receive `ROLE_USER` by default
 3. **Admin Privileges:** Only `ROLE_ADMIN` users can access administrative features
 
-### 🎭 **Role-Based Features**
+### Role-Based Features
 
 #### Regular Staff (`ROLE_USER`)
-- ✅ Kitchen Dashboard - View and manage cooking queue
-- ✅ Tables Dashboard - Manage table sessions and orders
-- ✅ Order Management - Create and track customer orders
-- ❌ Admin Dashboard - Restricted access
+- Kitchen Dashboard - View and manage cooking queue
+- Tables Dashboard - Manage table sessions and orders
+- Order Management - Create and track customer orders
+- Admin Dashboard - Restricted access
 
 #### Administrators (`ROLE_ADMIN`)
-- ✅ All staff features listed above
-- ✅ Admin Dashboard - Complete system oversight
-- ✅ Menu Management - Add/edit/remove menu items
-- ✅ Staff Management - Create and manage employee accounts
-- ✅ Analytics & Statistics - Revenue and operational insights
-- ✅ Session Summaries - Complete transaction history
+- All staff features listed above
+- Admin Dashboard - Complete system oversight
+- Menu Management - Add/edit/remove menu items
+- Staff Management - Create and manage employee accounts
+- Analytics & Statistics - Revenue and operational insights
+- Session Summaries - Complete transaction history
 
-### 🧪 **Setting Up Test Data**
+### Setting Up Test Data
 
 1. Login with admin credentials
-2. Navigate to **Staff Management** in the Admin Dashboard
+2. Navigate to Staff Management in the Admin Dashboard
 3. Add staff members with unique Employee IDs
 4. New users can register using these Employee IDs
 5. Test different user roles and permissions
 
-## API Endpoints Overview
+## API Endpoints
 
 The application provides a comprehensive RESTful API documented with OpenAPI. Here are the available endpoints organized by functionality:
 
-### 🔐 **Authentication** (`/api/auth`)
+### Authentication (`/api/auth`)
 - `POST /api/auth/login` - User authentication with email/password
 - `POST /api/auth/register` - New user registration (requires valid Employee ID)
 
-### 🍽️ **Menu Management** (`/api/menu-items`)
+### Menu Management (`/api/menu-items`)
 - `GET /api/menu-items` - Get all menu items
 - `GET /api/menu-items/{id}` - Get specific menu item by ID
 - `GET /api/menu-items/available` - Get only available menu items
@@ -167,7 +167,7 @@ The application provides a comprehensive RESTful API documented with OpenAPI. He
 - `PUT /api/menu-items/{id}/price` - Update menu item price (Admin only)
 - `PUT /api/menu-items/{id}/category` - Update menu item category (Admin only)
 
-### 🪑 **Table & Session Management** (`/sessions`)
+### Table & Session Management (`/sessions`)
 - `GET /sessions/tables` - Get all restaurant tables
 - `GET /sessions/active` - Get all active table sessions
 - `GET /sessions/active/{tableNumber}` - Get active session for specific table
@@ -179,7 +179,7 @@ The application provides a comprehensive RESTful API documented with OpenAPI. He
 - `POST /sessions/start` - Start new table session
 - `PUT /sessions/{tableNumber}/end` - End table session and generate receipt
 
-### 📋 **Order Management** (`/orders`)
+### Order Management (`/orders`)
 - `POST /orders` - Create new customer order
 - `GET /orders/{id}` - Get order details by ID
 - `GET /orders/{id}/Items-status` - Check if all items in order are served
@@ -190,31 +190,33 @@ The application provides a comprehensive RESTful API documented with OpenAPI. He
 - `POST /orders/{id}/serve` - Mark entire order as served
 - `POST /orders/orderItem/{id}/serve` - Mark individual order item as served
 
-### 👥 **Staff Management** (`/api/staff`) - Admin Only
-- `GET /api/staff/all` - Get all staff members
-- `POST /api/staff/add` - Add new staff member
-- Staff management endpoints for updating and removing staff
+### Staff Management (`/api/staff`) - Admin Only
+- `GET /api/staff/all` - Get all staff members with basic information
+- `POST /api/staff/add` - Add new staff member with employee ID, role, and contact details
+- `PUT /api/staff/{id}` - Update staff member information
+- `DELETE /api/staff/{id}` - Remove staff member from system
+- Staff role management and access control configuration
 
-### 📊 **Analytics & Statistics** (`/api/stats`) - Admin Only
+### Analytics & Statistics (`/api/stats`) - Admin Only
 - `GET /api/stats/total-revenue` - Daily revenue statistics
 - `GET /api/stats/total-revenue-by-menu-item` - Revenue breakdown by menu items
 - `GET /api/stats/most-ordered-items` - Most popular menu items with order counts
 - `GET /api/stats/average-session-revenue-by-date` - Average revenue per session by date
 
-### 🔧 **Additional Features**
-- **Real-time Kitchen Queue**: Live updates for kitchen staff
-- **Session Tracking**: Complete table session lifecycle management
-- **Order Status Tracking**: Individual item and order status management
-- **Revenue Analytics**: Comprehensive business intelligence
-- **Role-based Access Control**: Different endpoints accessible based on user roles
+### Additional Features
+- Real-time Kitchen Queue: Live updates for kitchen staff
+- Session Tracking: Complete table session lifecycle management
+- Order Status Tracking: Individual item and order status management
+- Revenue Analytics: Comprehensive business intelligence
+- Role-based Access Control: Different endpoints accessible based on user roles
 
-### 📱 **Frontend Integration**
+### Frontend Integration
 The React frontend seamlessly integrates with all these endpoints through the ApiService class, providing:
-- **Dashboard Views**: Kitchen, Tables, Admin dashboards
-- **Real-time Updates**: Live order status and queue management
-- **Form Handling**: Menu item creation, staff management
-- **Data Visualization**: Statistics and analytics display
-- **Responsive Design**: Mobile-optimized for restaurant operations
+- Dashboard Views: Kitchen, Tables, Admin dashboards
+- Real-time Updates: Live order status and queue management
+- Form Handling: Menu item creation, staff management
+- Data Visualization: Statistics and analytics display
+- Responsive Design: Mobile-optimized for restaurant operations
 
 ## Database Schema
 
@@ -229,7 +231,7 @@ The application uses PostgreSQL with the following main entities:
 
 ## Development & Deployment
 
-### 🧪 **Testing**
+### Testing
 - Comprehensive unit tests for all service layers
 - Integration tests for API endpoints
 - Run tests: `./mvnw test`
@@ -240,7 +242,7 @@ The application uses PostgreSQL with the following main entities:
 - Environment-based configuration
 - Production-ready Docker Compose setup
 
-### 🚀 **CI/CD Pipeline**
+### CI/CD Pipeline
 - Jenkins integration for automated builds
 - Docker Hub image publishing
 - Automated testing and deployment workflows
