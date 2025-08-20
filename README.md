@@ -95,6 +95,19 @@ This restaurant management system digitizes and optimizes the entire restaurant 
 - **Backend API:** [http://localhost:8080](http://localhost:8080)
 - **API Documentation:** [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
 
+### Docker Hub Images
+
+For those who prefer to pull pre-built images directly:
+
+- **Backend Image:** [wassim4592/restaurant_backend:latest](https://hub.docker.com/r/wassim4592/restaurant_backend)
+- **Frontend Image:** [wassim4592/restaurant_frontend:latest](https://hub.docker.com/r/wassim4592/restaurant_frontend)
+
+```sh
+# Pull images manually
+docker pull wassim4592/restaurant_backend:latest
+docker pull wassim4592/restaurant_frontend:latest
+```
+
 ## User Access & Testing
 
 ### 🔑 **Admin Access Required**
