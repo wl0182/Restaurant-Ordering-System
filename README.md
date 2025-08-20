@@ -242,7 +242,9 @@ The application uses PostgreSQL with the following main entities:
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is protected under **All Rights Reserved** copyright. No part of this software may be used, reproduced, or distributed without explicit written permission from the author.
+
+For permission requests or licensing inquiries, please contact: lagnaouiw@gmail.com
 
 ---
 
