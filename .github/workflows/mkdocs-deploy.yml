@@ -28,6 +28,23 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Show repo state
+        run: |
+          echo "Branch: $GITHUB_REF"
+          echo "Commit: $(git rev-parse --short HEAD)"
+          pwd
+          ls -la
+          echo "--- docs directory listing (if exists) ---"
+          ls -la docs || true
+
+      - name: Ensure docs directory exists
+        run: |
+          if [ ! -d docs ]; then
+            echo "ERROR: docs/ directory not found in this commit."
+            echo "Make sure docs/index.md and docs/episode-01-building-models.md are committed and pushed to the same branch."
+            exit 1
+          fi
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
