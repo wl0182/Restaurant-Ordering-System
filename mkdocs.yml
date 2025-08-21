@@ -1,0 +1,30 @@
+site_name: Restaurant Ordering System Docs
+site_description: Documentation and tutorials for the Restaurant Ordering System
+repo_url: https://github.com/wl0182/Restaurant-Ordering-System
+repo_name: GitHub
+
+# docs_dir defaults to "docs" which you already have
+# docs_dir: docs
+
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - toc.integrate
+    - content.code.copy
+
+markdown_extensions:
+  - admonition
+  - toc:
+      permalink: true
+  - tables
+  - attr_list
+  - codehilite
+  - pymdownx.superfences
+  - pymdownx.highlight
+  - pymdownx.emoji
+
+nav:
+  - Home: index.md
+  - "Episode 1: Building the Domain Model": episode-01-building-models.md
