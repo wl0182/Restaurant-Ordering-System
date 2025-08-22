@@ -41,7 +41,7 @@ Why: JPA requires a datasource; validation auto-config wires Bean Validation; Lo
 
 ### Step 1) Create the model package
 Create a package:
-```
+```text
 com.wassimlagnaoui.RestaurantOrder.model
 ```
 Purpose: centralize entities and enums for discoverability and consistent imports.
