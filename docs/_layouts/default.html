@@ -18,6 +18,31 @@
         .project-name { margin-top: 0; margin-bottom: 0.1rem; }
         .project-tagline { margin-bottom: 2rem; font-weight: normal; opacity: 0.7; }
 
+        /* Navigation Styles */
+        .site-nav {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 0.75rem 0;
+            margin-top: 1.5rem;
+            border-radius: 0.3rem;
+        }
+        .site-nav a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            margin: 0 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 0.2rem;
+            transition: background-color 0.2s;
+        }
+        .site-nav a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: #fff;
+        }
+        .site-nav a.active {
+            background-color: rgba(255, 255, 255, 0.25);
+            color: #fff;
+            font-weight: 600;
+        }
+
         .main-content { word-wrap: break-word; }
         .main-content :first-child { margin-top: 0; }
         .main-content h1, .main-content h2, .main-content h3, .main-content h4, .main-content h5, .main-content h6 { margin-top: 2rem; margin-bottom: 1rem; font-weight: normal; color: #159957; }
@@ -58,15 +83,22 @@
             .project-name { font-size: 1.75rem; }
             .project-tagline { font-size: 1rem; }
             .main-content { padding: 2rem 1rem; font-size: 1rem; }
+            .site-nav a { margin: 0 0.5rem; padding: 0.4rem 0.8rem; }
         }
     </style>
 </head>
 <body>
 
-
 <header class="page-header" role="banner">
     <h1 class="project-name">{{ page.title | default: site.title | default: site.github.repository_name }}</h1>
     <h2 class="project-tagline">{{ page.description | default: site.description | default: site.github.project_tagline }}</h2>
+
+    <nav class="site-nav">
+        <a href="{{ '/' | relative_url }}" class="{% if page.url == '/' or page.url == '/index.html' %}active{% endif %}">Home</a>
+        <a href="{{ '/episode-01-building-models.html' | relative_url }}" class="{% if page.url contains 'episode-01-building-models' %}active{% endif %}">Tutorial 1</a>
+        <a href="{{ '/README.html' | relative_url }}" class="{% if page.url contains 'README' %}active{% endif %}">Project Details</a>
+        <a href="https://github.com/wl0182/Restaurant-Ordering-System" target="_blank">GitHub</a>
+    </nav>
 </header>
 
 <main id="content" class="main-content" role="main">
