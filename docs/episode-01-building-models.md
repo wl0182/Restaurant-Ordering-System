@@ -273,6 +273,4 @@ Explanation:
 - UserDetails: Spring Security contract exposing username, password, authorities, and account status flags.
 
 ---
-
-## Deep dive
-Moved to Docs/episode-01-models-deep-dive.md for extended explanations.
+copyright: © 2025 Wassim Lagnaoui
