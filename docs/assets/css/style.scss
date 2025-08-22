@@ -1,0 +1,17 @@
+---
+---
+
+/* Hide the hardcoded GitHub Pages footer text */
+.site-footer-credits {
+  display: none !important;
+}
+
+.site-footer-owner:last-child {
+  display: none !important;
+}
+
+/* Hide common GitHub Pages footer elements */
+.site-footer span:last-child,
+.site-footer p:last-child {
+  display: none !important;
+}
