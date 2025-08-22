@@ -25,4 +25,3 @@ This documentation provides a comprehensive guide to the project, including tuto
 - **Frontend:** React, Vite, Tailwind CSS 
 - **DevOps:** Docker, Docker Compose, Jenkins
 - **Testing:** JUnit, MockMvc
-
