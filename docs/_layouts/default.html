@@ -9,8 +9,8 @@
     <meta name="description" content="{{ page.description | default: site.description | default: site.github.project_tagline }}"/>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="preload" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" as="style" type="text/css" crossorigin>
-    <!-- Syntax highlighting -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Syntax highlighting (higher-contrast theme) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>document.addEventListener('DOMContentLoaded', function(){ if(window.hljs){ hljs.highlightAll(); } });</script>
     <style>
@@ -93,26 +93,31 @@
   document.addEventListener('DOMContentLoaded', function(){
     var content = document.querySelector('.doc-content');
     var list = document.getElementById('toc-list');
-    if(!content || !list) return;
-    var headings = content.querySelectorAll('h2, h3');
+    var aside = document.getElementById('toc');
+    if(!content || !list || !aside) return;
+    // Include h1 as well to ensure TOC on all pages
+    var headings = content.querySelectorAll('h1, h2, h3');
+    var added = 0;
     var lastUl = list;
     headings.forEach(function(h){
+      var level = h.tagName.toLowerCase();
       if(!h.id){ h.id = slugify(h.textContent || h.innerText); }
       var li = document.createElement('li');
       var a = document.createElement('a');
       a.href = '#' + h.id; a.textContent = h.textContent || h.innerText;
-      if(h.tagName.toLowerCase()==='h3'){
-        // ensure nested list under previous item
+      if(level==='h3'){
         var parent = lastUl.lastElementChild;
         if(parent){
           var sub = parent.querySelector('ul');
           if(!sub){ sub = document.createElement('ul'); sub.className='lvl-2'; parent.appendChild(sub); }
           var sli = document.createElement('li'); sli.appendChild(a); sub.appendChild(sli);
-        } else { li.appendChild(a); lastUl.appendChild(li); }
+          added++;
+        } else { li.appendChild(a); lastUl.appendChild(li); added++; }
       } else {
-        li.appendChild(a); lastUl.appendChild(li);
+        li.appendChild(a); lastUl.appendChild(li); added++;
       }
     });
+    if(added===0){ aside.style.display='none'; }
   });
 })();
 </script>
