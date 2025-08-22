@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Home
+subtitle: "By Wassim Lagnaoui"
 ---
 
 # Restaurant Ordering System Docs

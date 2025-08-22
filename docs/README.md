@@ -1,6 +1,7 @@
 ---
 layout: default
-title: "Readme"
+title: "Readme - Restaurant Management System"
+subtitle: "By Wassim Lagnaoui"
 ---
 
 # Restaurant Management System
