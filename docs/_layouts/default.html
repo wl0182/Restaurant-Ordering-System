@@ -9,85 +9,57 @@
     <meta name="description" content="{{ page.description | default: site.description | default: site.github.project_tagline }}"/>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="preload" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" as="style" type="text/css" crossorigin>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css" integrity="sha512-1m3wQpZQ2p0M3m4Gg9q3pB8oQ3P4G4H4g0yxv1n6v0Zk1cC9c9YbSxwH0WcP9CwJmLh0s0rFQnVfGq8J6Qm8Vg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-6kG6Qe9tq9R1wq8K1yG9nXgq2cF+oF1wM1m2wZb0sQ5w+7y3pN8g2f9x7kVfI3e1gNQbXQmVq3mL9U6kNwQ8bA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- Syntax highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>document.addEventListener('DOMContentLoaded', function(){ if(window.hljs){ hljs.highlightAll(); } });</script>
     <style>
-        /* GitHub Cayman Theme Styles - Complete */
+        /* Base (Cayman-like) */
         * { box-sizing: border-box; }
-        body { padding: 0; margin: 0; font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 16px; line-height: 1.5; color: #606c71; }
+        body { margin: 0; font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif; font-size: 16px; line-height: 1.5; color: #606c71; }
+        .page-header { color:#fff; text-align:center; background-image: linear-gradient(120deg, #155799, #159957); }
+        .project-name { margin:0 0 .1rem 0; }
+        .project-tagline { margin:0 0 2rem 0; font-weight:400; opacity:.7; }
+        a { color:#1e6bb8; text-decoration:none; }
+        a:hover { text-decoration:underline; }
 
-        .page-header { color: #fff; text-align: center; background-color: #159957; background-image: linear-gradient(120deg, #155799, #159957); }
-        .project-name { margin-top: 0; margin-bottom: 0.1rem; }
-        .project-tagline { margin-bottom: 2rem; font-weight: normal; opacity: 0.7; }
+        /* Top nav */
+        .site-nav { background-color: rgba(255,255,255,.1); padding:.75rem 0; margin-top:1.5rem; border-radius:.3rem; }
+        .site-nav a { color:rgba(255,255,255,.85); text-decoration:none; margin:0 1rem; padding:.5rem 1rem; border-radius:.2rem; transition:background-color .2s; }
+        .site-nav a:hover { background-color: rgba(255,255,255,.2); color:#fff; }
+        .site-nav a.active { background-color: rgba(255,255,255,.25); color:#fff; font-weight:600; }
 
-        /* Navigation Styles */
-        .site-nav {
-            background-color: rgba(255, 255, 255, 0.1);
-            padding: 0.75rem 0;
-            margin-top: 1.5rem;
-            border-radius: 0.3rem;
-        }
-        .site-nav a {
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            margin: 0 1rem;
-            padding: 0.5rem 1rem;
-            border-radius: 0.2rem;
-            transition: background-color 0.2s;
-        }
-        .site-nav a:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-            color: #fff;
-        }
-        .site-nav a.active {
-            background-color: rgba(255, 255, 255, 0.25);
-            color: #fff;
-            font-weight: 600;
-        }
+        /* Two-column doc layout */
+        .doc-layout { display:flex; gap:28px; align-items:flex-start; max-width: 1100px; margin: 0 auto; padding: 2rem 1rem; }
+        .toc { flex: 0 0 260px; position: sticky; top: 12px; align-self: flex-start; background:#f7fbff; border:1px solid #e6eef7; border-radius:12px; padding:14px 14px; }
+        .toc-title { font-weight:700; font-size:.95rem; color:#155799; margin-bottom:.4rem; }
+        .toc nav { max-height: calc(100vh - 120px); overflow:auto; }
+        .toc ul { list-style:none; padding-left: 0; margin: 0; }
+        .toc li { margin: 6px 0; }
+        .toc a { text-decoration:none; color:#1e6bb8; }
+        .toc a:hover { text-decoration:underline; }
+        .toc .lvl-2 { padding-left: 12px; }
 
-        .main-content { word-wrap: break-word; }
-        .main-content :first-child { margin-top: 0; }
-        .main-content h1, .main-content h2, .main-content h3, .main-content h4, .main-content h5, .main-content h6 { margin-top: 2rem; margin-bottom: 1rem; font-weight: normal; color: #159957; }
-        .main-content p { margin-bottom: 1em; }
-        .main-content ul, .main-content ol { margin-top: 0; }
+        /* Main article */
+        .doc-content { flex: 1 1 auto; min-width: 0; }
+        .doc-content h1, .doc-content h2, .doc-content h3, .doc-content h4, .doc-content h5, .doc-content h6 { margin-top: 2rem; margin-bottom: 1rem; font-weight:400; color:#159957; }
+        .doc-content p { margin-bottom: 1em; }
+        .doc-content table { border-collapse: collapse; width:100%; margin:12px 0; }
+        .doc-content th, .doc-content td { border:1px solid #e9ebec; padding:.5rem 1rem; }
+        .doc-content th { background:#f3f6fa; font-weight:700; }
+        .site-footer { padding-top:2rem; margin-top:2rem; border-top:1px solid #eff0f1; text-align:center; color:#606c71; }
 
-        .main-content code { padding: 2px 4px; font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace; font-size: 0.9rem; color: #567482; background-color: #f3f6fa; border-radius: 0.3rem; }
-        .main-content pre { padding: 0.8rem; margin-top: 0; margin-bottom: 1rem; font: 1rem Consolas, "Liberation Mono", Menlo, Courier, monospace; color: #567482; word-wrap: normal; background-color: #f3f6fa; border: solid 1px #dce6f0; border-radius: 0.3rem; overflow: auto; }
-        .main-content pre > code { padding: 0; margin: 0; font-size: 0.9rem; color: #567482; word-break: normal; white-space: pre; background: transparent; border: 0; }
+        /* Code blocks: let highlight.js manage colors */
+        pre { padding:.8rem; margin: 0 0 1rem 0; background:#f8fafc; border:1px solid #e5e7eb; border-radius:.3rem; overflow:auto; }
+        pre code { background: transparent; }
+        code { padding: 2px 4px; border-radius: .2rem; background: #f3f6fa; }
 
-        .main-content blockquote { padding: 0 1rem; margin-left: 0; color: #819198; border-left: 0.3rem solid #dce6f0; }
-        .main-content table { border-collapse: collapse; width: 100%; margin: 12px 0; }
-        .main-content th, .main-content td { border: 1px solid #e9ebec; padding: 0.5rem 1rem; }
-        .main-content th { font-weight: bold; background-color: #f3f6fa; }
-        .main-content hr { height: 2px; padding: 0; margin: 1rem 0; background-color: #eff0f1; border: 0; }
-
-        .site-footer { padding-top: 2rem; margin-top: 2rem; border-top: solid 1px #eff0f1; }
-        .site-footer-owner { display: block; font-weight: bold; text-align: center; color: #606c71; }
-
-        a { color: #1e6bb8; text-decoration: none; }
-        a:hover { text-decoration: underline; }
-
-        /* Responsive Design */
-        @media screen and (min-width: 64em) {
-            .page-header { padding: 5rem 6rem; }
-            .project-name { font-size: 3.25rem; }
-            .project-tagline { font-size: 1.25rem; }
-            .main-content { max-width: 64rem; padding: 2rem 6rem; margin: 0 auto; font-size: 1.1rem; }
-        }
-        @media screen and (min-width: 42em) and (max-width: 64em) {
-            .page-header { padding: 3rem 4rem; }
-            .project-name { font-size: 2.25rem; }
-            .project-tagline { font-size: 1.15rem; }
-            .main-content { padding: 2rem 4rem; font-size: 1.1rem; }
-        }
-        @media screen and (max-width: 42em) {
-            .page-header { padding: 2rem 1rem; }
-            .project-name { font-size: 1.75rem; }
-            .project-tagline { font-size: 1rem; }
-            .main-content { padding: 2rem 1rem; font-size: 1rem; }
-            .site-nav a { margin: 0 0.5rem; padding: 0.4rem 0.8rem; }
-        }
+        /* Responsive */
+        @media (max-width: 980px) { .doc-layout { padding: 1.2rem .8rem; } }
+        @media (max-width: 900px) { .toc { display:none; } .doc-layout { display:block; } }
+        @media (min-width: 64em) { .page-header { padding:5rem 6rem; } .project-name{font-size:3.25rem;} .project-tagline{font-size:1.25rem;} }
+        @media (min-width: 42em) and (max-width: 64em) { .page-header{padding:3rem 4rem;} .project-name{font-size:2.25rem;} .project-tagline{font-size:1.15rem;} }
+        @media (max-width: 42em) { .page-header{padding:2rem 1rem;} .project-name{font-size:1.75rem;} .project-tagline{font-size:1rem;} .site-nav a{margin:0 .5rem; padding:.4rem .8rem;} }
     </style>
 </head>
 <body>
@@ -95,21 +67,54 @@
 <header class="page-header" role="banner">
     <h1 class="project-name">{{ page.title | default: site.title | default: site.github.repository_name }}</h1>
     <h2 class="project-tagline">{{ page.description | default: site.description | default: site.github.project_tagline }}</h2>
-
     <nav class="site-nav">
         <a href="{{ '/' | relative_url }}" class="{% if page.url == '/' or page.url == '/index.html' %}active{% endif %}">Home</a>
-        <a href="{{ '/episode-01-building-models.html' | relative_url }}" class="{% if page.url contains 'episode-01-building-models' %}active{% endif %}">Tutorial 1</a>
         <a href="{{ '/README.html' | relative_url }}" class="{% if page.url contains 'README' %}active{% endif %}">Project Details</a>
         <a href="https://github.com/wl0182/Restaurant-Ordering-System" target="_blank">GitHub</a>
     </nav>
 </header>
 
-<main id="content" class="main-content" role="main">
-    {{ content }}
-
-    <footer class="site-footer">
-        <span class="site-footer-owner">© 2025 Wassim Lagnaoui</span>
-    </footer>
+<main id="content" role="main">
+    <div class="doc-layout">
+        <aside id="toc" class="toc">
+            <div class="toc-title">On this page</div>
+            <nav><ul id="toc-list"></ul></nav>
+        </aside>
+        <article class="doc-content">
+            {{ content }}
+            <footer class="site-footer">© 2025 Wassim Lagnaoui</footer>
+        </article>
+    </div>
 </main>
+
+<script>
+(function(){
+  function slugify(text){return text.toLowerCase().trim().replace(/[^a-z0-9\s-]/g,'').replace(/\s+/g,'-').replace(/-+/g,'-');}
+  document.addEventListener('DOMContentLoaded', function(){
+    var content = document.querySelector('.doc-content');
+    var list = document.getElementById('toc-list');
+    if(!content || !list) return;
+    var headings = content.querySelectorAll('h2, h3');
+    var lastUl = list;
+    headings.forEach(function(h){
+      if(!h.id){ h.id = slugify(h.textContent || h.innerText); }
+      var li = document.createElement('li');
+      var a = document.createElement('a');
+      a.href = '#' + h.id; a.textContent = h.textContent || h.innerText;
+      if(h.tagName.toLowerCase()==='h3'){
+        // ensure nested list under previous item
+        var parent = lastUl.lastElementChild;
+        if(parent){
+          var sub = parent.querySelector('ul');
+          if(!sub){ sub = document.createElement('ul'); sub.className='lvl-2'; parent.appendChild(sub); }
+          var sli = document.createElement('li'); sli.appendChild(a); sub.appendChild(sli);
+        } else { li.appendChild(a); lastUl.appendChild(li); }
+      } else {
+        li.appendChild(a); lastUl.appendChild(li);
+      }
+    });
+  });
+})();
+</script>
 </body>
 </html>
