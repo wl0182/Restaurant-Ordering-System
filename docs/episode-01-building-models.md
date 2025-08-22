@@ -1,8 +1,8 @@
 ---
 layout: default
-title: "Episode 1: Building the Domain Model"
+title: "Tutorial 1: Building the Domain Model"
 ---
-# Spring Boot Tutorial Series — Episode 1: Building the Domain Model
+# Spring Boot Tutorial Series — Tutorial 1: Building the Domain Model
 
 A practical, step-by-step tutorial to build the domain model. Each step presents the code followed by concise explanations of the annotations and concepts used.
 
@@ -255,6 +255,9 @@ Explanation:
 ---
 
 ## Cheat sheet (annotations used — quick definitions)
+
+
+
 - @Entity: Marks a class as a JPA entity managed by the persistence context and mapped to a database table.
 - @Table: Customizes table metadata (name, schema, indexes, unique constraints). Defaults to the entity name if omitted.
 - @Id: Declares the primary key field of the entity (mandatory for persistence).
