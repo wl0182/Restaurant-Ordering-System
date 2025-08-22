@@ -1,17 +1,20 @@
 ---
 ---
 
-/* Hide the hardcoded GitHub Pages footer text */
-.site-footer-credits {
+/* Hide only the specific GitHub Pages text without breaking theme */
+.site-footer {
+  text-align: center !important;
+}
+
+.site-footer-credits,
+.site-footer-owner {
   display: none !important;
 }
 
-.site-footer-owner:last-child {
-  display: none !important;
-}
-
-/* Hide common GitHub Pages footer elements */
-.site-footer span:last-child,
-.site-footer p:last-child {
-  display: none !important;
+/* Add custom footer text */
+.site-footer::after {
+  content: "© 2025 Wassim Lagnaoui";
+  display: block;
+  color: #606c71;
+  font-size: 0.9rem;
 }
