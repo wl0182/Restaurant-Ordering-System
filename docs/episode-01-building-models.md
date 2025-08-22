@@ -258,22 +258,22 @@ Explanation:
 
 
 
-- @Entity: Marks a class as a JPA entity managed by the persistence context and mapped to a database table.
-- @Table: Customizes table metadata (name, schema, indexes, unique constraints). Defaults to the entity name if omitted.
-- @Id: Declares the primary key field of the entity (mandatory for persistence).
-- @GeneratedValue: Configures primary key generation strategy (IDENTITY, SEQUENCE, TABLE, AUTO). IDENTITY uses DB auto-increment.
-- @OneToMany: Declares a one-to-many relationship; placed on the non-owning side with mappedBy referencing the owning field.
-- @ManyToOne: Declares the many-to-one association; usually the owning side that holds the foreign key column.
-- @JoinColumn: Specifies the foreign key column name and nullability on the owning side of a relationship.
-- @Enumerated(EnumType.STRING): Persists enum values as their names (stable across enum reordering).
-- @Column: Customizes column details (name, length, nullable, unique, precision/scale).
-- @Email: Bean Validation constraint ensuring a syntactically valid email address.
-- @NotBlank: Bean Validation constraint ensuring non-null, non-whitespace content for strings.
-- @Positive: Bean Validation constraint ensuring numeric values are > 0.
-- Lombok @Data: Generates getters, setters, equals, hashCode, toString.
-- Lombok @Builder: Adds a fluent builder for constructing instances.
-- Lombok @NoArgsConstructor / @AllArgsConstructor: Generate constructors; JPA requires a no-args constructor (at least protected).
-- UserDetails: Spring Security contract exposing username, password, authorities, and account status flags.
+- **@Entity**: Marks a class as a JPA entity managed by the persistence context and mapped to a database table.
+- **@Table**: Customizes table metadata (name, schema, indexes, unique constraints). Defaults to the entity name if omitted.
+- **@Id**: Declares the primary key field of the entity (mandatory for persistence).
+- **@GeneratedValue**: Configures primary key generation strategy (IDENTITY, SEQUENCE, TABLE, AUTO). IDENTITY uses DB auto-increment.
+- **@OneToMany**: Declares a one-to-many relationship; placed on the non-owning side with mappedBy referencing the owning field.
+- **@ManyToOne**: Declares the many-to-one association; usually the owning side that holds the foreign key column.
+- **@JoinColumn**: Specifies the foreign key column name and nullability on the owning side of a relationship.
+- **@Enumerated(EnumType.STRING)**: Persists enum values as their names (stable across enum reordering).
+- **@Column**: Customizes column details (name, length, nullable, unique, precision/scale).
+- **@Email**: Bean Validation constraint ensuring a syntactically valid email address.
+- **@NotBlank**: Bean Validation constraint ensuring non-null, non-whitespace content for strings.
+- **@Positive**: Bean Validation constraint ensuring numeric values are > 0.
+- **Lombok @Data**: Generates getters, setters, equals, hashCode, toString.
+- **Lombok @Builder**: Adds a fluent builder for constructing instances.
+- **Lombok @NoArgsConstructor / @AllArgsConstructor**: Generate constructors; JPA requires a no-args constructor (at least protected).
+- **UserDetails**: Spring Security contract exposing username, password, authorities, and account status flags.
 
 ---
 copyright: © 2025 Wassim Lagnaoui
