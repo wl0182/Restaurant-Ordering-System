@@ -6,6 +6,10 @@ subtitle: "By Wassim Lagnaoui"
 
 # Restaurant Management System
 
+## Table of Contents
+- Table of Contents
+{:toc}
+
 A full-stack restaurant management application designed for servers, kitchen staff, and administrators to streamline restaurant operations. Built with Spring Boot (Java) for the backend and React (Vite) for the frontend.
 
 ## Application Overview

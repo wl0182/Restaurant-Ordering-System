@@ -1,8 +1,7 @@
 title: Restaurant Ordering System Docs
 description: Learn how to build a full-stack restaurant management system from scratch with modern technologies and best practices.
 markdown: kramdown
+highlighter: none
 
 kramdown:
-  syntax_highlighter: rouge
-  syntax_highlighter_opts:
-    css_class: 'highlight'
+  syntax_highlighter: null
