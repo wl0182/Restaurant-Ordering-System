@@ -1,3 +1,5 @@
+theme: jekyll-theme-cayman
 title: Restaurant Ordering System Docs
 description: Step-by-step tutorial series for the project
 markdown: kramdown
+
