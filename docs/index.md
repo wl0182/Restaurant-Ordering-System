@@ -26,3 +26,4 @@ This documentation provides a comprehensive guide to the project, including tuto
 - **Testing:** JUnit, MockMvc
 
 ---
+copyright: © 2025 Wassim Lagnaoui

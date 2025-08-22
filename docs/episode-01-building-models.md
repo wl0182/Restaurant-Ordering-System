@@ -63,10 +63,10 @@ public class MenuItem {
 }
 ```
 Explanation:
-- @Entity registers the class with JPA so it maps to a table.
-- @Table(name = "menu_item") sets a consistent snake_case table name.
-- @Id + @GeneratedValue(IDENTITY) uses database auto-increment semantics.
-- Lombok @Data/@Builder/@NoArgsConstructor/@AllArgsConstructor removes boilerplate while keeping JPA’s no-args requirement.
+- **@Entity** registers the class with JPA so it maps to a table.
+- **@Table**(name = "menu_item") sets a consistent snake_case table name.
+- **@Id** + **@GeneratedValue**(IDENTITY) uses database auto-increment semantics.
+- Lombok **@Data**/**@Builder**/**@NoArgsConstructor**/**@AllArgsConstructor** removes boilerplate while keeping JPA's no-args requirement.
 - Simple fields demonstrate basic column mapping (String, Double, boolean).
 
 ---
@@ -101,10 +101,10 @@ public class Order {
 ```
 Explanation:
 - LocalDateTime maps to a timestamp column.
-- status as String keeps schema simple; using @Enumerated(EnumType.STRING) with OrderStatus adds type safety.
-- @OneToMany(mappedBy = "order") indicates a bidirectional association; mappedBy matches the child field name.
+- status as String keeps schema simple; using **@Enumerated**(EnumType.STRING) with OrderStatus adds type safety.
+- **@OneToMany**(mappedBy = "order") indicates a bidirectional association; mappedBy matches the child field name.
 - cascade = CascadeType.ALL persists/removes child items with the parent.
-- @ManyToOne + @JoinColumn(name = "table_session_id") defines the foreign key to TableSession.
+- **@ManyToOne** + **@JoinColumn**(name = "table_session_id") defines the foreign key to TableSession.
 
 ---
 
@@ -133,8 +133,8 @@ public class OrderItem {
 ```
 Explanation:
 - Owning side resides here; JPA creates the order_id FK column on OrderItem.
-- @Column(name = "served") customizes column name; Boolean default false is a Java-side default.
-- @ManyToOne associations are LAZY by default.
+- **@Column**(name = "served") customizes column name; Boolean default false is a Java-side default.
+- **@ManyToOne** associations are LAZY by default.
 
 Optional helper to keep both sides in sync:
 ```java
@@ -170,7 +170,7 @@ public class TableSession {
 ```
 Explanation:
 - Represents a dining session for reporting and grouping.
-- @OneToMany(mappedBy = "tableSession") mirrors the @ManyToOne in Order; no FK here.
+- **@OneToMany**(mappedBy = "tableSession") mirrors the **@ManyToOne** in Order; no FK here.
 
 ---
 
@@ -179,7 +179,7 @@ Explanation:
 public enum OrderStatus { PLACED, PREPARING, READY, SERVED, CANCELLED }
 ```
 Explanation:
-- Use with @Enumerated(EnumType.STRING) to persist human-readable values and avoid ORDINAL pitfalls.
+- Use with **@Enumerated**(EnumType.STRING) to persist human-readable values and avoid ORDINAL pitfalls.
 
 ---
 
@@ -218,8 +218,8 @@ public class User implements UserDetails {
 }
 ```
 Explanation:
-- @Email adds a Bean Validation rule on email.
-- @Enumerated(EnumType.STRING) for role stores the enum name.
+- **@Email** adds a Bean Validation rule on email.
+- **@Enumerated**(EnumType.STRING) for role stores the enum name.
 - getAuthorities returns role; assumes Role implements GrantedAuthority or is adapted elsewhere.
 - UserDetails exposes identity and account flags used by Spring Security.
 
@@ -248,7 +248,7 @@ Explanation:
 
 ### Step 9) Naming, validation, and migrations (hygiene)
 - Prefer EnumType.STRING for enums; avoid ORDINAL.
-- Add @NotBlank/@Positive where business rules require it.
+- Add **@NotBlank**/**@Positive** where business rules require it.
 - Keep table/column names consistent (snake_case in DB).
 - Use Flyway/Liquibase for schema and seed data in production instead of ddl-auto.
 
