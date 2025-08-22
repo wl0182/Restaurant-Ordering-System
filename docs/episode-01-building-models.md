@@ -276,5 +276,4 @@ Explanation:
 - **Lombok @NoArgsConstructor / @AllArgsConstructor**: Generate constructors; JPA requires a no-args constructor (at least protected).
 - **UserDetails**: Spring Security contract exposing username, password, authorities, and account status flags.
 
----
-copyright: © 2025 Wassim Lagnaoui
+

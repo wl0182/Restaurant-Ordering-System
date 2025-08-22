@@ -26,5 +26,3 @@ This documentation provides a comprehensive guide to the project, including tuto
 - **DevOps:** Docker, Docker Compose, Jenkins
 - **Testing:** JUnit, MockMvc
 
----
-copyright: © 2025 Wassim Lagnaoui
