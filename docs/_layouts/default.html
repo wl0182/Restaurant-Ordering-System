@@ -9,10 +9,17 @@
     <meta name="description" content="{{ page.description | default: site.description | default: site.github.project_tagline }}"/>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="preload" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" as="style" type="text/css" crossorigin>
-    <!-- Syntax highlighting (higher-contrast theme) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Syntax highlighting (GitHub theme) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script>document.addEventListener('DOMContentLoaded', function(){ if(window.hljs){ hljs.highlightAll(); } });</script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function(){
+        if(window.hljs){
+          document.querySelectorAll('pre code').forEach(function(el){ el.classList.add('hljs'); });
+          hljs.highlightAll();
+        }
+      });
+    </script>
     <style>
         /* Base (Cayman-like) */
         * { box-sizing: border-box; }
