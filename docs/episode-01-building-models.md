@@ -1,3 +1,7 @@
+---
+layout: default
+title: "Episode 1: Building the Domain Model"
+---
 # Spring Boot Tutorial Series — Episode 1: Building the Domain Model
 
 A practical, step-by-step tutorial to build the domain model. Each step presents the code followed by concise explanations of the annotations and concepts used.
