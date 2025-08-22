@@ -61,6 +61,14 @@
         pre code { background: transparent; }
         code { padding: 2px 4px; border-radius: .2rem; background: #f3f6fa; }
 
+        /* TOC mobile toggle */
+        .toc-toggle { display:none; }
+        @media (max-width: 900px) {
+          .toc-toggle { display:inline-block; margin: .8rem 1rem 0; padding: .5rem .9rem; border:1px solid #d1d5db; border-radius:.375rem; background:#ffffff; color:#1e6bb8; }
+          .toc { display:none; }
+          body.toc-open .toc { display:block; position: fixed; top: 0; left: 0; right: 0; max-height: 75vh; overflow:auto; background:#ffffff; border:1px solid #e5e7eb; border-radius: 0 0 .75rem .75rem; padding: 12px 14px; z-index: 50; }
+        }
+
         /* Responsive */
         @media (max-width: 980px) { .doc-layout { padding: 1.2rem .8rem; } }
         @media (max-width: 900px) { .toc { display:none; } .doc-layout { display:block; } }
@@ -80,6 +88,9 @@
         <a href="https://github.com/wl0182/Restaurant-Ordering-System" target="_blank">GitHub</a>
     </nav>
 </header>
+
+<!-- Mobile-only TOC toggle (no effect on desktop) -->
+<button id="toc-toggle" class="toc-toggle" aria-controls="toc-list" aria-expanded="false">Contents</button>
 
 <main id="content" role="main">
     <div class="doc-layout">
@@ -125,6 +136,28 @@
       }
     });
     if(added===0){ aside.style.display='none'; }
+  });
+})();
+</script>
+
+<script>
+// TOC mobile toggle
+(function(){
+  document.addEventListener('DOMContentLoaded', function(){
+    var btn = document.getElementById('toc-toggle');
+    var toc = document.getElementById('toc');
+    if(!btn || !toc) return;
+    btn.addEventListener('click', function(){
+      var open = document.body.classList.toggle('toc-open');
+      btn.setAttribute('aria-expanded', String(open));
+    });
+    // Close TOC when a link is chosen
+    toc.addEventListener('click', function(e){
+      if(e.target && e.target.tagName === 'A'){
+        document.body.classList.remove('toc-open');
+        btn.setAttribute('aria-expanded','false');
+      }
+    });
   });
 })();
 </script>

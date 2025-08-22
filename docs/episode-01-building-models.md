@@ -7,10 +7,6 @@ title: "Tutorial 1: Building the Domain Model"
 
 A practical, step-by-step tutorial to build the domain model. Each step presents the code followed by concise explanations of the annotations and concepts used.
 
-## Table of Contents
-- Table of Contents
-{:toc}
-
 ---
 
 ## Step-by-step: Build entities and explain as they are created
