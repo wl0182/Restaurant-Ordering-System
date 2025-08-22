@@ -7,6 +7,10 @@ title: "Tutorial 1: Building the Domain Model"
 
 A practical, step-by-step tutorial to build the domain model. Each step presents the code followed by concise explanations of the annotations and concepts used.
 
+## Table of Contents
+- Table of Contents
+{:toc}
+
 ---
 
 ## Step-by-step: Build entities and explain as they are created
@@ -275,5 +279,3 @@ Explanation:
 - **Lombok @Builder**: Adds a fluent builder for constructing instances.
 - **Lombok @NoArgsConstructor / @AllArgsConstructor**: Generate constructors; JPA requires a no-args constructor (at least protected).
 - **UserDetails**: Spring Security contract exposing username, password, authorities, and account status flags.
-
-
