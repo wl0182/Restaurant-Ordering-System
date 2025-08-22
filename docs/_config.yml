@@ -3,3 +3,7 @@ title: Restaurant Ordering System Docs
 description: Step-by-step tutorial series for the project
 markdown: kramdown
 
+kramdown:
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    css_class: 'highlight'
