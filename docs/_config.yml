@@ -1,18 +1,7 @@
 theme: jekyll-theme-cayman
 title: Restaurant Ordering System Docs
 description: Learn how to build a full-stack restaurant management system from scratch with modern technologies and best practices.
-subtitle: Built by Wassim Lagnaoui
 markdown: kramdown
-
-# Remove GitHub Pages default footer text
-github:
-  is_project_page: false
-  is_user_page: false
-  repository_name: ""
-  repository_url: ""
-
-# Override theme defaults
-show_downloads: false
 
 kramdown:
   syntax_highlighter: rouge
