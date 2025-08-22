@@ -1,6 +1,6 @@
 theme: jekyll-theme-cayman
 title: Restaurant Ordering System Docs
-description: Step-by-step tutorial series for the project
+description: Learn how to build a full-stack restaurant management system from scratch with modern technologies and best practices.
 markdown: kramdown
 
 kramdown:

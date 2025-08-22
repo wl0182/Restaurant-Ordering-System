@@ -22,11 +22,12 @@ This restaurant management system digitizes restaurant workflows from table mana
 - **Business Intelligence:** Revenue analytics, popular item tracking, and performance insights
 
 ## Tutorials
-- [Tutorial 1: Building the Domain Model](episode-01-building-models.md)
+- [Tutorial 1: Building the Domain Model](episode-01-building-models.md) 
+
 
 ## Repository
 **Source Code:** [wl0182/Restaurant-Ordering-System](https://github.com/wl0182/Restaurant-Ordering-System)
-
+**Readme:** [Readme with Setup Instructions](README.md)
 ### Tech Stack
 - **Backend:** Spring Boot, Spring Security, Spring Data JPA, PostgreSQL
 - **Frontend:** React, Vite, Tailwind CSS 
