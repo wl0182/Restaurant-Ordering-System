@@ -1,7 +1,7 @@
 ---
 layout: default
 title: "Tutorial 1: Building the Domain Model"
-subtitle: "By Wassim Lagnaoui"
+
 ---
 # Spring Boot Tutorial Series — Tutorial 1: Building the Domain Model
 
