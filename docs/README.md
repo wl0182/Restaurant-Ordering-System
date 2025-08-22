@@ -1,3 +1,8 @@
+---
+layout: default
+title: "Readme"
+---
+
 # Restaurant Management System
 
 A full-stack restaurant management application designed for servers, kitchen staff, and administrators to streamline restaurant operations. Built with Spring Boot (Java) for the backend and React (Vite) for the frontend.

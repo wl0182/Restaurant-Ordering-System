@@ -3,6 +3,10 @@ title: Restaurant Ordering System Docs
 description: Learn how to build a full-stack restaurant management system from scratch with modern technologies and best practices.
 markdown: kramdown
 
+# Remove GitHub Pages default footer text
+github:
+  is_project_page: false
+
 kramdown:
   syntax_highlighter: rouge
   syntax_highlighter_opts:
