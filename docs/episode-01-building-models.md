@@ -61,12 +61,19 @@ Keep all entities and enums together so component scanning and repository wiring
 public class MenuItem {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
     private String name;
+    
     private String description;
+    
     private Double price;
+    
     private String imageUrl;
+    
     private String category;
+    
     private boolean available;
+    
 }
 ```
 #### Explanation:
@@ -272,7 +279,7 @@ public class Staff {
 
 ---
 
-### 9. Naming, validation, and migrations
+### 9. Key Takeaways: Naming, validation, and migrations
 Tips:
 - Enums: prefer `EnumType.STRING` so names are stored, not fragile ordinal numbers.
 - Validation: add `@NotBlank`, `@Positive`, and `@Email` to fail fast on bad input, both at the API layer and before persistence.
@@ -282,7 +289,7 @@ Tips:
 
 ---
 
-## Cheat sheet (annotations used — quick definitions)
+## Annotation Summary 
 
 - **@Entity**: Marks a class as a JPA entity managed by the persistence context and mapped to a database table.
 - **@Table**: Customizes table metadata (name, schema, indexes, unique constraints). Defaults to the entity name if omitted.

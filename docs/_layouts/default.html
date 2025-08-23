@@ -38,13 +38,14 @@
 
         /* Two-column doc layout */
         .doc-layout { display:flex; gap:28px; align-items:flex-start; max-width: 1100px; margin: 0 auto; padding: 2rem 1rem; }
-        .toc { flex: 0 0 260px; position: sticky; top: 12px; align-self: flex-start; background:#f7fbff; border:1px solid #e6eef7; border-radius:12px; padding:14px 14px; }
-        .toc-title { font-weight:700; font-size:.95rem; color:#155799; margin-bottom:.4rem; }
-        .toc nav { max-height: calc(100vh - 120px); overflow:auto; }
+        /* Modernized TOC */
+        .toc { flex: 0 0 300px; position: sticky; top: 12px; align-self: flex-start; background:#ffffff; border:1px solid #e6eef7; border-radius:14px; padding:16px; box-shadow: 0 6px 18px rgba(2,36,71,.06); }
+        .toc-title { font-weight:800; font-size:1.05rem; color:#0f172a; margin-bottom:.6rem; letter-spacing:.01em; }
+        .toc nav { max-height: calc(100vh - 140px); overflow:auto; padding-right: 6px; }
         .toc ul { list-style:none; padding-left: 0; margin: 0; }
         .toc li { margin: 6px 0; }
-        .toc a { text-decoration:none; color:#1e6bb8; }
-        .toc a:hover { text-decoration:underline; }
+        .toc a { display:block; padding: 8px 10px; border-radius:8px; color:#0f172a; font-size:.98rem; font-weight:600; text-decoration:none; border-left:3px solid transparent; transition: background-color .16s ease, color .16s ease, border-left-color .16s ease; }
+        .toc a:hover { background:#f1f5f9; border-left-color:#155799; text-decoration:none; }
         .toc .lvl-2 { padding-left: 12px; }
 
         /* Main article */
@@ -59,25 +60,25 @@
         /* Code blocks: let highlight.js manage colors */
         pre { padding:.8rem; margin: 0 0 1rem 0; background:#f8fafc; border:1px solid #e5e7eb; border-radius:.3rem; overflow:auto; }
         pre code { background: transparent; }
-        code { padding: 2px 4px; border-radius: .2rem; background: #f3f6fa; }
+        code { padding: 2px 4px; border-radius: .2rem; background: #f3f6fa; font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
         /* Emphasize code keywords */
         .hljs-keyword { font-weight: 700; color: #9d174d; }
         .hljs-meta { color: #1d4ed8; font-weight: 600; }
-        /* Style inline code in prose (explanations, tips) */
+        /* Style inline code in prose (explanations, tips) — softer, readable palette */
         .doc-content p code,
-        .doc-content li code { color: #9d174d; font-weight: 700; background: #fff5f7; border: 1px solid #fde2e7; }
+        .doc-content li code { color: #334155; font-weight: 600; background: #f5f7fa; border: 1px solid #e2e8f0; }
 
         /* TOC mobile toggle */
         .toc-toggle { display:none; }
         @media (max-width: 900px) {
-          .toc-toggle { display:inline-block; margin: .8rem 1rem 0; padding: .5rem .9rem; border:1px solid #d1d5db; border-radius:.375rem; background:#ffffff; color:#1e6bb8; }
+          .toc-toggle { display:inline-block; margin: .8rem 1rem 0; padding: .6rem 1rem; border:1px solid #d1d5db; border-radius:.5rem; background:#ffffff; color:#1e6bb8; font-weight:600; }
           .toc { display:none; }
-          body.toc-open .toc { display:block; position: fixed; top: 0; left: 0; right: 0; max-height: 75vh; overflow:auto; background:#ffffff; border:1px solid #e5e7eb; border-radius: 0 0 .75rem .75rem; padding: 12px 14px; z-index: 50; }
+          body.toc-open .toc { display:block; position: fixed; top: 0; left: 0; right: 0; max-height: 75vh; overflow:auto; background:#ffffff; border:1px solid #e5e7eb; border-radius: 0 0 .75rem .75rem; padding: 16px; z-index: 50; box-shadow: 0 10px 24px rgba(2,36,71,.12); }
         }
 
         /* Responsive */
         @media (max-width: 980px) { .doc-layout { padding: 1.2rem .8rem; } }
-        @media (max-width: 900px) { .toc { display:none; } .doc-layout { display:block; } }
+        @media (max-width: 900px) { .doc-layout { display:block; } }
         @media (min-width: 64em) { .page-header { padding:5rem 6rem; } .project-name{font-size:3.25rem;} .project-tagline{font-size:1.25rem;} }
         @media (min-width: 42em) and (max-width: 64em) { .page-header{padding:3rem 4rem;} .project-name{font-size:2.25rem;} .project-tagline{font-size:1.15rem;} }
         @media (max-width: 42em) { .page-header{padding:2rem 1rem;} .project-name{font-size:1.75rem;} .project-tagline{font-size:1rem;} .site-nav a{margin:0 .5rem; padding:.4rem .8rem;} }
