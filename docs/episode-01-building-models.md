@@ -60,32 +60,38 @@ Keep all entities and enums together so component scanning and repository wiring
 @Table(name = "menu_item")
 public class MenuItem {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false, updatable = false)
     private Long id;
-    
+
+    @Column(name = "name", nullable = false, length = 100)
     private String name; // name shown in the menu
-    
+
+    @Column(name = "description", length = 500)
     private String description;
-    
+
+    @Column(name = "price", nullable = false)
     private Double price;
-    
+
+    @Column(name = "image_url", length = 255)
     private String imageUrl;
-    
+
+    @Column(name = "category", length = 50)
     private String category;
-    
+
+    @Column(name = "available", nullable = false)
     private boolean available;
-    
 }
 ```
 #### Explanation:
 - Purpose of the class: `MenuItem` models one dish or drink on the menu with its display details and price. It’s a standalone entity without child relationships.
-- `id`: primary key of the table; `@Id` marks this field as the entity identifier; `@GeneratedValue(strategy = GenerationType.IDENTITY)` lets the database auto-increment the value on insert so you never set it manually.
-- `name`: human-friendly name shown in the menu; consider `@NotBlank` so it’s never empty and add a uniqueness rule if names must be unique in your restaurant.
-- `description`: short text describing the item; you can control storage with `@Column(length=...)` if you want to limit size, or allow `null` if optional.
-- `price`: numeric cost of the item; for production prefer `BigDecimal` to avoid floating-point rounding, optionally with `@Column(precision=10, scale=2)` to match currency storage.
-- `imageUrl`: optional link to an image used by the UI; validate format if you rely on external URLs.
-- `category`: grouping like “Starters”, “Mains”; consider replacing with an enum to avoid typos and keep values consistent.
-- `available`: switch to hide/show an item when out of stock without deleting the row; defaults can be set in migrations.
-- Class-level: `@Entity` + `@Table(name="menu_item")` map the class to the table; Lombok `@Data`, `@Builder`, `@NoArgsConstructor`, `@AllArgsConstructor` generate boilerplate (getters/setters, constructors, builder).
+- `id`: primary key of the table; `@Id` marks the identifier; `@GeneratedValue(IDENTITY)` lets the DB auto-increment; `@Column(name="id", nullable=false, updatable=false)` documents the column mapping and prevents accidental updates.
+- `name`: human-friendly name shown in the menu; `@Column(name="name", nullable=false, length=100)` enforces presence and caps length to keep UI/DB consistent.
+- `description`: short text describing the item; `@Column(name="description", length=500)` allows generous text while keeping storage bounded.
+- `price`: numeric cost; `@Column(name="price", nullable=false)` ensures a value is always provided. In production prefer `BigDecimal` with `precision/scale` for currency.
+- `imageUrl`: optional link used by the UI; `@Column(name="image_url", length=255)` maps camelCase to snake_case and bounds URL length.
+- `category`: grouping like “Starters”, “Mains”; `@Column(name="category", length=50)` constrains values and simplifies indexing.
+- `available`: stock/visibility toggle; `@Column(name="available", nullable=false)` guarantees a definite boolean in the DB.
+- Class-level: `@Entity` + `@Table(name="menu_item")` map the class; Lombok `@Data`, `@Builder`, `@NoArgsConstructor`, `@AllArgsConstructor` generate boilerplate.
 
 ---
 
@@ -259,22 +265,33 @@ public class User implements UserDetails {
 @NoArgsConstructor
 public class Staff {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false, updatable = false)
     private Long id;
+
+    @Column(name = "first_name", nullable = false, length = 50)
     private String firstName;
+
+    @Column(name = "last_name", nullable = false, length = 50)
     private String lastName;
+
+    @Column(name = "email", nullable = false, unique = true, length = 120)
     private String email;
+
+    @Column(name = "employee_id", nullable = false, unique = true)
     private Long employeeId;
+
+    @Column(name = "role", nullable = false, length = 40)
     private String role; // e.g., waiter, chef, manager
 }
 ```
 #### Explanation:
 - Purpose of the class: `Staff` lists valid employees; useful for validating registrations, linking orders to staff, and reporting.
-- `id`: primary key for the staff row; `@Id` marks it; `@GeneratedValue(strategy = GenerationType.IDENTITY)` relies on the DB’s auto-increment.
-- `firstName`: given name for display and search; consider `@NotBlank` to avoid empty values.
-- `lastName`: family name; similarly protect with `@NotBlank` if required.
-- `email`: contact address; add `@Email` to validate and a unique index to prevent duplicates if it’s used as a key.
-- `employeeId`: organization-specific identifier; consider `@Column(unique = true)` to enforce uniqueness at the database level.
-- `role`: operational role such as waiter/chef/manager; if you use it for authorization, prefer an enum to keep values constrained.
+- `id`: primary key for the staff row; `@Id` marks it; `@GeneratedValue(IDENTITY)` uses DB auto-increment; `@Column(name="id", nullable=false, updatable=false)` documents the mapping and prevents updates.
+- `firstName`: given name for display/search; `@Column(name="first_name", nullable=false, length=50)` enforces presence and caps length.
+- `lastName`: family name; `@Column(name="last_name", nullable=false, length=50)` mirrors constraints for consistency.
+- `email`: contact and potential login key; `@Column(name="email", nullable=false, unique=true, length=120)` prevents duplicates and controls size.
+- `employeeId`: organization identifier; `@Column(name="employee_id", nullable=false, unique=true)` guarantees one-to-one mapping with an employee.
+- `role`: operational role (waiter/chef/manager); `@Column(name="role", nullable=false, length=40)` constrains allowed text length for indexes/UI.
 - Class-level: `@Entity` for persistence and Lombok for boilerplate.
 
 ---
