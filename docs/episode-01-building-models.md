@@ -62,7 +62,7 @@ public class MenuItem {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    private String name;
+    private String name; // name shown in the menu
     
     private String description;
     

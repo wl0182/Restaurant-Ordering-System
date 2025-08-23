@@ -15,7 +15,7 @@
     <script>
       document.addEventListener('DOMContentLoaded', function(){
         if(window.hljs){
-          document.querySelectorAll('pre code').forEach(function(el){ el.classList.add('hljs'); });
+          // Remove manual adding of 'hljs' class to avoid interfering with theme tokenization
           hljs.highlightAll();
         }
       });
@@ -61,9 +61,10 @@
         pre { padding:.8rem; margin: 0 0 1rem 0; background:#f8fafc; border:1px solid #e5e7eb; border-radius:.3rem; overflow:auto; }
         pre code { background: transparent; }
         code { padding: 2px 4px; border-radius: .2rem; background: #f3f6fa; font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
-        /* Emphasize code keywords */
-        .hljs-keyword { font-weight: 700; color: #9d174d; }
-        .hljs-meta { color: #1d4ed8; font-weight: 600; }
+        /* Remove custom overrides so the imported GitHub theme controls token colors */
+        /* .hljs-keyword { font-weight: 700; color: #9d174d; } */
+        /* .hljs-meta { color: #1d4ed8; font-weight: 600; } */
+
         /* Style inline code in prose (explanations, tips) — softer, readable palette */
         .doc-content p code,
         .doc-content li code { color: #334155; font-weight: 600; background: #f5f7fa; border: 1px solid #e2e8f0; }
