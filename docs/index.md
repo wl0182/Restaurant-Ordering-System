@@ -10,6 +10,17 @@ This documentation provides a comprehensive guide to the project, including tuto
 
 ## Tutorials
 - [Tutorial 1: Building the Domain Model](episode-01-building-models.md) 
+- [Tutorial 2: Repositories and Query Methods (in progress)](#)
+- [Tutorial 3: DTOs and Mapping (in progress)](#)
+- [Tutorial 4: Service Layer and Business Rules (in progress)](#)
+- [Tutorial 5: REST Controllers and Validation (in progress)](#)
+- [Tutorial 6: Authentication with Spring Security & JWT (in progress)](#)
+- [Tutorial 7: Role-Based Authorization & Method Security (in progress)](#)
+- [Tutorial 8: Error Handling & API Problem Details (in progress)](#)
+- [Tutorial 9: Integration & Unit Testing (in progress)](#)
+- [Tutorial 10: React Frontend Integration (in progress)](#)
+- [Tutorial 11: Docker & Docker Compose (in progress)](#)
+- [Tutorial 12: CI/CD with Jenkins (in progress)](#)
 
 
 ## Repository
