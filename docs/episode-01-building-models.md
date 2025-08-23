@@ -33,9 +33,13 @@ spring:
 ```
 #### Explanation:
 - `datasource`: tells Spring Boot how to connect to your database (URL, `username`, `password`). JPA uses this connection to read and write entities.
+
 - `jpa.hibernate.ddl-auto=update`: during development, Hibernate updates the schema to match your entities at startup. In production, switch to managed migrations (Flyway/Liquibase) so every change is versioned and reviewed.
+
 - `show-sql=true`: logs the SQL Hibernate runs. Great for learning and debugging, but turn it off in noisy environments.
+
 - Validation starter: activates Bean Validation so annotations like `@NotBlank` and `@Email` are enforced automatically in controllers and on persistence.
+
 - Security starter: required because our `User` implements `UserDetails` and integrates with Spring Security.
 
 ---
@@ -84,13 +88,21 @@ public class MenuItem {
 ```
 #### Explanation:
 - Purpose of the class: `MenuItem` models one dish or drink on the menu with its display details and price. It’s a standalone entity without child relationships.
+
 - `id`: primary key of the table; `@Id` marks the identifier; `@GeneratedValue(IDENTITY)` lets the DB auto-increment; `@Column(name="id", nullable=false, updatable=false)` documents the column mapping and prevents accidental updates.
+
 - `name`: human-friendly name shown in the menu; `@Column(name="name", nullable=false, length=100)` enforces presence and caps length to keep UI/DB consistent.
+
 - `description`: short text describing the item; `@Column(name="description", length=500)` allows generous text while keeping storage bounded.
+
 - `price`: numeric cost; `@Column(name="price", nullable=false)` ensures a value is always provided. In production prefer `BigDecimal` with `precision/scale` for currency.
+
 - `imageUrl`: optional link used by the UI; `@Column(name="image_url", length=255)` maps camelCase to snake_case and bounds URL length.
+
 - `category`: grouping like “Starters”, “Mains”; `@Column(name="category", length=50)` constrains values and simplifies indexing.
+
 - `available`: stock/visibility toggle; `@Column(name="available", nullable=false)` guarantees a definite boolean in the DB.
+
 - Class-level: `@Entity` + `@Table(name="menu_item")` map the class; Lombok `@Data`, `@Builder`, `@NoArgsConstructor`, `@AllArgsConstructor` generate boilerplate.
 
 ---
@@ -125,12 +137,19 @@ public class Order {
 ```
 #### Explanation:
 - Purpose of the class: `Order` represents a customer’s order and acts as the parent aggregate for its `OrderItem` lines. It connects to a `TableSession` so you know which visit it belongs to.
+
 - `id`: primary key for the order; `@Id` designates the identifier; `@GeneratedValue(strategy = GenerationType.IDENTITY)` relies on the database to assign it automatically.
+
 - `total`: monetary sum of the items; compute it from `items` to avoid drift, or store it for faster reads and keep it consistent in a service layer.
+
 - `orderDate`: timestamp set when the order is created; use it for reporting and sorting; no special annotation needed unless you customize column details via `@Column`.
+
 - `status`: lifecycle state as text for simplicity; for safer code switch to an enum and add `@Enumerated(EnumType.STRING)` so the DB stores readable names rather than ordinals.
+
 - `items`: lines belonging to this order; `@OneToMany(mappedBy = "order", cascade = CascadeType.ALL)` means the foreign key lives on `OrderItem` and cascading lets you persist/delete the whole graph in one operation.
+
 - `tableSession`: which visit/table this order belongs to; `@ManyToOne` establishes the relationship and `@JoinColumn(name = "table_session_id")` controls the foreign key column name and nullability.
+
 - Class-level: `@Entity`, `@Table(name = "orders")` map persistence; Lombok reduces boilerplate with `@Data`, `@Builder`, `@NoArgsConstructor`, `@AllArgsConstructor`.
 
 ---
@@ -160,11 +179,17 @@ public class OrderItem {
 ```
 #### Explanation:
 - Purpose of the class: `OrderItem` captures one line of an order: which `MenuItem` was chosen, how many, and whether it has been served.
+
 - `id`: primary key for the line item; `@Id` marks it as the identifier; `@GeneratedValue(strategy = GenerationType.IDENTITY)` lets the database assign it.
+
 - `quantity`: how many units were ordered; add `@Positive` so it’s strictly greater than zero and consider a max limit for sanity.
+
 - `served`: workflow flag that starts `false` and flips to `true` when delivered; `@Column(name = "served")` shows how to customize the column name (useful when matching an existing schema).
+
 - `menuItem`: which product this line refers to; `@ManyToOne` creates the foreign key (by default column `menu_item_id`), customize with `@JoinColumn` if needed.
+
 - `order`: reference to the parent `Order`; `@ManyToOne` makes this the owning side that holds the foreign key used by `mappedBy` in `Order`.
+
 - Class-level: `@Entity` enables persistence; Lombok annotations generate boilerplate.
 
 ---
@@ -190,11 +215,17 @@ public class TableSession {
 ```
 #### Explanation:
 - Purpose of the class: `TableSession` models a single seating at a table so multiple `Order`s can be tied to one visit and closed together.
+
 - `id`: primary key of the session; `@Id` identifies it; `@GeneratedValue(strategy = GenerationType.IDENTITY)` delegates ID creation to the database.
+
 - `sessionStart`: when the guests were seated; set at open; consider indexing if you filter sessions by time often.
+
 - `sessionEnd`: when the session is closed; remains `null` while active; can be used to compute duration and turnover.
+
 - `tableNumber`: human-friendly identifier like "7" or "A3"; add an index or uniqueness if your business rules require it.
+
 - `orders`: all orders placed during this session; `@OneToMany(mappedBy = "tableSession")` indicates the FK is on `Order` and this side is read-only for the association key.
+
 - Class-level: `@Entity` for persistence and Lombok for boilerplate (`@Data`, `@Builder`, `@NoArgsConstructor`, `@AllArgsConstructor`).
 
 ---
@@ -205,8 +236,11 @@ public enum OrderStatus { PLACED, PREPARING, READY, SERVED, CANCELLED }
 ```
 #### Explanation:
 - Purpose of the enum: defines the allowed lifecycle states for an order, making the domain explicit and preventing invalid values.
+
 - Values and persistence:
+
   - States: `PLACED` → `PREPARING` → `READY` → `SERVED` (or `CANCELLED`).
+
   - Persist with `@Enumerated(EnumType.STRING)` in your entity to store readable names that won’t break if constants are reordered.
 
 ---
@@ -247,12 +281,19 @@ public class User implements UserDetails {
 ```
 #### Explanation:
 - Purpose of the class: `User` represents an application account and integrates with Spring Security by implementing `UserDetails` so it can be authenticated/authorized.
+
 - `id`: primary key of the user; `@Id` marks it; `@GeneratedValue(strategy = GenerationType.IDENTITY)` lets the DB assign it.
+
 - `name`: person’s display name; `@Column(nullable = false)` ensures the column can’t be `NULL` at the database level.
+
 - `email`: login identifier and contact; `@Column(nullable = false)` enforces presence, and `@Email` validates the format; also add a unique index in the database to prevent duplicates.
+
 - `password`: hashed credential (e.g., `BCrypt`); never store plain text; compare via a configured `PasswordEncoder`.
+
 - `phone`: optional contact number; add formatting/validation as needed for your locale.
+
 - `role`: business role for the account; `@Enumerated(EnumType.STRING)` stores the role’s name for readability and stability.
+
 - Class-level and interfaces: `@Entity`, `@Table(name = "users")` control persistence mapping; Lombok reduces boilerplate; implementing `UserDetails` requires exposing authorities and account status flags used by Spring Security.
 
 ---
@@ -286,12 +327,19 @@ public class Staff {
 ```
 #### Explanation:
 - Purpose of the class: `Staff` lists valid employees; useful for validating registrations, linking orders to staff, and reporting.
+
 - `id`: primary key for the staff row; `@Id` marks it; `@GeneratedValue(IDENTITY)` uses DB auto-increment; `@Column(name="id", nullable=false, updatable=false)` documents the mapping and prevents updates.
+
 - `firstName`: given name for display/search; `@Column(name="first_name", nullable=false, length=50)` enforces presence and caps length.
+
 - `lastName`: family name; `@Column(name="last_name", nullable=false, length=50)` mirrors constraints for consistency.
+
 - `email`: contact and potential login key; `@Column(name="email", nullable=false, unique=true, length=120)` prevents duplicates and controls size.
+
 - `employeeId`: organization identifier; `@Column(name="employee_id", nullable=false, unique=true)` guarantees one-to-one mapping with an employee.
+
 - `role`: operational role (waiter/chef/manager); `@Column(name="role", nullable=false, length=40)` constrains allowed text length for indexes/UI.
+
 - Class-level: `@Entity` for persistence and Lombok for boilerplate.
 
 ---
